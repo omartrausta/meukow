@@ -1,7 +1,10 @@
 <Configuration>
   <CompletionStatisticsManager />
   <EditorManager>
-    <RecentFiles />
+    <RecentFiles>
+      <File id="C0140176-A3E1-44DB-959D-56A74A5F47BB/f:Class1.cs" caret="0" scrollPosition="0|0" />
+      <File id="017DE175-E49E-4B04-B22E-9E80686C27DD/f:Default.aspx" caret="443" scrollPosition="0|0" />
+    </RecentFiles>
   </EditorManager>
   <FileStructureView>
     <AutoScrollToSource>False</AutoScrollToSource>
