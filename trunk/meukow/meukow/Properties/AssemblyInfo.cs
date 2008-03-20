@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("meukow")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Síminn.is")]
+[assembly: AssemblyCompany("Hópur 3")]
 [assembly: AssemblyProduct("meukow")]
-[assembly: AssemblyCopyright("Copyright © Síminn.is 2008")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © Hópur 3 2008")]
+[assembly: AssemblyTrademark("MEUKOW")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
