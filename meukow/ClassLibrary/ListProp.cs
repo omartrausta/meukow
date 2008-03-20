@@ -63,15 +63,6 @@ namespace ClassLibrary
 
 		#endregion
 
-		#region Overridden functions
-
-		public override string ToString( )
-		{
-			return (m_nID + m_nList + m_nPostion + m_nSong).ToString();
-		}
-
-		#endregion
-
 
 	}
 }
