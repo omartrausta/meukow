@@ -6,11 +6,17 @@ namespace ClassLibrary
 {
 	internal class Artist : DBComm
 	{
+		#region Member variables
+
 		private int m_iD;
 		private String m_name;
 		private String m_description;
 		private String m_picture;
 		private String m_url;
+
+		#endregion
+
+
 
 		public int ID
 		{
