@@ -17,13 +17,17 @@ namespace ClassLibrary
         #endregion
 
         #region Properties
-
+        /// <summary>
+        /// public int property for IDParent
+        /// </summary>
         public int IDParent
         {
             get { return m_nIDParent; }
             set { m_nIDParent = value; }
         }
-
+        /// <summary>
+        /// public int property for IDChild
+        /// </summary>
         public int IDChild
         {
             get { return m_nIDChild; }
