@@ -53,6 +53,8 @@ namespace ClassLibrary
 
 		#endregion
 
+		#region Constructors
+
 		public Artist( )
 		{
 		}
@@ -65,6 +67,16 @@ namespace ClassLibrary
 			m_strPicture = row["Picture"].ToString();
 			m_strURL = row["URL"].ToString();
 		}
+
+		#endregion
+
+		#region Overridden functions
+
+		public override string ToString()
+		{
+			return m_strName;
+		}
+		#endregion
 
 
 	}
