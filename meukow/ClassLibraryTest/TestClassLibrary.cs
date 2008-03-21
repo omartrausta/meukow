@@ -119,11 +119,17 @@ namespace ClassLibraryTest
 		{
 			List target = new List();
 
-			DataSet ds = GetDataSet();
+			IDataReader reader = null;
 
-			target.Load(ds.Tables[0].CreateDataReader());
+			reader = GetDataReader();
+
+			//Assert.AreEqual(5, reader.FieldCount,"FieldCount is not 5");
+
+			target.Load( reader );
 
 			Assert.Fail("A method that does not return a value cannot be verified.");
+
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -177,21 +183,19 @@ namespace ClassLibraryTest
 			Assert.Fail("Verify the correctness of this test method.");
 		}
 
-		private DataSet GetDataSet()
+		private IDataReader GetDataReader()
 		{
 			OleDbConnection connection = OpenConnection();
+			IDataReader reader = null;
 
 			String strSQL = "select * from List";
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
-			OleDbDataAdapter adapter = new OleDbDataAdapter(command);
-
-			DataSet ds = new DataSet();
-
-			adapter.Fill(ds);
+			reader = command.ExecuteReader();
 
 			connection.Dispose();
+			command.Dispose();
 
-			return ds;
+			return reader;
 		}
 
 		protected OleDbConnection OpenConnection()
