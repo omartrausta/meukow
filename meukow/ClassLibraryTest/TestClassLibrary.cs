@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using ClassLibrary;
 using ClassLibrary.Common.Data;
 
-
 namespace ClassLibraryTest
 {
 	[TestFixture]
