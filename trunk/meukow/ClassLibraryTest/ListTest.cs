@@ -13,6 +13,8 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for Ends
 		///</summary>
@@ -170,6 +172,42 @@ namespace ClassLibraryTest
 			target.WeekList = val;
 
 			Assert.IsTrue( target.WeekList, "ClassLibrary.List.WeekList is false.");
+		}
+
+		/// <summary>
+		///A test for Load
+		///</summary>
+		[Test]
+		public void LoadTest()
+		{
+			List target = new List();
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from List";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				target.Load(reader);
+			
+				Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
+				Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
+				Assert.AreEqual(Convert.ToDateTime(reader["Starts"]), target.Starts, "Starts is not correct");
+				Assert.AreEqual(Convert.ToDateTime(reader["Ends"]), target.Ends, "Ends is not correct");
+				Assert.AreEqual(Convert.ToBoolean(reader["WeekList"]), target.WeekList, "WeekList is not correct");
+
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 	}
 }
