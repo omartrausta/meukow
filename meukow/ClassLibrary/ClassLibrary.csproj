@@ -41,7 +41,6 @@
     <Compile Include="Common\Data\DataList.cs" />
     <Compile Include="Common\Data\IDataItem.cs" />
     <Compile Include="Common\Data\TableDescription.cs" />
-    <Compile Include="DBComm.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListProp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
