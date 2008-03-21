@@ -119,7 +119,7 @@ namespace ClassLibraryTest
 		{
 			List target = new List();
 
-			IDataReader reader;
+			IDataReader reader = null;
 
 			reader = GetDataReader();
 
