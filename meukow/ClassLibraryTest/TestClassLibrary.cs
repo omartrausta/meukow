@@ -125,8 +125,10 @@ namespace ClassLibraryTest
 
 			//Assert.AreEqual(5, reader.FieldCount,"FieldCount is not 5");
 
-			target.Load( reader );
-
+			while( reader.Read() )
+			{
+				target.Load(reader);
+			}
 			Assert.Fail("A method that does not return a value cannot be verified.");
 
 			reader.Dispose();
