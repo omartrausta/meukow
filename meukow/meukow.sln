@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meukow", "meukow\meukow.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{C0140176-A3E1-44DB-959D-56A74A5F47BB}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\", "{017DE175-E49E-4B04-B22E-9E80686C27DD}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite", "{017DE175-E49E-4B04-B22E-9E80686C27DD}"
 	ProjectSection(WebsiteProperties) = preProject
 		ProjectReferences = "{C0140176-A3E1-44DB-959D-56A74A5F47BB}|ClassLibrary.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
@@ -26,7 +26,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BDF20642-E1B3-4BA0-8795-7336231913D4}"
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = meukow.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU

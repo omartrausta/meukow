@@ -93,11 +93,11 @@ namespace ClassLibrary
 			{
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
 				new ColumnDescription( "Name", this.Name, DbType.String ),
-				new ColumnDescription( "ArtistID", this.ArtistID, DbType.Int32, true ),
+				new ColumnDescription( "ArtistID", this.ArtistID, DbType.Int32 ),
 				new ColumnDescription( "SongPath", this.SongPath, DbType.String ),
 				new ColumnDescription( "Description", this.Description, DbType.String ),
 			};
-			return new TableDescription( "Nemendur", columns );
+			return new TableDescription( "Song	", columns );
 		}
 
 	#endregion
