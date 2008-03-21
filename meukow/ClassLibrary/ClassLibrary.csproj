@@ -35,6 +35,11 @@
   <ItemGroup>
     <Compile Include="Artist.cs" />
     <Compile Include="ArtistConnection.cs" />
+    <Compile Include="Common\Data\BaseDocument.cs" />
+    <Compile Include="Common\Data\ColumnDescription.cs" />
+    <Compile Include="Common\Data\DataList.cs" />
+    <Compile Include="Common\Data\IDataItem.cs" />
+    <Compile Include="Common\Data\TableDescription.cs" />
     <Compile Include="DBComm.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListProp.cs" />
