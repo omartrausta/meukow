@@ -11,7 +11,7 @@ using ClassLibrary.Common.Data;
 namespace ClassLibraryTest
 {
 	[TestFixture]
-	public class TestClassLibrary
+	public class ListTest
 	{
 		/// <summary>
 		///A test for Ends
