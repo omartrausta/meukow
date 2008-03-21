@@ -74,6 +74,13 @@ namespace ClassLibrary
 
 #endregion
 
+		#region Overridden functions
+		public override string ToString()
+		{
+			return m_strName;
+		}
+		#endregion
+
 		#region IDataList implementation
 		public void Load(IDataReader reader)
 		{
