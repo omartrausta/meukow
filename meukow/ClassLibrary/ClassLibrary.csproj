@@ -36,14 +36,14 @@
   <ItemGroup>
     <Compile Include="Artist.cs" />
     <Compile Include="ArtistConnection.cs" />
-    <Compile Include="ArtistDocument.cs" />
+    <Compile Include="ArtistDoc.cs" />
     <Compile Include="Common\Data\BaseDocument.cs" />
     <Compile Include="Common\Data\ColumnDescription.cs" />
     <Compile Include="Common\Data\DataList.cs" />
     <Compile Include="Common\Data\IDataItem.cs" />
     <Compile Include="Common\Data\TableDescription.cs" />
     <Compile Include="List.cs" />
-    <Compile Include="ListDocument.cs" />
+    <Compile Include="ListDoc.cs" />
     <Compile Include="ListProp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Song.cs" />

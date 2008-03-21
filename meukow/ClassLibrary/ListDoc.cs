@@ -5,7 +5,7 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-    class ListDocument : BaseDocument
+    class ListDoc : BaseDocument
     {
         /// <summary>
         /// StudentDocument sér um öll samskipti við gagnageymsluna
