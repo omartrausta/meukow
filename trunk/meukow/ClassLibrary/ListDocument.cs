@@ -21,23 +21,23 @@ namespace ClassLibrary
             return base.LoadCollection<ListCollection, List>(strSQL);
         }
 
-        public List GetArtist(int nID)
+        public List GetList(int nID)
         {
             String strSQL = String.Format("select * from List where ID={0}", nID);
             return base.LoadItem<List>(strSQL);
         }
 
-        public void UpdateArtist(List list)
+        public void UpdateList(List list)
         {
             base.UpdateData(list.GetTable());
         }
 
-        public void AddArtist(List list)
+        public void AddList(List list)
         {
             base.AddData(list.GetTable());
         }
 
-        public void DeleteArtistt(List list)
+        public void DeleteListt(List list)
         {
             String strSQL = String.Format("delete from List where ID={0}", list.ID);
             base.ExecuteSQL(strSQL);
