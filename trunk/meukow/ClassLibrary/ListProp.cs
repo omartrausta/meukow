@@ -95,7 +95,7 @@ public class ListProp : IDataItem
         #endregion
     }
     /// <summary>
-    /// StudentSorter sér um að raða tilvikum af Student.
+    /// ListPropSorter sér um að raða tilvikum af vinsældarlistum.
     /// </summary>
 
     public class ListPropSorter : IComparer<ListProp>
