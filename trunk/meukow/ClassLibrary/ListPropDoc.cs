@@ -11,7 +11,7 @@ namespace ClassLibrary
         /// StudentDocument sér um öll samskipti við gagnageymsluna
         /// - sem er semsagt gagnagrunnur í þessu tilfelli, en gæti allt eins
         /// verið XML skjal, gögn sótt í gegnum vefþjónustu, serialize-að skjal
-        /// eða guðmávitahvað.
+        /// eða guðmávitahvað.dfdff
         /// </summary>
 
         #region Public functions
