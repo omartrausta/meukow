@@ -85,7 +85,7 @@ public class ListProp : IDataItem
             ColumnDescription[] columns = 
 			{
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
-				new ColumnDescription( "Song", this.Song, DbType.Int32,true ),
+				new ColumnDescription( "Song", this.Song, DbType.Int32 ),
 				new ColumnDescription( "List", this.List, DbType.Int32 ),
 				new ColumnDescription("Position",this.Position, DbType.Int32), 
 			};
