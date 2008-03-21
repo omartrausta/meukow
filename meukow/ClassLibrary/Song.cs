@@ -5,7 +5,7 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-	public class Song : DBComm
+	public class Song : IDataItem
 	{
 	#region Member variables
 
