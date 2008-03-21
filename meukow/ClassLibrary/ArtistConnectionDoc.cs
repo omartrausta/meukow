@@ -39,7 +39,7 @@ namespace ClassLibrary
 
         public void DeleteArtistConnection(ArtistConnection artistConnection)
         {
-            String strSQL = String.Format("delete from ArtistConnection where ID={0}", artistConnection.ID);
+					String strSQL = String.Format("delete from ArtistConnection where IDParent={0} and IDChild={1}", artistConnection.IDParent, artistConnection.IDChild);
             base.ExecuteSQL(strSQL);
         }
         #endregion
