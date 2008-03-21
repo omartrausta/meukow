@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using System.Data.OleDb;
+using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-	class List : DBComm
+	public class List : IDataItem
 	{
 		#region Member variables
 		private int m_nID;
@@ -73,30 +72,83 @@ namespace ClassLibrary
 		{
 		}
 
-		/// <summary>
-		/// Constructor for List
-		/// </summary>
-		/// <param name="row">DataRow</param>
-		public List(DataRow row)
+#endregion
+
+		#region IDataList implementation
+		public void Load(IDataReader reader)
 		{
-			m_nID = Convert.ToInt32(row["ID"]);
-			m_strName = row[ "Name" ].ToString();
-			m_dtStarts = Convert.ToDateTime(row["Starts"]);
-			m_dtEnds = Convert.ToDateTime(row["Ends"]);
-			m_bWeekList = Convert.ToBoolean(row["WeekList"]);
+			m_nID = Convert.ToInt32(reader["ID"]);
+			m_strName = reader["Name"].ToString();
+			m_dtStarts = Convert.ToDateTime(reader["Starts"]);
+			m_dtEnds = Convert.ToDateTime(reader["Ends"]);
+			m_bWeekList = Convert.ToBoolean(reader["WeekList"]);
+		}
+
+		/// <summary>
+		/// Fall sem skilar TableDescription hlut, en þennan hlut má svo
+		/// nota þegar tilvik af klasanum er uppfært eða nýskráð.
+		/// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
+		/// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
+		/// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
+		/// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
+		/// </summary>
+		/// <returns></returns>
+		public TableDescription GetTable()
+		{
+			ColumnDescription[] columns = 
+			{
+				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
+				new ColumnDescription( "Name", this.Name, DbType.String ),
+				new ColumnDescription( "Starts", this.Starts, DbType.DateTime ),
+				new ColumnDescription( "Ends", this.Ends, DbType.DateTime ),
+				new ColumnDescription( "WeekList", this.WeekList, DbType.Boolean ),
+			};
+			return new TableDescription("List", columns);
 		}
 
 		#endregion
+	}
 
-		#region Overridden functions
+	public class ListSorter : IComparer<List>
+	{
+		#region Member variables
+		private String m_strOrderBy;
+		#endregion
 
-		/// <summary>
-		/// Overridden function for ToString
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString()
+		#region Constructors
+		public ListSorter(String strOrderBy)
 		{
-			return m_strName;
+			m_strOrderBy = strOrderBy;
+		}
+		#endregion
+
+		#region IComparer implementation
+		public int Compare(List x, List y)
+		{
+			switch (m_strOrderBy)
+			{
+				case "Name":
+					return x.Name.CompareTo(y.Name);
+				case "Starts":
+					return x.Starts.CompareTo(y.Starts);
+				case "SongPath":
+					return x.Ends.CompareTo(y.Ends);
+				case "Group":
+					return x.WeekList.CompareTo(y.WeekList);
+			}
+
+			return 0;
+		}
+		#endregion
+	}
+
+	public class ListCollection : DataList<List>
+	{
+		#region Public functions
+		public void Sort(String strOrderBy)
+		{
+			ListSorter sorter = new ListSorter(strOrderBy);
+			base.Sort(sorter);
 		}
 		#endregion
 	}
