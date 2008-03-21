@@ -13,8 +13,6 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class TestClassLibrary
 	{
-		private readonly String m_strConnectionStringName = "appDatabase";
-
 		/// <summary>
 		///A test for Ends
 		///</summary>
@@ -112,29 +110,6 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for Load (IDataReader)
-		///</summary>
-		[Test]
-		public void LoadTest()
-		{
-			List target = new List();
-
-			IDataReader reader = null;
-
-			reader = GetDataReader();
-
-			//Assert.AreEqual(5, reader.FieldCount,"FieldCount is not 5");
-
-			while( reader.Read() )
-			{
-				target.Load(reader);
-			}
-			Assert.Fail("A method that does not return a value cannot be verified.");
-
-			reader.Dispose();
-		}
-
-		/// <summary>
 		///A test for Name
 		///</summary>
 		[Test]
@@ -142,13 +117,17 @@ namespace ClassLibraryTest
 		{
 			List target = new List();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+			string val = null; 
 
 			target.Name = val;
 
+			Assert.IsNull(target.Name, "ClassLibrary.List.Name was not set correctly.");
 
-			Assert.AreEqual(val, target.Name, "ClassLibrary.List.Name was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			val = "Test nafn";
+
+			target.Name = val;
+
+			Assert.AreEqual(val, target.Name, "ClassLibrary.List.Name was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -163,9 +142,13 @@ namespace ClassLibraryTest
 
 			target.Starts = val;
 
-
 			Assert.AreEqual(val, target.Starts, "ClassLibrary.List.Starts was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+
+			val = new DateTime(2008, 3, 21);
+
+			target.Ends = val;
+
+			Assert.AreEqual(val, target.Ends, "ClassLibrary.List.Starts was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -176,37 +159,17 @@ namespace ClassLibraryTest
 		{
 			List target = new List();
 
-			bool val = false; // TODO: Assign to an appropriate value for the property
+			bool val = false; 
+
+			target.WeekList = val;
+			
+			Assert.IsFalse( target.WeekList, "ClassLibrary.List.WeekList is true.");
+
+			val = true;
 
 			target.WeekList = val;
 
-
-			Assert.AreEqual(val, target.WeekList, "ClassLibrary.List.WeekList was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
-		}
-
-		private IDataReader GetDataReader()
-		{
-			OleDbConnection connection = OpenConnection();
-			IDataReader reader = null;
-
-			String strSQL = "select * from List";
-			OleDbCommand command = new OleDbCommand(strSQL, connection);
-			reader = command.ExecuteReader();
-
-			connection.Dispose();
-			command.Dispose();
-
-			return reader;
-		}
-
-		protected OleDbConnection OpenConnection()
-		{
-			OleDbConnection connection = new OleDbConnection();
-			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
-			connection.Open();
-
-			return connection;
+			Assert.IsTrue( target.WeekList, "ClassLibrary.List.WeekList is false.");
 		}
 	}
 }
