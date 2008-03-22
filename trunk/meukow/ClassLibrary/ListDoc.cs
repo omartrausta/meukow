@@ -5,7 +5,7 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-    class ListDoc : BaseDocument
+    public class ListDoc : BaseDocument
     {
         /// <summary>
         /// StudentDocument sér um öll samskipti við gagnageymsluna
@@ -34,7 +34,8 @@ namespace ClassLibrary
 
         public void AddList(List list)
         {
-            base.AddData(list.GetTable());
+          int newID = base.AddData(list.GetTable());
+        	list.ID = newID;
         }
 
         public void DeleteListt(List list)

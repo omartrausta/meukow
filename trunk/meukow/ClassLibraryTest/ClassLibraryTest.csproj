@@ -41,8 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistConnectionDocTest.cs" />
+    <Compile Include="ArtistConnectionTest.cs" />
+    <Compile Include="ArtistTest.cs" />
+    <Compile Include="ListDocTest.cs" />
+    <Compile Include="ListPropDocTest.cs" />
+    <Compile Include="ListPropTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ListTest.cs" />
+    <Compile Include="SongDocTest.cs" />
+    <Compile Include="SongTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">

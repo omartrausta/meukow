@@ -65,17 +65,8 @@ namespace ClassLibrary.Common.Data
 			// To make it work under other circumstances (such as
 			// in unit testing projects) we also handle it when
 			// such file doesn't exist.
-			ConnectionStringSettings connSett = ConfigurationManager.ConnectionStrings[ m_strConnectionStringName ];
-			if ( connSett != null )
-			{
-				m_strConnectionString = connSett.ConnectionString;
-				Debug.Assert( m_strConnectionString.Length > 0, "BaseDocument.BaseDocument: the connection string defined in .config file cannot be empty!" );
-
-				if ( !String.IsNullOrEmpty( connSett.ProviderName ) )
-				{
-					m_strProviderName = connSett.ProviderName;
-				}
-			}
+			m_strConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			Debug.Assert( m_strConnectionString.Length > 0, "BaseDocument.BaseDocument: the connection string defined in .config file cannot be empty!" );
 
 		}
 		#endregion
