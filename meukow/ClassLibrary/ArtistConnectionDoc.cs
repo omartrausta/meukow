@@ -5,7 +5,7 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-    class ArtistConnectionDoc : BaseDocument
+    public class ArtistConnectionDoc : BaseDocument
     {
         /// <summary>
         /// StudentDocument sér um öll samskipti við gagnageymsluna
