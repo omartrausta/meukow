@@ -53,46 +53,46 @@ public class ListProp : IDataItem
 		{
 		}
 
-        public override string ToString()
-        {
-            return m_nID.ToString();
-        }
-
-
 		#endregion
 
-        #region IDataList implementation
-        public void Load(IDataReader reader)
-        {
-            m_nID = Convert.ToInt32(reader["ID"]);
-            m_nSong = Convert.ToInt32(reader["Song"]);
-            m_nList = Convert.ToInt32(reader["List"]);
-            m_nPostion = Convert.ToInt32(reader["Position"]);
-           
-        }
+		#region Overridden functions
+		public override string ToString()
+		{
+			return m_nID.ToString();
+		}
+		#endregion
 
-        /// <summary>
-        /// Fall sem skilar TableDescription hlut, en þennan hlut má svo
-        /// nota þegar tilvik af klasanum er uppfært eða nýskráð.
-        /// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
-        /// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
-        /// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
-        /// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
-        /// </summary>
-        /// <returns></returns>
-        public TableDescription GetTable()
-        {
-            ColumnDescription[] columns = 
+		#region IDataList implementation
+		public void Load(IDataReader reader)
+    {
+      m_nID = Convert.ToInt32(reader["ID"]);
+      m_nSong = Convert.ToInt32(reader["Song"]);
+      m_nList = Convert.ToInt32(reader["List"]);
+			m_nPostion = Convert.ToInt32(reader["Position"]);
+		}
+
+    /// <summary>
+    /// Fall sem skilar TableDescription hlut, en þennan hlut má svo
+    /// nota þegar tilvik af klasanum er uppfært eða nýskráð.
+    /// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
+    /// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
+    /// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
+    /// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
+    /// </summary>
+    /// <returns></returns>
+    public TableDescription GetTable()
+    {
+			ColumnDescription[] columns = 
 			{
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
 				new ColumnDescription( "Song", this.Song, DbType.Int32 ),
 				new ColumnDescription( "List", this.List, DbType.Int32 ),
-				new ColumnDescription("Position",this.Position, DbType.Int32), 
+				new ColumnDescription( "Position",this.Position, DbType.Int32), 
 			};
-            return new TableDescription("ListProp	", columns);
-        }
+			return new TableDescription( "ListProp	", columns);
+    }
 
-        #endregion
+    #endregion
     }
     /// <summary>
     /// ListPropSorter sér um að raða tilvikum af vinsældarlistum.
