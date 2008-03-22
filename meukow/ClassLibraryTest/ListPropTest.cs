@@ -15,6 +15,8 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListPropTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for GetTable ()
 		///</summary>
@@ -23,13 +25,29 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			TableDescription expected = null;
 			TableDescription actual;
 
 			actual = target.GetTable();
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ListProp.GetTable did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual("ID", actual.Columns[0].Name, "Name is not the same for ID");
+			Assert.AreEqual(0, actual.Columns[0].Value, "Value is not the same for ID");
+			Assert.AreEqual(DbType.Int32, actual.Columns[0].Type, "Type is not the same for ID");
+			Assert.AreEqual(true, actual.Columns[0].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
+
+			Assert.AreEqual("Song", actual.Columns[1].Name, "Name is not the same for Song");
+			Assert.AreEqual(0, actual.Columns[1].Value, "Value is not the same for Song");
+			Assert.AreEqual(DbType.Int32, actual.Columns[1].Type, "Type is not the same for Song");
+			Assert.AreEqual(false, actual.Columns[1].IsPrimaryKey, "IsPrimaryKey is not the same for Song");
+
+			Assert.AreEqual("List", actual.Columns[2].Name, "Name is not the same for List");
+			Assert.AreEqual(0, actual.Columns[2].Value, "Value is not the same for List");
+			Assert.AreEqual(DbType.Int32, actual.Columns[2].Type, "Type is not the same for List");
+			Assert.AreEqual(false, actual.Columns[2].IsPrimaryKey, "IsPrimaryKey is not the same for List");
+
+			Assert.AreEqual("Position", actual.Columns[3].Name, "Name is not the same for Position");
+			Assert.AreEqual(0, actual.Columns[3].Value, "Value is not the same for Position");
+			Assert.AreEqual(DbType.Int32, actual.Columns[3].Type, "Type is not the same for Position");
+			Assert.AreEqual(false, actual.Columns[3].IsPrimaryKey, "IsPrimaryKey is not the same for Position");
 		}
 
 		/// <summary>
@@ -40,13 +58,15 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.ID, "ClassLibrary.ListProp.ID was not set correctly.");
+
+			val = 10;
 
 			target.ID = val;
 
-
-			Assert.AreEqual(val, target.ID, "ClassLibrary.ListProp.ID was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.ID, "ClassLibrary.ListProp.ID was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -57,13 +77,15 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.List, "ClassLibrary.ListProp.List was not set correctly.");
+
+			val = 10;
 
 			target.List = val;
 
-
-			Assert.AreEqual(val, target.List, "ClassLibrary.ListProp.List was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.List, "ClassLibrary.ListProp.List was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -74,8 +96,10 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
+			Assert.AreEqual(0, target.ID, "ID is not 0.");
+			Assert.AreEqual(0, target.Song, "ID is not 0.");
+			Assert.AreEqual(0, target.List, "ID is not 0.");
+			Assert.AreEqual(0, target.Position, "ID is not 0.");
 		}
 
 		/// <summary>
@@ -84,13 +108,34 @@ namespace ClassLibraryTest
 		[Test]
 		public void LoadTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ListProp target = new ListProp();
 
-			IDataReader reader = null; // TODO: Initialize to an appropriate value
+			IDataReader reader = null;
 
-			target.Load(reader);
+			OleDbConnection connection = new OleDbConnection();
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from ListProp";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				target.Load(reader);
+
+				Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
+				Assert.AreEqual(Convert.ToInt32(reader["Song"]), target.Song, "Song is not correct");
+				Assert.AreEqual(Convert.ToInt32(reader["List"]), target.List, "List is not correct");
+				Assert.AreEqual(Convert.ToInt32(reader["Position"]), target.Position, "Position is not correct");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -101,13 +146,15 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.Position, "ClassLibrary.ListProp.Position was not set correctly.");
+
+			val = 10;
 
 			target.Position = val;
 
-
-			Assert.AreEqual(val, target.Position, "ClassLibrary.ListProp.Position was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.Position, "ClassLibrary.ListProp.Position was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -118,13 +165,15 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.Song, "ClassLibrary.ListProp.Song was not set correctly.");
+
+			val = 10;
 
 			target.Song = val;
 
-
-			Assert.AreEqual(val, target.Song, "ClassLibrary.ListProp.Song was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.Song, "ClassLibrary.ListProp.Song was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -135,13 +184,15 @@ namespace ClassLibraryTest
 		{
 			ListProp target = new ListProp();
 
-			string expected = null;
-			string actual;
+			int actual = 0;
 
-			actual = target.ToString();
+			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.ListProp.ToString did not return the expected value.");
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ListProp.ToString did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			actual = 3;
+
+			target.ID = actual;
+
+			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.ListProp.ToString did not return the expected value.");
 		}
 
 	}
@@ -160,11 +211,11 @@ namespace ClassLibraryTest
 		{
 			ListPropCollection target = new ListPropCollection();
 
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			string strOrderBy = "ID";
 
 			target.Sort(strOrderBy);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			Assert.IsFalse(target.Count > 0, "ListPropCollection is greater than 0.");
 		}
 
 	}
@@ -175,43 +226,49 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListPropSorterTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+		
 		/// <summary>
 		///A test for Compare (ListProp, ListProp)
 		///</summary>
 		[Test]
 		public void CompareTest()
 		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
+			string strOrderBy = "ID";
 
 			ListPropSorter target = new ListPropSorter(strOrderBy);
-
-			ListProp x = null; // TODO: Initialize to an appropriate value
-
-			ListProp y = null; // TODO: Initialize to an appropriate value
-
+			ListProp x = new ListProp();
+			ListProp y = new ListProp();
 			int expected = 0;
 			int actual;
 
-			actual = target.Compare(x, y);
+			IDataReader reader = null;
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ListPropSorter.Compare did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from ListProp";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				x.Load(reader);
+				y.Load(reader);
+
+				actual = target.Compare(x, y);
+
+				Assert.AreEqual(expected, actual, "ClassLibrary.ListPropSorter.Compare did not return the expected value.");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
-
-		/// <summary>
-		///A test for ListPropSorter (string)
-		///</summary>
-		[Test]
-		public void ConstructorTest()
-		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
-
-			ListPropSorter target = new ListPropSorter(strOrderBy);
-
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
-
 	}
 
 
