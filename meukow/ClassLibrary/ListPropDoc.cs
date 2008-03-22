@@ -34,7 +34,8 @@ namespace ClassLibrary
 
         public void AddListProp(ListProp listProp)
         {
-            base.AddData(listProp.GetTable());
+					int newID = base.AddData(listProp.GetTable());
+        	listProp.ID = newID;
         }
 
         public void DeleteListt(ListProp listProp)

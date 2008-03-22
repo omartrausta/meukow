@@ -34,7 +34,8 @@ namespace ClassLibrary
 
         public void AddList(Song song)
         {
-            base.AddData(song.GetTable());
+          int newID = base.AddData(song.GetTable());
+        	song.ID = newID;
         }
 
         public void DeleteListt(Song song)

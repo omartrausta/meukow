@@ -138,9 +138,9 @@ namespace ClassLibrary
 					return x.Name.CompareTo(y.Name);
 				case "Starts":
 					return x.Starts.CompareTo(y.Starts);
-				case "SongPath":
+				case "Ends":
 					return x.Ends.CompareTo(y.Ends);
-				case "Group":
+				case "WeekList":
 					return x.WeekList.CompareTo(y.WeekList);
 			}
 

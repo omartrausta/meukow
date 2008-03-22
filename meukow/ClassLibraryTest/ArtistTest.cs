@@ -100,8 +100,6 @@ namespace ClassLibraryTest
 
 			int val = 0; 
 
-			target.ID = val;
-
 			Assert.AreEqual(val, target.ID, "ClassLibrary.Artist.ID was not set correctly.");
 
 			val = 10;

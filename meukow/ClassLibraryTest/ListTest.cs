@@ -224,12 +224,12 @@ namespace ClassLibraryTest
 		{
 			ListCollection target = new ListCollection();
 
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			string strOrderBy = "Name";
 
 			target.Sort(strOrderBy);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
-		}
+			Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
+			}
 
 	}
 	/// <summary>
@@ -239,42 +239,46 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListSorterTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for Compare (List, List)
 		///</summary>
 		[Test]
 		public void CompareTest()
 		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			string strOrderBy = "Name";
 
 			ListSorter target = new ListSorter(strOrderBy);
-
-			List x = null; // TODO: Initialize to an appropriate value
-
-			List y = null; // TODO: Initialize to an appropriate value
-
+			List x = new List();
+			List y = new List();
 			int expected = 0;
 			int actual;
 
-			actual = target.Compare(x, y);
+			IDataReader reader = null;
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ListSorter.Compare did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from List";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				x.Load(reader);
+				y.Load(reader);
+
+				actual = target.Compare(x, y);
+
+				Assert.AreEqual(expected, actual, "ClassLibrary.ListSorter.Compare did not return the expected value.");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
-
-		/// <summary>
-		///A test for ListSorter (string)
-		///</summary>
-		[Test]
-		public void ConstructorTest()
-		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
-
-			ListSorter target = new ListSorter(strOrderBy);
-
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
-
 	}
 }
