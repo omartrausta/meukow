@@ -34,7 +34,8 @@ namespace ClassLibrary
 
 		public void AddArtist( Artist artist )
 		{
-			base.AddData( artist.GetTable( ) );
+			int newID = base.AddData( artist.GetTable( ) );
+			artist.ID = newID;
 		}
 
 		public void DeleteArtistt( Artist artist )

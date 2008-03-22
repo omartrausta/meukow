@@ -25,6 +25,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void AddListTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb",true);
+
 			ListDoc target = new ListDoc();
 
 			List list = new List();
@@ -65,18 +67,43 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for DeleteListt (List)
+		///A test for DeleteList (List)
 		///</summary>
 		[Test]
-		public void DeleteListtTest()
+		public void DeleteListTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ListDoc target = new ListDoc();
 
-			List list = null; // TODO: Initialize to an appropriate value
+			List list = new List();
 
-			target.DeleteListt(list);
+			list.ID = 1;
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			target.DeleteList(list);
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from List where ID = " + list.ID.ToString();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+			
+			try
+			{
+				while (reader.Read())
+				{
+					Assert.Fail("Delete failed for List");
+				}	
+			}
+			catch
+			{
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -85,6 +112,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetAllListTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ListDoc target = new ListDoc();
 
 			ListCollection expected = new ListCollection();
@@ -135,6 +164,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetListTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ListDoc target = new ListDoc();
 
 			int nID = 50; // TODO: Initialize to an appropriate value
@@ -175,13 +206,47 @@ namespace ClassLibraryTest
 		[Test]
 		public void UpdateListTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			
 			ListDoc target = new ListDoc();
 
-			List list = null; // TODO: Initialize to an appropriate value
+			List list = new List();
+
+			List expected = new List();
+
+			String val = "Test Update List";
+
+			list = target.GetList(1);
+
+			list.Name = val;
 
 			target.UpdateList(list);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			Assert.AreEqual(val, list.Name, "Name is not correct in List after update");
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from List where ID = " + list.ID.ToString();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expected.Load(reader);
+
+				Assert.AreEqual(expected.ID, list.ID, "ID is not correct");
+				Assert.AreEqual(expected.Name, list.Name, "Name is not correct");
+				Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
+				Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
+				Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
+
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		private OleDbConnection GetConnection()

@@ -13,7 +13,6 @@ namespace ClassLibrary
         /// verið XML skjal, gögn sótt í gegnum vefþjónustu, serialize-að skjal
         /// eða guðmávitahvað.
         /// </summary>
-
         #region Public functions
         public ListCollection GetAllList()
         {
@@ -38,7 +37,7 @@ namespace ClassLibrary
         	list.ID = newID;
         }
 
-        public void DeleteListt(List list)
+        public void DeleteList(List list)
         {
             String strSQL = String.Format("delete from List where ID={0}", list.ID);
             base.ExecuteSQL(strSQL);

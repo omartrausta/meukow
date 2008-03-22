@@ -31,7 +31,7 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for DeleteListt (ListProp)
+		///A test for DeleteList (ListProp)
 		///</summary>
 		[Test]
 		public void DeleteListtTest()

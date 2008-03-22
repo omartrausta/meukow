@@ -31,7 +31,7 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for DeleteListt (Song)
+		///A test for DeleteList (Song)
 		///</summary>
 		[Test]
 		public void DeleteListtTest()
