@@ -15,6 +15,7 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
 		/// <summary>
 		///A test for Artist ()
 		///</summary>
@@ -117,11 +118,27 @@ namespace ClassLibraryTest
 		{
 			Artist target = new Artist();
 
-			IDataReader reader = null; // TODO: Initialize to an appropriate value
+			IDataReader reader = null;
 
-			target.Load(reader);
+			OleDbConnection connection = new OleDbConnection();
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from Artist";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				target.Load(reader);
+
+				Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
+				Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
+				Assert.AreEqual(reader["Picture"].ToString(), target.Picture, "Picture is not correct");
+				Assert.AreEqual(reader["URL"].ToString(), target.URL, "URL is not correct");
+				Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
+			}
 		}
 
 		/// <summary>
@@ -132,13 +149,18 @@ namespace ClassLibraryTest
 		{
 			Artist target = new Artist();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+			string val = null;
 
 			target.Name = val;
 
+			Assert.IsNull(target.Name, "ClassLibrary.List.Name was not set correctly.");
 
-			Assert.AreEqual(val, target.Name, "ClassLibrary.Artist.Name was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			val = "Test nafn";
+
+			target.Name = val;
+
+			Assert.AreEqual(val, target.Name, "ClassLibrary.List.Name was not set correctly with a value.");
+
 		}
 
 		/// <summary>
@@ -149,13 +171,18 @@ namespace ClassLibraryTest
 		{
 			Artist target = new Artist();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+			string val = null; 
 
 			target.Picture = val;
 
+			Assert.IsNull(target.Picture,"ClassLibrary.List.Picture was not set correctly.");
+
+			val = "Test Picture";
+
+			target.Picture = val;
 
 			Assert.AreEqual(val, target.Picture, "ClassLibrary.Artist.Picture was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+
 		}
 
 		/// <summary>
@@ -172,7 +199,13 @@ namespace ClassLibraryTest
 			actual = target.ToString();
 
 			Assert.AreEqual(expected, actual, "ClassLibrary.Artist.ToString did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+
+			actual = "Test Name";
+			expected = "Test Name";
+
+			target.Name = actual;
+
+			Assert.AreEqual(expected, actual, "ClassLibrary.Artist.ToString did not return the expected value.");
 		}
 
 		/// <summary>
@@ -183,13 +216,15 @@ namespace ClassLibraryTest
 		{
 			Artist target = new Artist();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+			string val = null;
 
-			target.URL = val;
+			Assert.IsNull(target.Picture, "ClassLibrary.List.Picture was not set correctly.");
 
+			val = "Test URL";
 
-			Assert.AreEqual(val, target.URL, "ClassLibrary.Artist.URL was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			target.Picture = val;
+
+			Assert.AreEqual(val, target.Picture, "ClassLibrary.Artist.URL was not set correctly.");
 		}
 
 	}
