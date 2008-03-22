@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ArtistConnectionDocTest.cs" />
     <Compile Include="ArtistConnectionTest.cs" />
+    <Compile Include="ArtistDocTest.cs" />
     <Compile Include="ArtistTest.cs" />
     <Compile Include="ListDocTest.cs" />
     <Compile Include="ListPropDocTest.cs" />

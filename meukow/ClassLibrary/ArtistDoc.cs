@@ -38,7 +38,7 @@ namespace ClassLibrary
 			artist.ID = newID;
 		}
 
-		public void DeleteArtistt( Artist artist )
+		public void DeleteArtist( Artist artist )
 		{
 			String strSQL = String.Format( "delete from Artist where ID={0}", artist.ID );
 			base.ExecuteSQL( strSQL );
