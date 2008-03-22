@@ -15,19 +15,48 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistConnectionDocTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for AddArtistConnection (ArtistConnection)
 		///</summary>
 		[Test]
 		public void AddArtistConnectionTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
-			ArtistConnection artistConnection = null; // TODO: Initialize to an appropriate value
+			ArtistConnection actual = new ArtistConnection();
+			ArtistConnection expected = new ArtistConnection();
 
-			target.AddArtistConnection(artistConnection);
+			actual.IDParent = 1;
+			actual.IDChild = 2;
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			target.AddArtistConnection(actual);
+
+			Assert.AreNotEqual(0, actual.IDParent, "IDParent is 0 in List.");
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from ArtistConnection where IDParent = " + actual.IDParent.ToString() + " AND IDChild = " + actual.IDChild.ToString();
+
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expected.Load(reader);
+
+				Assert.AreEqual(expected.IDParent, actual.IDParent, "IDParent is not correct");
+				Assert.AreEqual(expected.IDChild, actual.IDChild, "IDChild is not correct");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -36,13 +65,40 @@ namespace ClassLibraryTest
 		[Test]
 		public void DeleteArtistConnectionTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
-			ArtistConnection artistConnection = null; // TODO: Initialize to an appropriate value
+			ArtistConnection actual = new ArtistConnection();
 
-			target.DeleteArtistConnection(artistConnection);
+			actual.IDParent = 14;
+			actual.IDChild = 13;
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			target.DeleteArtistConnection(actual);
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from ArtistConnection where IDParent = " + actual.IDParent.ToString() + " and IDChild = " +
+			                actual.IDChild.ToString();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			try
+			{
+				while (reader.Read())
+				{
+					Assert.Fail("Delete failed for ArtistConnection");
+				}
+			}
+			catch
+			{
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -51,16 +107,43 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetAllArtistsConnectionTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
-			ArtistConnectionCollection expected = null;
-			ArtistConnectionCollection actual;
+			ArtistConnectionCollection expected = new ArtistConnectionCollection();
+			ArtistConnection expectedArtistConnection = null;
+			ArtistConnectionCollection actual = target.GetAllArtistsConnection();
 
-			actual = target.GetAllArtistsConnection();
+			IDataReader reader = null;
 
-			Assert.AreEqual(expected, actual,
-			                "ClassLibrary.ArtistConnectionDoc.GetAllArtistsConnection did not return the expec" +
-			                "ted value.");
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from ArtistConnection";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expectedArtistConnection = new ArtistConnection();
+
+				expectedArtistConnection.IDParent = Convert.ToInt32(reader["IDParent"]);
+				expectedArtistConnection.IDChild = Convert.ToInt32(reader["IDChild"]);
+
+				expected.Add(expectedArtistConnection);
+			}
+
+			Assert.AreEqual(expected.Count, actual.Count, "Count is not the same.");
+
+			for (int i = 0; i < actual.Count; i++)
+			{
+				Assert.AreEqual(expected[i].IDParent, actual[i].IDParent, "IDParent is not correct");
+				Assert.AreEqual(expected[i].IDChild, actual[i].IDChild, "IDChild is not correct");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -69,18 +152,39 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetArtistConnectionTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
-			int nID = 0; // TODO: Initialize to an appropriate value
+			int nIDParent = 14;
+			int nIDChild = 13;
 
-			ArtistConnection expected = null;
+			ArtistConnection expected = new ArtistConnection();
 			ArtistConnection actual;
 
-			actual = target.GetArtistConnection(nID);
+			actual = target.GetArtistConnection(nIDParent, nIDChild);
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ArtistConnectionDoc.GetArtistConnection did not return the expected " +
-							"value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from ArtistConnection where IDParent = " + nIDParent.ToString() + " and IDChild = " +
+			                nIDChild.ToString();
+
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expected.Load(reader);
+
+				Assert.AreEqual(expected.IDParent, actual.IDParent, "IDParent is not correct");
+				Assert.AreEqual(expected.IDChild, actual.IDChild, "IDChild is not correct");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -89,13 +193,77 @@ namespace ClassLibraryTest
 		[Test]
 		public void UpdateArtistConnectionTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
-			ArtistConnection artistConnection = null; // TODO: Initialize to an appropriate value
+			ArtistConnection oldArtistConnection = new ArtistConnection();
 
-			target.UpdateArtistConnection(artistConnection);
+			ArtistConnection expected = new ArtistConnection();
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			int valParent = 14;
+			int valChild = 13;
+
+			oldArtistConnection = target.GetArtistConnection(valParent,valChild);
+
+			ArtistConnection newArtistConnection = new ArtistConnection();
+			newArtistConnection.IDParent = 22;
+			newArtistConnection.IDChild = 13;
+
+			oldArtistConnection.IDParent = valParent;
+
+			target.UpdateArtistConnection(oldArtistConnection, newArtistConnection);
+
+			Assert.AreNotEqual(newArtistConnection.IDParent, oldArtistConnection.IDParent, "IDParent is not correct in List after update");
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select * from ArtistConnection where IDParent = " + oldArtistConnection.IDParent.ToString() +
+			                " and IDChild = " + oldArtistConnection.IDChild.ToString();
+
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				while (reader.Read())
+				{
+					Assert.Fail("Delete failed for ArtistConnection");
+				}
+			}
+
+
+			strSQL = "select * from ArtistConnection where IDParent = " + newArtistConnection.IDParent.ToString() +
+								" and IDChild = " + newArtistConnection.IDChild.ToString();
+
+			command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				while (reader.Read())
+				{
+					expected.Load(reader);
+
+					Assert.AreEqual(expected.IDParent, newArtistConnection.IDParent, "IDParent is not correct");
+					Assert.AreEqual(expected.IDChild, newArtistConnection.IDChild, "IDChild is not correct");
+				}
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
+
+		private OleDbConnection GetConnection()
+		{
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+			return connection;
 		}
 
 	}

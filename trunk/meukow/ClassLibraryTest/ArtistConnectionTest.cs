@@ -159,11 +159,11 @@ namespace ClassLibraryTest
 		{
 			ArtistConnectionCollection target = new ArtistConnectionCollection();
 
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			string strOrderBy = "IDParent";
 
 			target.Sort(strOrderBy);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			Assert.IsFalse(target.Count > 0, "ArtistConnectionCollection is greater than 0.");
 		}
 
 	}
@@ -174,19 +174,7 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistConnectionSorterTest
 	{
-		/// <summary>
-		///A test for ArtistConnectionSorter (string)
-		///</summary>
-		[Test]
-		public void ConstructorTest()
-		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
-
-			ArtistConnectionSorter target = new ArtistConnectionSorter(strOrderBy);
-
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
+		private readonly String m_strConnectionStringName = "appDatabase";
 
 		/// <summary>
 		///A test for Compare (ArtistConnection, ArtistConnection)
@@ -194,21 +182,40 @@ namespace ClassLibraryTest
 		[Test]
 		public void CompareTest()
 		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
+			string strOrderBy = "IDParent";
 
 			ArtistConnectionSorter target = new ArtistConnectionSorter(strOrderBy);
-
-			ArtistConnection x = null; // TODO: Initialize to an appropriate value
-
-			ArtistConnection y = null; // TODO: Initialize to an appropriate value
-
+			ArtistConnection x = new ArtistConnection();
+			ArtistConnection y = new ArtistConnection();
 			int expected = 0;
 			int actual;
 
-			actual = target.Compare(x, y);
+			IDataReader reader = null;
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ArtistConnectionSorter.Compare did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from ArtistConnection";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				x.Load(reader);
+				y.Load(reader);
+
+				actual = target.Compare(x, y);
+
+				Assert.AreEqual(expected, actual, "ClassLibrary.ListSorter.Compare did not return the expected value.");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 	}
