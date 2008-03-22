@@ -83,8 +83,6 @@ namespace ClassLibraryTest
 
 			int val = 0; 
 
-			target.ID = val;
-
 			Assert.AreEqual(val, target.ID, "ClassLibrary.List.ID was not set correctly.");
 
 			val = 10;
@@ -209,6 +207,26 @@ namespace ClassLibraryTest
 			command.Dispose();
 			reader.Dispose();
 		}
+
+		/// <summary>
+		///A test for ToString ()
+		///</summary>
+		[Test]
+		public void ToStringTest()
+		{
+			List target = new List();
+
+			string actual = null;
+
+			Assert.AreEqual( actual, target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
+
+			actual = "Test Name";
+
+			target.Name = actual;
+
+			Assert.AreEqual(actual, target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
+		}
+
 	}
 
 	/// <summary>
