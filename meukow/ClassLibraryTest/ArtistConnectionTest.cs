@@ -15,6 +15,8 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistConnectionTest
 	{
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for ArtistConnection ()
 		///</summary>
@@ -23,22 +25,8 @@ namespace ClassLibraryTest
 		{
 			ArtistConnection target = new ArtistConnection();
 
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
-
-		/// <summary>
-		///A test for ArtistConnection (DataRow)
-		///</summary>
-		[Test]
-		public void ConstructorTest1()
-		{
-			DataRow row = null; // TODO: Initialize to an appropriate value
-
-			ArtistConnection target = new ArtistConnection(row);
-
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
+			Assert.AreEqual(0, target.IDParent, "IDParent is not 0.");
+			Assert.AreEqual(0, target.IDChild, "IDChild is not 0.");
 		}
 
 		/// <summary>
@@ -49,13 +37,19 @@ namespace ClassLibraryTest
 		{
 			ArtistConnection target = new ArtistConnection();
 
-			TableDescription expected = null;
 			TableDescription actual;
 
 			actual = target.GetTable();
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ArtistConnection.GetTable did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual("IDParent", actual.Columns[0].Name, "Name is not the same for IDParent");
+			Assert.AreEqual(0, actual.Columns[0].Value, "Value is not the same for IDParent");
+			Assert.AreEqual(DbType.Int32, actual.Columns[0].Type, "Type is not the same for IDParent");
+			Assert.AreEqual(false, actual.Columns[0].IsPrimaryKey, "IsPrimaryKey is not the same for IDParent");
+
+			Assert.AreEqual("IDChild", actual.Columns[1].Name, "Name is not the same for IDChild");
+			Assert.AreEqual(0, actual.Columns[1].Value, "Value is not the same for IDChild");
+			Assert.AreEqual(DbType.Int32, actual.Columns[1].Type, "Type is not the same for IDChild");
+			Assert.AreEqual(false, actual.Columns[1].IsPrimaryKey, "IsPrimaryKey is not the same for IDChild");
 		}
 
 		/// <summary>
@@ -66,13 +60,15 @@ namespace ClassLibraryTest
 		{
 			ArtistConnection target = new ArtistConnection();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.IDChild, "ClassLibrary.ArtistConnection.IDChild was not set correctly.");
+
+			val = 10;
 
 			target.IDChild = val;
 
-
-			Assert.AreEqual(val, target.IDChild, "ClassLibrary.ArtistConnection.IDChild was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.IDChild, "ClassLibrary.ArtistConnection.IDChild was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -83,13 +79,15 @@ namespace ClassLibraryTest
 		{
 			ArtistConnection target = new ArtistConnection();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+			int val = 0;
+
+			Assert.AreEqual(val, target.IDParent, "ClassLibrary.ArtistConnection.IDParent was not set correctly.");
+
+			val = 10;
 
 			target.IDParent = val;
 
-
-			Assert.AreEqual(val, target.IDParent, "ClassLibrary.ArtistConnection.IDParent was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+			Assert.AreEqual(val, target.IDParent, "ClassLibrary.ArtistConnection.IDParent was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -98,13 +96,33 @@ namespace ClassLibraryTest
 		[Test]
 		public void LoadTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			ArtistConnection target = new ArtistConnection();
 
-			IDataReader reader = null; // TODO: Initialize to an appropriate value
+			IDataReader reader = null;
 
-			target.Load(reader);
+			OleDbConnection connection = new OleDbConnection();
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from ArtistConnection";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				target.Load(reader);
+
+				Assert.AreEqual(Convert.ToInt32(reader["IDParent"]), target.IDParent, "IDParent is not correct");
+				Assert.AreEqual(Convert.ToInt32(reader["IDChild"]), target.IDChild, "IDChild is not correct");
+
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
 
 		/// <summary>
@@ -115,15 +133,16 @@ namespace ClassLibraryTest
 		{
 			ArtistConnection target = new ArtistConnection();
 
-			string expected = null;
-			string actual;
+			int actual = 0;
 
-			actual = target.ToString();
+			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ArtistConnection.ToString did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			actual = 12;
+
+			target.IDParent = actual;
+
+			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
 		}
-
 	}
 	/// <summary>
 	///This is a test class for ClassLibrary.ArtistConnectionCollection and is intended
