@@ -38,7 +38,7 @@ namespace ClassLibrary
         	listProp.ID = newID;
         }
 
-        public void DeleteListt(ListProp listProp)
+        public void DeleteListProp(ListProp listProp)
         {
             String strSQL = String.Format("delete from ListProp where ID={0}", listProp.ID);
             base.ExecuteSQL(strSQL);
