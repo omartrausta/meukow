@@ -178,6 +178,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void LoadTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			List target = new List();
 
 			IDataReader reader = null;
@@ -247,6 +249,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void CompareTest()
 		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
 			string strOrderBy = "Name";
 
 			ListSorter target = new ListSorter(strOrderBy);
