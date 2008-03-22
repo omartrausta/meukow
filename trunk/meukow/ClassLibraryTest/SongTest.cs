@@ -241,11 +241,11 @@ namespace ClassLibraryTest
 		{
 			SongCollection target = new SongCollection();
 
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+            string strOrderBy = "Name";
 
-			target.Sort(strOrderBy);
+            target.Sort(strOrderBy);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+            Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
 		}
 
 	}
@@ -256,44 +256,47 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class SongSorterTest
 	{
+        private readonly String m_strConnectionStringName = "appDatabase";
 		/// <summary>
 		///A test for Compare (Song, Song)
 		///</summary>
 		[Test]
 		public void CompareTest()
 		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+            System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
 
-			SongSorter target = new SongSorter(strOrderBy);
+            string strOrderBy = "Name";
 
-			Song x = null; // TODO: Initialize to an appropriate value
+            SongSorter target = new SongSorter(strOrderBy);
+            Song x = new Song();
+            Song y = new Song();
+            int expected = 0;
+            int actual;
 
-			Song y = null; // TODO: Initialize to an appropriate value
+            IDataReader reader = null;
 
-			int expected = 0;
-			int actual;
+            OleDbConnection connection = new OleDbConnection();
 
-			actual = target.Compare(x, y);
+            connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+            connection.Open();
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.SongSorter.Compare did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
-		}
+            String strSQL = "select * from Song";
+            OleDbCommand command = new OleDbCommand(strSQL, connection);
+            reader = command.ExecuteReader();
 
-		/// <summary>
-		///A test for SongSorter (string)
-		///</summary>
-		[Test]
-		public void ConstructorTest()
-		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+            while (reader.Read())
+            {
+                x.Load(reader);
+                y.Load(reader);
 
-			SongSorter target = new SongSorter(strOrderBy);
+                actual = target.Compare(x, y);
 
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
+                Assert.AreEqual(expected, actual, "ClassLibrary.SongSorter.Compare did not return the expected value.");
+            }
 
-	}
-
-
+            connection.Dispose();
+            command.Dispose();
+            reader.Dispose();
+        }
+    }
 }
