@@ -21,15 +21,18 @@ namespace ClassLibrary
             return base.LoadCollection<ArtistConnectionCollection, ArtistConnection>(strSQL);
         }
 
-        public ArtistConnection GetArtistConnection(int nID)
+        public ArtistConnection GetArtistConnection(int nIDParent, int nIDChild)
         {
-            String strSQL = String.Format("select * from ArtistConnection where ID={0}", nID);
+            String strSQL = String.Format("select * from ArtistConnection where IDParent={0} and IDChild={1}", nIDParent, nIDChild);
             return base.LoadItem<ArtistConnection>(strSQL);
         }
 
-        public void UpdateArtistConnection(ArtistConnection artistConnection)
+			public void UpdateArtistConnection(ArtistConnection oldArtistConnection, ArtistConnection newArtistConnection)
         {
-            base.UpdateData(artistConnection.GetTable());
+					String strSQL = String.Format("delete from ArtistConnection where IDParent={0} and IDChild={1}", oldArtistConnection.IDParent, oldArtistConnection.IDChild);
+					base.ExecuteSQL(strSQL);
+
+					base.AddData(newArtistConnection.GetTable());
         }
 
         public void AddArtistConnection(ArtistConnection artistConnection)
