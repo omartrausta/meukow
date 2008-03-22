@@ -15,6 +15,7 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class SongTest
 	{
+        private readonly String m_strConnectionStringName = "appDatabase";
 		/// <summary>
 		///A test for ArtistID
 		///</summary>
@@ -23,13 +24,15 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+            int val = 0;
 
-			target.ArtistID = val;
+            Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly.");
 
+            val = 10;
 
-			Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+            target.ArtistID = val;
+
+            Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -40,13 +43,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+            string val = null;
 
-			target.Description = val;
+            target.Description = val;
 
+            Assert.IsNull(target.Description, "ClassLibrary.Song.Description was not set correctly.");
 
-			Assert.AreEqual(val, target.Description, "ClassLibrary.Song.Description was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+            val = "Test Description";
+
+            target.Description = val;
+
+            Assert.AreEqual(val, target.Description, "ClassLibrary.Song.Description was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -57,13 +64,35 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			TableDescription expected = null;
+			//TableDescription expected = null;
 			TableDescription actual;
 
 			actual = target.GetTable();
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.Song.GetTable did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+            Assert.AreEqual("ID", actual.Columns[0].Name, "Name is not the same for ID");
+            Assert.AreEqual(0, actual.Columns[0].Value, "Value is not the same for ID");
+            Assert.AreEqual(DbType.Int32, actual.Columns[0].Type, "Type is not the same for ID");
+            Assert.AreEqual(true, actual.Columns[0].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
+
+            Assert.AreEqual("Name", actual.Columns[1].Name, "Name is not the same for Name");
+            Assert.AreEqual(null, actual.Columns[1].Value, "Value is not the same for Name");
+            Assert.AreEqual(DbType.String, actual.Columns[1].Type, "Type is not the same for Name");
+            Assert.AreEqual(false, actual.Columns[1].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
+
+            Assert.AreEqual("ArtistID", actual.Columns[2].Name, "Name is not the same for ID");
+            Assert.AreEqual(0, actual.Columns[2].Value, "Value is not the same for ID");
+            Assert.AreEqual(DbType.Int32, actual.Columns[2].Type, "Type is not the same for ID");
+            Assert.AreEqual(false, actual.Columns[2].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
+
+            Assert.AreEqual("SongPath", actual.Columns[3].Name, "Name is not the same for Name");
+            Assert.AreEqual(null, actual.Columns[3].Value, "Value is not the same for Name");
+            Assert.AreEqual(DbType.String, actual.Columns[3].Type, "Type is not the same for Name");
+            Assert.AreEqual(false, actual.Columns[3].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
+
+            Assert.AreEqual("Description", actual.Columns[4].Name, "Name is not the same for Name");
+            Assert.AreEqual(null, actual.Columns[4].Value, "Value is not the same for Name");
+            Assert.AreEqual(DbType.String, actual.Columns[4].Type, "Type is not the same for Name");
+            Assert.AreEqual(false, actual.Columns[4].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
 		}
 
 		/// <summary>
@@ -74,13 +103,15 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			int val = 0; // TODO: Assign to an appropriate value for the property
+            int val = 0;
 
-			target.ID = val;
+            Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly.");
 
+            val = 10;
 
-			Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+            target.ID = val;
+
+            Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -91,11 +122,27 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			IDataReader reader = null; // TODO: Initialize to an appropriate value
+            IDataReader reader = null;
 
-			target.Load(reader);
+            OleDbConnection connection = new OleDbConnection();
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+            connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+            connection.Open();
+
+            String strSQL = "select * from Song";
+            OleDbCommand command = new OleDbCommand(strSQL, connection);
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                target.Load(reader);
+
+                Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
+                Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
+                Assert.AreEqual(Convert.ToInt32(reader["ArtistID"]), target.ArtistID, "ArtistID is not correct");
+                Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath, "SongPath is not correct");
+                Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
+            }
 		}
 
 		/// <summary>
@@ -106,13 +153,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+            string val = null;
 
-			target.Name = val;
+            target.Name = val;
 
+            Assert.IsNull(target.Name, "ClassLibrary.Song.Name was not set correctly.");
 
-			Assert.AreEqual(val, target.Name, "ClassLibrary.Song.Name was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+            val = "Test nafn";
+
+            target.Name = val;
+
+            Assert.AreEqual(val, target.Name, "ClassLibrary.Song.Name was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -123,8 +174,11 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
+            Assert.AreEqual(0, target.ID, "ID is not 0.");
+            Assert.IsNull(target.Name, "Name is not null.");
+            Assert.AreEqual(0, target.ArtistID, "ArtistID is not 0.");
+            Assert.IsNull(target.SongPath, "SongPath is not null.");
+            Assert.IsNull(target.Description, "Description is not null.");
 		}
 
 		/// <summary>
@@ -135,13 +189,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			string val = null; // TODO: Assign to an appropriate value for the property
+            string val = null;
 
-			target.SongPath = val;
+            target.Description = val;
 
+            Assert.IsNull(target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
 
-			Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
-			Assert.Fail("Verify the correctness of this test method.");
+            val = "Test SongPath";
+
+            target.SongPath = val;
+
+            Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -152,13 +210,19 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			string expected = null;
-			string actual;
+            string expected = null;
+            string actual;
 
-			actual = target.ToString();
+            actual = target.ToString();
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+            Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
+
+            actual = "Test Name";
+            expected = "Test Name";
+
+            target.Name = actual;
+
+            Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
 		}
 
 	}
