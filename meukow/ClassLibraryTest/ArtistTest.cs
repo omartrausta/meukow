@@ -243,11 +243,11 @@ namespace ClassLibraryTest
 		{
 			ArtistCollection target = new ArtistCollection();
 
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			string strOrderBy = "Name";
 
 			target.Sort(strOrderBy);
 
-			Assert.Fail("A method that does not return a value cannot be verified.");
+			Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
 		}
 
 	}
