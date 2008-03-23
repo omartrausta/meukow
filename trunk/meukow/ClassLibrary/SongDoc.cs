@@ -21,10 +21,10 @@ namespace ClassLibrary
             return base.LoadCollection<SongCollection, Song>(strSQL);
         }
 
-        public List GetSong(int nID)
+        public Song GetSong(int nID)
         {
             String strSQL = String.Format("select * from Song where ID={0}", nID);
-            return base.LoadItem<List>(strSQL);
+            return base.LoadItem<Song>(strSQL);
         }
 
         public void UpdateSong(Song song)
@@ -32,13 +32,13 @@ namespace ClassLibrary
             base.UpdateData(song.GetTable());
         }
 
-        public void AddList(Song song)
+        public void AddSong(Song song)
         {
           int newID = base.AddData(song.GetTable());
         	song.ID = newID;
         }
 
-        public void DeleteListt(Song song)
+        public void DeleteSong(Song song)
         {
             String strSQL = String.Format("delete from Song where ID={0}", song.ID);
             base.ExecuteSQL(strSQL);
