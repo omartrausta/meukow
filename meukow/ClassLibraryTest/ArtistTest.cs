@@ -258,19 +258,7 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistSorterTest
 	{
-		/// <summary>
-		///A test for ArtistSorter (string)
-		///</summary>
-		[Test]
-		public void ConstructorTest()
-		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
-
-			ArtistSorter target = new ArtistSorter(strOrderBy);
-
-			// TODO: Implement code to verify target
-			Assert.Fail("TODO: Implement code to verify target");
-		}
+		private readonly String m_strConnectionStringName = "appDatabase";
 
 		/// <summary>
 		///A test for Compare (Artist, Artist)
@@ -278,24 +266,40 @@ namespace ClassLibraryTest
 		[Test]
 		public void CompareTest()
 		{
-			string strOrderBy = null; // TODO: Initialize to an appropriate value
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
+			string strOrderBy = "Name";
 
 			ArtistSorter target = new ArtistSorter(strOrderBy);
-
-			Artist x = null; // TODO: Initialize to an appropriate value
-
-			Artist y = null; // TODO: Initialize to an appropriate value
-
+			Artist x = new Artist();
+			Artist y = new Artist();
 			int expected = 0;
 			int actual;
 
-			actual = target.Compare(x, y);
+			IDataReader reader = null;
 
-			Assert.AreEqual(expected, actual, "ClassLibrary.ArtistSorter.Compare did not return the expected value.");
-			Assert.Fail("Verify the correctness of this test method.");
+			OleDbConnection connection = new OleDbConnection();
+
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
+
+			String strSQL = "select * from Artist";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				x.Load(reader);
+				y.Load(reader);
+
+				actual = target.Compare(x, y);
+
+				Assert.AreEqual(expected, actual, "ClassLibrary.SongSorter.Compare did not return the expected value.");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
 		}
-
 	}
-
-
 }
