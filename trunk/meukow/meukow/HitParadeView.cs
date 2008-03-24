@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
+using System.Diagnostics;
 
 namespace meukow
 {
@@ -74,6 +75,11 @@ namespace meukow
 			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
 			m_listViewHitParade.ListViewItemSorter = new ListSorter((ListColumns)e.Column, lastOrder);
 		}
+
+		private void OnClick(object sender, EventArgs e)
+		{
+			OnSelectList();
+		}
 		#endregion
 
 		#region Protected functions
@@ -119,5 +125,23 @@ namespace meukow
 
 		#endregion
 
+		public void OnSelectList()
+		{
+			if( m_listViewHitParade.SelectedItems.Count == 1 )
+			{
+					ListViewItem listViewItem = m_listViewHitParade.SelectedItems[ 0 ];
+
+					// Þetta typecast er í lagi því GetListViewItem sér alltaf
+					// um að setja Student tilvik inn í Tag property-ið á 
+					// sérhverju itemi:
+					List list = (List)listViewItem.Tag;
+
+					using ( ChartView view = new ChartView( ) )
+					{
+						view.List = list;
+						view.GetList();
+					}
+			}
+		}
 	}
 }

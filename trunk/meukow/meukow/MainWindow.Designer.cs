@@ -35,7 +35,7 @@
 			this.m_tSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_TabControl = new System.Windows.Forms.TabControl();
 			this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
-			this.m_ChartView1 = new meukow.m_ChartView();
+			this.chartView1 = new meukow.ChartView();
 			this.m_HitParadeView = new meukow.HitParadeView();
 			this.m_toolStripVinlistar = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodavinlistar = new System.Windows.Forms.ToolStripButton();
@@ -93,7 +93,7 @@
 			// 
 			// m_tabVinsaeldarlistar
 			// 
-			this.m_tabVinsaeldarlistar.Controls.Add(this.m_ChartView1);
+			this.m_tabVinsaeldarlistar.Controls.Add(this.chartView1);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_HitParadeView);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_toolStripVinlistar);
 			this.m_tabVinsaeldarlistar.Location = new System.Drawing.Point(4, 22);
@@ -104,12 +104,12 @@
 			this.m_tabVinsaeldarlistar.Text = "Vinsældarlistar";
 			this.m_tabVinsaeldarlistar.UseVisualStyleBackColor = true;
 			// 
-			// m_ChartView1
+			// chartView1
 			// 
-			this.m_ChartView1.Location = new System.Drawing.Point(364, 31);
-			this.m_ChartView1.Name = "m_ChartView1";
-			this.m_ChartView1.Size = new System.Drawing.Size(328, 330);
-			this.m_ChartView1.TabIndex = 5;
+			this.chartView1.Location = new System.Drawing.Point(364, 31);
+			this.chartView1.Name = "chartView1";
+			this.chartView1.Size = new System.Drawing.Size(328, 330);
+			this.chartView1.TabIndex = 5;
 			// 
 			// m_HitParadeView
 			// 
@@ -288,7 +288,7 @@
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkravinlista;
 		private SongView m_SongView;
 		private HitParadeView m_HitParadeView;
-		private m_ChartView m_ChartView1;
+		private ChartView chartView1;
 	}
 }
 
