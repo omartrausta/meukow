@@ -27,15 +27,24 @@ namespace meukow
 	{
 		#region Member variables
 		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
-		private SongDoc m_document;
+		private SongDoc m_Song_document;
+		private ArtistDoc m_Artist_document;
+		private Artist m_Artist;
 		#endregion
 
 		#region Properties
-		public SongDoc Document
+		public SongDoc Document1
 		{
-			get { return m_document; }
-			set { m_document = value; }
+			get { return m_Song_document; }
+			set { m_Song_document = value; }
 		}
+		public ArtistDoc Document2
+		{
+			get { return m_Artist_document; }
+			set { m_Artist_document = value; }
+		}
+
+
 		#endregion
 
 		#region Constructors
@@ -56,13 +65,14 @@ namespace meukow
 		{
 			if (!DesignMode)
 			{
-				m_document = new SongDoc();
+				m_Song_document = new SongDoc();
+				m_Artist_document = new ArtistDoc();
+				m_Artist = new Artist();
 				m_listViewSong.Items.Clear();
-
-				SongCollection songs = Document.GetAllSongs();
-
+				SongCollection songs = Document1.GetAllSongs();
 				foreach (Song song in songs)
 				{
+					m_Artist = m_Artist_document.GetArtist(song.ArtistID);
 					m_listViewSong.Items.Add(GetListViewItem(song));
 				}
 			}
@@ -76,13 +86,14 @@ namespace meukow
 		/// </summary>
 		/// <param name="song"></param>
 		/// <returns></returns>
-		private static ListViewItem GetListViewItem(Song song)
-		{
+		private ListViewItem GetListViewItem(Song song)
+		{	
 			// Fyrsti dálkurinn birtir nafn:
 			ListViewItem item = new ListViewItem(song.Name);
-
-			// Annar dálkurinn birtir kennitölu:
-			item.SubItems.Add(song.ArtistID.ToString());
+			
+			// Annar dálkurinn birtir kennitölu
+			
+			item.SubItems.Add(m_Artist.Name);
 			item.SubItems.Add(song.SongPath);
 			item.SubItems.Add(song.Description);
 
