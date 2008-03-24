@@ -1,6 +1,6 @@
 namespace meukow
 {
-	partial class HitParadeView
+	partial class HitParadeListView
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -33,6 +33,7 @@ namespace meukow
 			this.m_colHeaderName = new System.Windows.Forms.ColumnHeader();
 			this.m_colHeaderNameStarts = new System.Windows.Forms.ColumnHeader();
 			this.m_colHeaderNameEnds = new System.Windows.Forms.ColumnHeader();
+			this.m_colHeaderNameWeekList = new System.Windows.Forms.ColumnHeader();
 			this.m_contextMenuList = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.m_menuItemEditList = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_menuItemDeleteList = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +45,8 @@ namespace meukow
 			this.m_listViewHitParade.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.m_colHeaderName,
             this.m_colHeaderNameStarts,
-            this.m_colHeaderNameEnds});
+            this.m_colHeaderNameEnds,
+            this.m_colHeaderNameWeekList});
 			this.m_listViewHitParade.ContextMenuStrip = this.m_contextMenuList;
 			this.m_listViewHitParade.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_listViewHitParade.FullRowSelect = true;
@@ -55,7 +57,6 @@ namespace meukow
 			this.m_listViewHitParade.TabIndex = 0;
 			this.m_listViewHitParade.UseCompatibleStateImageBehavior = false;
 			this.m_listViewHitParade.View = System.Windows.Forms.View.Details;
-			this.m_listViewHitParade.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.OnSortList);
 			// 
 			// m_colHeaderName
 			// 
@@ -72,6 +73,11 @@ namespace meukow
 			// 
 			this.m_colHeaderNameEnds.Tag = "Ends";
 			this.m_colHeaderNameEnds.Text = "Ends";
+			// 
+			// m_colHeaderNameWeekList
+			// 
+			this.m_colHeaderNameWeekList.Tag = "WeekList";
+			this.m_colHeaderNameWeekList.Text = "WeekList";
 			// 
 			// m_contextMenuList
 			// 
@@ -93,12 +99,12 @@ namespace meukow
 			this.m_menuItemDeleteList.Size = new System.Drawing.Size(135, 22);
 			this.m_menuItemDeleteList.Text = "Delete List";
 			// 
-			// HitParadeView
+			// HitParadeListView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.m_listViewHitParade);
-			this.Name = "HitParadeView";
+			this.Name = "HitParadeListView";
 			this.Size = new System.Drawing.Size(498, 608);
 			this.Load += new System.EventHandler(this.OnLoad);
 			this.m_contextMenuList.ResumeLayout(false);
@@ -112,6 +118,7 @@ namespace meukow
 		private System.Windows.Forms.ColumnHeader m_colHeaderName;
 		private System.Windows.Forms.ColumnHeader m_colHeaderNameStarts;
 		private System.Windows.Forms.ColumnHeader m_colHeaderNameEnds;
+		private System.Windows.Forms.ColumnHeader m_colHeaderNameWeekList;
 		private System.Windows.Forms.ContextMenuStrip m_contextMenuList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemEditList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteList;

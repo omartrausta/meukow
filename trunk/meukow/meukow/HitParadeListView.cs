@@ -19,10 +19,11 @@ namespace meukow
 		ColName = 0,
 		ColStarts = 1,
 		ColEnds = 2,
-		NumberOfColumns = 3
+		ColWeekList = 3,
+		NumberOfColumns = 4
 	}
 
-	public partial class HitParadeView : UserControl
+	public partial class HitParadeListView : UserControl
 	{
 		#region Member variables
 		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
@@ -38,7 +39,7 @@ namespace meukow
 		#endregion
 
 		#region Constructors
-		public HitParadeView()
+		public HitParadeListView()
 		{
 			InitializeComponent();
 		}
@@ -65,14 +66,6 @@ namespace meukow
 					m_listViewHitParade.Items.Add(GetListViewItem(list));
 				}
 			}
-		}
-
-		// TODO Skjala þetta fall
-		private void OnSortList(object sender, ColumnClickEventArgs e)
-		{
-			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
-			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-			m_listViewHitParade.ListViewItemSorter = new ListSorter((ListColumns)e.Column, lastOrder);
 		}
 		#endregion
 
@@ -118,6 +111,5 @@ namespace meukow
 		}
 
 		#endregion
-
 	}
 }
