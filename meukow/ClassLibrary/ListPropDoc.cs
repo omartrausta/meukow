@@ -27,7 +27,13 @@ namespace ClassLibrary
             return base.LoadItem<ListProp>(strSQL);
         }
 
-        public void UpdateListProp(ListProp listProp)
+			public ListPropCollection GetListPropByList(int nID)
+				{
+					String strSQL = String.Format("select * from ListProp where List={0}", nID);
+					return base.LoadCollection<ListPropCollection, ListProp>(strSQL);
+				}
+
+    	public void UpdateListProp(ListProp listProp)
         {
             base.UpdateData(listProp.GetTable());
         }

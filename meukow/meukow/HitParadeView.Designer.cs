@@ -56,6 +56,7 @@ namespace meukow
 			this.m_listViewHitParade.UseCompatibleStateImageBehavior = false;
 			this.m_listViewHitParade.View = System.Windows.Forms.View.Details;
 			this.m_listViewHitParade.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.OnSortList);
+			this.m_listViewHitParade.Click += new System.EventHandler(this.OnClick);
 			// 
 			// m_colHeaderName
 			// 

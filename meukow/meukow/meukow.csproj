@@ -49,11 +49,11 @@
     <Compile Include="HitParadeView.Designer.cs">
       <DependentUpon>HitParadeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="m_ChartView.cs">
+    <Compile Include="ChartView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="m_ChartView.Designer.cs">
-      <DependentUpon>m_ChartView.cs</DependentUpon>
+    <Compile Include="ChartView.Designer.cs">
+      <DependentUpon>ChartView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,9 +65,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>HitParadeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="m_ChartView.resx">
+    <EmbeddedResource Include="ChartView.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>m_ChartView.cs</DependentUpon>
+      <DependentUpon>ChartView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
