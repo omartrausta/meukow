@@ -32,32 +32,32 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.m_mainMenu = new System.Windows.Forms.MenuStrip();
-			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.m_tSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_TabControl = new System.Windows.Forms.TabControl();
 			this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
-			this.hitParadeView2 = new meukow.HitParadeView();
+			this.m_ChartView1 = new meukow.m_ChartView();
+			this.m_HitParadeView = new meukow.HitParadeView();
 			this.m_toolStripVinlistar = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodavinlistar = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkravinlista = new System.Windows.Forms.ToolStripButton();
-			this.hitParadeView1 = new meukow.HitParadeView();
 			this.m_tabLog = new System.Windows.Forms.TabPage();
 			this.m_SongView = new meukow.SongView();
 			this.m_toolStripLog = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodalog = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkralog = new System.Windows.Forms.ToolStripButton();
 			this.m_tabFlytjendur = new System.Windows.Forms.TabPage();
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.m_toolStripFlytjendur = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodaflytjendur = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkraflytjendur = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).BeginInit();
 			this.m_mainMenu.SuspendLayout();
-			this.tabControl1.SuspendLayout();
+			this.m_TabControl.SuspendLayout();
 			this.m_tabVinsaeldarlistar.SuspendLayout();
 			this.m_toolStripVinlistar.SuspendLayout();
 			this.m_tabLog.SuspendLayout();
 			this.m_toolStripLog.SuspendLayout();
 			this.m_tabFlytjendur.SuspendLayout();
-			this.toolStrip1.SuspendLayout();
+			this.m_toolStripFlytjendur.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// listBindingSource
@@ -67,50 +67,57 @@
 			// m_mainMenu
 			// 
 			this.m_mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.m_tSMenuItem});
 			this.m_mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.m_mainMenu.Name = "m_mainMenu";
-			this.m_mainMenu.Size = new System.Drawing.Size(631, 24);
+			this.m_mainMenu.Size = new System.Drawing.Size(1132, 24);
 			this.m_mainMenu.TabIndex = 0;
 			this.m_mainMenu.Text = "menuStrip1";
 			// 
-			// fileToolStripMenuItem
+			// m_tSMenuItem
 			// 
-			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-			this.fileToolStripMenuItem.Text = "File";
+			this.m_tSMenuItem.Name = "m_tSMenuItem";
+			this.m_tSMenuItem.Size = new System.Drawing.Size(35, 20);
+			this.m_tSMenuItem.Text = "File";
 			// 
-			// tabControl1
+			// m_TabControl
 			// 
-			this.tabControl1.Controls.Add(this.m_tabVinsaeldarlistar);
-			this.tabControl1.Controls.Add(this.m_tabLog);
-			this.tabControl1.Controls.Add(this.m_tabFlytjendur);
-			this.tabControl1.Location = new System.Drawing.Point(0, 24);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(631, 539);
-			this.tabControl1.TabIndex = 3;
+			this.m_TabControl.Controls.Add(this.m_tabVinsaeldarlistar);
+			this.m_TabControl.Controls.Add(this.m_tabLog);
+			this.m_TabControl.Controls.Add(this.m_tabFlytjendur);
+			this.m_TabControl.Location = new System.Drawing.Point(0, 24);
+			this.m_TabControl.Name = "m_TabControl";
+			this.m_TabControl.SelectedIndex = 0;
+			this.m_TabControl.Size = new System.Drawing.Size(1108, 539);
+			this.m_TabControl.TabIndex = 3;
 			// 
 			// m_tabVinsaeldarlistar
 			// 
-			this.m_tabVinsaeldarlistar.Controls.Add(this.hitParadeView2);
+			this.m_tabVinsaeldarlistar.Controls.Add(this.m_ChartView1);
+			this.m_tabVinsaeldarlistar.Controls.Add(this.m_HitParadeView);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_toolStripVinlistar);
-			this.m_tabVinsaeldarlistar.Controls.Add(this.hitParadeView1);
 			this.m_tabVinsaeldarlistar.Location = new System.Drawing.Point(4, 22);
 			this.m_tabVinsaeldarlistar.Name = "m_tabVinsaeldarlistar";
 			this.m_tabVinsaeldarlistar.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabVinsaeldarlistar.Size = new System.Drawing.Size(623, 513);
+			this.m_tabVinsaeldarlistar.Size = new System.Drawing.Size(1100, 513);
 			this.m_tabVinsaeldarlistar.TabIndex = 0;
 			this.m_tabVinsaeldarlistar.Text = "Vinsældarlistar";
 			this.m_tabVinsaeldarlistar.UseVisualStyleBackColor = true;
 			// 
-			// hitParadeView2
+			// m_ChartView1
 			// 
-			this.hitParadeView2.Document = null;
-			this.hitParadeView2.Location = new System.Drawing.Point(0, 31);
-			this.hitParadeView2.Name = "hitParadeView2";
-			this.hitParadeView2.Size = new System.Drawing.Size(498, 577);
-			this.hitParadeView2.TabIndex = 4;
+			this.m_ChartView1.Location = new System.Drawing.Point(364, 31);
+			this.m_ChartView1.Name = "m_ChartView1";
+			this.m_ChartView1.Size = new System.Drawing.Size(328, 330);
+			this.m_ChartView1.TabIndex = 5;
+			// 
+			// m_HitParadeView
+			// 
+			this.m_HitParadeView.Document = null;
+			this.m_HitParadeView.Location = new System.Drawing.Point(23, 31);
+			this.m_HitParadeView.Name = "m_HitParadeView";
+			this.m_HitParadeView.Size = new System.Drawing.Size(320, 476);
+			this.m_HitParadeView.TabIndex = 4;
 			// 
 			// m_toolStripVinlistar
 			// 
@@ -119,7 +126,7 @@
             this.m_tSbtnSkravinlista});
 			this.m_toolStripVinlistar.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripVinlistar.Name = "m_toolStripVinlistar";
-			this.m_toolStripVinlistar.Size = new System.Drawing.Size(617, 25);
+			this.m_toolStripVinlistar.Size = new System.Drawing.Size(1094, 25);
 			this.m_toolStripVinlistar.TabIndex = 3;
 			this.m_toolStripVinlistar.Text = "toolStrip2";
 			// 
@@ -141,14 +148,6 @@
 			this.m_tSbtnSkravinlista.Size = new System.Drawing.Size(101, 22);
 			this.m_tSbtnSkravinlista.Text = "Skrá vinsældarlista";
 			// 
-			// hitParadeView1
-			// 
-			this.hitParadeView1.Document = null;
-			this.hitParadeView1.Location = new System.Drawing.Point(0, 31);
-			this.hitParadeView1.Name = "hitParadeView1";
-			this.hitParadeView1.Size = new System.Drawing.Size(415, 424);
-			this.hitParadeView1.TabIndex = 2;
-			// 
 			// m_tabLog
 			// 
 			this.m_tabLog.Controls.Add(this.m_SongView);
@@ -156,7 +155,7 @@
 			this.m_tabLog.Location = new System.Drawing.Point(4, 22);
 			this.m_tabLog.Name = "m_tabLog";
 			this.m_tabLog.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabLog.Size = new System.Drawing.Size(623, 513);
+			this.m_tabLog.Size = new System.Drawing.Size(1100, 513);
 			this.m_tabLog.TabIndex = 1;
 			this.m_tabLog.Text = "Lög";
 			this.m_tabLog.UseVisualStyleBackColor = true;
@@ -176,7 +175,7 @@
             this.m_tSbtnSkralog});
 			this.m_toolStripLog.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripLog.Name = "m_toolStripLog";
-			this.m_toolStripLog.Size = new System.Drawing.Size(617, 25);
+			this.m_toolStripLog.Size = new System.Drawing.Size(1094, 25);
 			this.m_toolStripLog.TabIndex = 0;
 			this.m_toolStripLog.Text = "toolStrip1";
 			// 
@@ -200,25 +199,25 @@
 			// 
 			// m_tabFlytjendur
 			// 
-			this.m_tabFlytjendur.Controls.Add(this.toolStrip1);
+			this.m_tabFlytjendur.Controls.Add(this.m_toolStripFlytjendur);
 			this.m_tabFlytjendur.Location = new System.Drawing.Point(4, 22);
 			this.m_tabFlytjendur.Name = "m_tabFlytjendur";
 			this.m_tabFlytjendur.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabFlytjendur.Size = new System.Drawing.Size(623, 513);
+			this.m_tabFlytjendur.Size = new System.Drawing.Size(1100, 513);
 			this.m_tabFlytjendur.TabIndex = 2;
 			this.m_tabFlytjendur.Text = "Flytjendur";
 			this.m_tabFlytjendur.UseVisualStyleBackColor = true;
 			// 
-			// toolStrip1
+			// m_toolStripFlytjendur
 			// 
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.m_toolStripFlytjendur.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_tSbtnSkodaflytjendur,
             this.m_tSbtnSkraflytjendur});
-			this.toolStrip1.Location = new System.Drawing.Point(3, 3);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(617, 25);
-			this.toolStrip1.TabIndex = 0;
-			this.toolStrip1.Text = "toolStrip1";
+			this.m_toolStripFlytjendur.Location = new System.Drawing.Point(3, 3);
+			this.m_toolStripFlytjendur.Name = "m_toolStripFlytjendur";
+			this.m_toolStripFlytjendur.Size = new System.Drawing.Size(1094, 25);
+			this.m_toolStripFlytjendur.TabIndex = 0;
+			this.m_toolStripFlytjendur.Text = "toolStrip1";
 			// 
 			// m_tSbtnSkodaflytjendur
 			// 
@@ -242,8 +241,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(631, 575);
-			this.Controls.Add(this.tabControl1);
+			this.ClientSize = new System.Drawing.Size(1132, 575);
+			this.Controls.Add(this.m_TabControl);
 			this.Controls.Add(this.m_mainMenu);
 			this.MainMenuStrip = this.m_mainMenu;
 			this.Name = "MainWindow";
@@ -251,7 +250,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).EndInit();
 			this.m_mainMenu.ResumeLayout(false);
 			this.m_mainMenu.PerformLayout();
-			this.tabControl1.ResumeLayout(false);
+			this.m_TabControl.ResumeLayout(false);
 			this.m_tabVinsaeldarlistar.ResumeLayout(false);
 			this.m_tabVinsaeldarlistar.PerformLayout();
 			this.m_toolStripVinlistar.ResumeLayout(false);
@@ -262,8 +261,8 @@
 			this.m_toolStripLog.PerformLayout();
 			this.m_tabFlytjendur.ResumeLayout(false);
 			this.m_tabFlytjendur.PerformLayout();
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
+			this.m_toolStripFlytjendur.ResumeLayout(false);
+			this.m_toolStripFlytjendur.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -273,23 +272,23 @@
 
 		private System.Windows.Forms.BindingSource listBindingSource;
 		private System.Windows.Forms.MenuStrip m_mainMenu;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private HitParadeView hitParadeView1;
-		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.ToolStripMenuItem m_tSMenuItem;
+		private System.Windows.Forms.TabControl m_TabControl;
 		private System.Windows.Forms.TabPage m_tabVinsaeldarlistar;
 		private System.Windows.Forms.TabPage m_tabLog;
 		private System.Windows.Forms.TabPage m_tabFlytjendur;
 		private System.Windows.Forms.ToolStrip m_toolStripLog;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkodalog;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkralog;
-		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStrip m_toolStripFlytjendur;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkodaflytjendur;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkraflytjendur;
 		private System.Windows.Forms.ToolStrip m_toolStripVinlistar;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkodavinlistar;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkravinlista;
 		private SongView m_SongView;
-		private HitParadeView hitParadeView2;
+		private HitParadeView m_HitParadeView;
+		private m_ChartView m_ChartView1;
 	}
 }
 
