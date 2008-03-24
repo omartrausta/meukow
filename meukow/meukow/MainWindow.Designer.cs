@@ -35,9 +35,13 @@
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
+			this.hitParadeView2 = new meukow.HitParadeView();
 			this.m_toolStripVinlistar = new System.Windows.Forms.ToolStrip();
+			this.m_tSbtnSkodavinlistar = new System.Windows.Forms.ToolStripButton();
+			this.m_tSbtnSkravinlista = new System.Windows.Forms.ToolStripButton();
 			this.hitParadeView1 = new meukow.HitParadeView();
 			this.m_tabLog = new System.Windows.Forms.TabPage();
+			this.m_SongView = new meukow.SongView();
 			this.m_toolStripLog = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodalog = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkralog = new System.Windows.Forms.ToolStripButton();
@@ -45,8 +49,6 @@
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodaflytjendur = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkraflytjendur = new System.Windows.Forms.ToolStripButton();
-			this.m_tSbtnSkodavinlistar = new System.Windows.Forms.ToolStripButton();
-			this.m_tSbtnSkravinlista = new System.Windows.Forms.ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).BeginInit();
 			this.m_mainMenu.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -91,6 +93,7 @@
 			// 
 			// m_tabVinsaeldarlistar
 			// 
+			this.m_tabVinsaeldarlistar.Controls.Add(this.hitParadeView2);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_toolStripVinlistar);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.hitParadeView1);
 			this.m_tabVinsaeldarlistar.Location = new System.Drawing.Point(4, 22);
@@ -100,6 +103,14 @@
 			this.m_tabVinsaeldarlistar.TabIndex = 0;
 			this.m_tabVinsaeldarlistar.Text = "Vinsældarlistar";
 			this.m_tabVinsaeldarlistar.UseVisualStyleBackColor = true;
+			// 
+			// hitParadeView2
+			// 
+			this.hitParadeView2.Document = null;
+			this.hitParadeView2.Location = new System.Drawing.Point(0, 0);
+			this.hitParadeView2.Name = "hitParadeView2";
+			this.hitParadeView2.Size = new System.Drawing.Size(498, 608);
+			this.hitParadeView2.TabIndex = 4;
 			// 
 			// m_toolStripVinlistar
 			// 
@@ -112,6 +123,24 @@
 			this.m_toolStripVinlistar.TabIndex = 3;
 			this.m_toolStripVinlistar.Text = "toolStrip2";
 			// 
+			// m_tSbtnSkodavinlistar
+			// 
+			this.m_tSbtnSkodavinlistar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.m_tSbtnSkodavinlistar.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkodavinlistar.Image")));
+			this.m_tSbtnSkodavinlistar.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.m_tSbtnSkodavinlistar.Name = "m_tSbtnSkodavinlistar";
+			this.m_tSbtnSkodavinlistar.Size = new System.Drawing.Size(109, 22);
+			this.m_tSbtnSkodavinlistar.Text = "Skoða vinsældarlista";
+			// 
+			// m_tSbtnSkravinlista
+			// 
+			this.m_tSbtnSkravinlista.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.m_tSbtnSkravinlista.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkravinlista.Image")));
+			this.m_tSbtnSkravinlista.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.m_tSbtnSkravinlista.Name = "m_tSbtnSkravinlista";
+			this.m_tSbtnSkravinlista.Size = new System.Drawing.Size(101, 22);
+			this.m_tSbtnSkravinlista.Text = "Skrá vinsældarlista";
+			// 
 			// hitParadeView1
 			// 
 			this.hitParadeView1.Document = null;
@@ -122,6 +151,7 @@
 			// 
 			// m_tabLog
 			// 
+			this.m_tabLog.Controls.Add(this.m_SongView);
 			this.m_tabLog.Controls.Add(this.m_toolStripLog);
 			this.m_tabLog.Location = new System.Drawing.Point(4, 22);
 			this.m_tabLog.Name = "m_tabLog";
@@ -130,6 +160,14 @@
 			this.m_tabLog.TabIndex = 1;
 			this.m_tabLog.Text = "Lög";
 			this.m_tabLog.UseVisualStyleBackColor = true;
+			// 
+			// m_SongView
+			// 
+			this.m_SongView.Document = null;
+			this.m_SongView.Location = new System.Drawing.Point(0, 31);
+			this.m_SongView.Name = "m_SongView";
+			this.m_SongView.Size = new System.Drawing.Size(260, 449);
+			this.m_SongView.TabIndex = 1;
 			// 
 			// m_toolStripLog
 			// 
@@ -200,24 +238,6 @@
 			this.m_tSbtnSkraflytjendur.Size = new System.Drawing.Size(82, 22);
 			this.m_tSbtnSkraflytjendur.Text = "Skrá flytjendur";
 			// 
-			// m_tSbtnSkodavinlistar
-			// 
-			this.m_tSbtnSkodavinlistar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.m_tSbtnSkodavinlistar.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkodavinlistar.Image")));
-			this.m_tSbtnSkodavinlistar.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.m_tSbtnSkodavinlistar.Name = "m_tSbtnSkodavinlistar";
-			this.m_tSbtnSkodavinlistar.Size = new System.Drawing.Size(109, 22);
-			this.m_tSbtnSkodavinlistar.Text = "Skoða vinsældarlista";
-			// 
-			// m_tSbtnSkravinlista
-			// 
-			this.m_tSbtnSkravinlista.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.m_tSbtnSkravinlista.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkravinlista.Image")));
-			this.m_tSbtnSkravinlista.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.m_tSbtnSkravinlista.Name = "m_tSbtnSkravinlista";
-			this.m_tSbtnSkravinlista.Size = new System.Drawing.Size(101, 22);
-			this.m_tSbtnSkravinlista.Text = "Skrá vinsældarlista";
-			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,6 +288,8 @@
 		private System.Windows.Forms.ToolStrip m_toolStripVinlistar;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkodavinlistar;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkravinlista;
+		private SongView m_SongView;
+		private HitParadeView hitParadeView2;
 	}
 }
 
