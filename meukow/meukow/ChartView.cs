@@ -51,11 +51,18 @@ namespace meukow
 
 				Song song = new Song();
 				song = songDoc.GetSong(listProp.Song);
-				item.SubItems.Add(song.Name);
+				if (song != null)
+				{
+					item.SubItems.Add(song.Name);
 
-				Artist artist = new Artist();
-				artist = artistDoc.GetArtist(song.ArtistID);
-				item.SubItems.Add(artist.Name);
+					Artist artist = new Artist();
+					artist = artistDoc.GetArtist(song.ArtistID);
+					
+					if (artist != null)
+					{
+						item.SubItems.Add(artist.Name);
+					}
+				}
 
 				item.ImageIndex = 0;
 				item.Tag = listProp;
