@@ -107,9 +107,9 @@
 			// hitParadeView2
 			// 
 			this.hitParadeView2.Document = null;
-			this.hitParadeView2.Location = new System.Drawing.Point(0, 0);
+			this.hitParadeView2.Location = new System.Drawing.Point(0, 31);
 			this.hitParadeView2.Name = "hitParadeView2";
-			this.hitParadeView2.Size = new System.Drawing.Size(498, 608);
+			this.hitParadeView2.Size = new System.Drawing.Size(498, 577);
 			this.hitParadeView2.TabIndex = 4;
 			// 
 			// m_toolStripVinlistar
