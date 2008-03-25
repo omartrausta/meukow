@@ -17,8 +17,9 @@ namespace ClassLibrary
         #region Public functions
         public SongCollection GetAllSongs()
         {
-            String strSQL = "select * from Song";
-            return base.LoadCollection<SongCollection, Song>(strSQL);
+            String strSQL = "SELECT Song.Name, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+            //String strSQL = "SELECT Song.Name from
+			return base.LoadCollection<SongCollection, Song>(strSQL);
         }
 
         public Song GetSong(int nID)
