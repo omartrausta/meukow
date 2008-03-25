@@ -14,7 +14,7 @@ namespace ClassLibrary
 	private int m_nArtistID;
 	private String m_strSongPath;
 	private String m_strDescription;
-	private String m_strArtistName;
+	//private String m_strArtistName;
 
 	#endregion
 
@@ -50,11 +50,11 @@ namespace ClassLibrary
 		set { m_strDescription = value; }
 	}
 	
-	public String Artist
-	{
-		get { return m_strArtistName; }
-		set { m_strArtistName = value; }
-	}
+	//public String Artist
+	//{
+	//	get { return m_strArtistName; }
+	//	set { m_strArtistName = value; }
+	//}
 
 	#endregion
 	
@@ -78,10 +78,10 @@ namespace ClassLibrary
 	#region IDataList implementation
 	public void Load(IDataReader reader)
 	{
-		//m_nID = Convert.ToInt32(reader["ID"]);
+		m_nID = Convert.ToInt32(reader["ID"]);
 		m_strName = reader[ "Name" ].ToString( );
-		//m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
-		m_strArtistName = reader["ArtistName"].ToString();
+		m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
+		//m_strArtistName = reader["ArtistName"].ToString();
 		m_strSongPath = reader["SongPath"].ToString();
 		m_strDescription = reader["Description"].ToString();
 		

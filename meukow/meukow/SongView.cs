@@ -58,12 +58,18 @@ namespace meukow
 			if (!DesignMode)
 			{
 				m_Song_document = new SongDoc();
+				
 				m_listViewSong.Items.Clear();
-				SongCollection songs = Document1.GetAllSongs();
-				foreach (Song song in songs)
-				{
-					m_listViewSong.Items.Add(GetListViewItem(song));
-				}
+				
+				DataSet ds = new DataSet();
+				//SongCollection songs = Document1.GetAllSongs();
+				ds = m_Song_document.GetTable();
+				ds.Tables[0].TableName="Song";
+
+				//foreach (Song song in songs)
+				//{
+				//	m_listViewSong.Items.Add(GetListViewItem(song));
+				//}
 			}
 		}
 		#endregion
@@ -82,7 +88,7 @@ namespace meukow
 			
 			// Annar dálkurinn birtir kennitölu
 			
-			item.SubItems.Add(song.Artist);
+			item.SubItems.Add(song.ArtistID.ToString());
 			item.SubItems.Add(song.SongPath);
 			item.SubItems.Add(song.Description);
 
