@@ -1,8 +1,0 @@
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\bin\Debug\meukowLayout.exe
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\bin\Debug\meukowLayout.pdb
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\meukowLayout.Form1.resources
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\meukowLayout.Properties.Resources.resources
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\meukowLayout.csproj.GenerateResource.Cache
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\meukowLayout.exe
-C:\Documents and Settings\olafurkr\Desktop\meukow\layout\meukowLayout\meukowLayout\meukowLayout\obj\Debug\meukowLayout.pdb
