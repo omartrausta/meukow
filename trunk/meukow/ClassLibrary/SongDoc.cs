@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using ClassLibrary.Common.Data;
 
@@ -17,10 +18,16 @@ namespace ClassLibrary
         #region Public functions
         public SongCollection GetAllSongs()
         {
-            String strSQL = "SELECT Song.Name, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
-            //String strSQL = "SELECT Song.Name from
+            //String strSQL = "SELECT Song.Name, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+            String strSQL = "SELECT * from Song";
 			return base.LoadCollection<SongCollection, Song>(strSQL);
         }
+
+    	public DataSet GetTable()
+		{
+    		String strSQL = "Select * from Song";
+    		return base.LoadData(strSQL);
+		}
 
         public Song GetSong(int nID)
         {
