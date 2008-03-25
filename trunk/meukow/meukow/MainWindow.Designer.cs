@@ -162,7 +162,6 @@
 			// 
 			// m_SongView
 			// 
-			this.m_SongView.Document = null;
 			this.m_SongView.Location = new System.Drawing.Point(0, 31);
 			this.m_SongView.Name = "m_SongView";
 			this.m_SongView.Size = new System.Drawing.Size(260, 449);

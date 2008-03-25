@@ -28,8 +28,6 @@ namespace meukow
 		#region Member variables
 		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
 		private SongDoc m_Song_document;
-		private ArtistDoc m_Artist_document;
-		private Artist m_Artist;
 		#endregion
 
 		#region Properties
@@ -38,12 +36,6 @@ namespace meukow
 			get { return m_Song_document; }
 			set { m_Song_document = value; }
 		}
-		public ArtistDoc Document2
-		{
-			get { return m_Artist_document; }
-			set { m_Artist_document = value; }
-		}
-
 
 		#endregion
 
@@ -66,13 +58,10 @@ namespace meukow
 			if (!DesignMode)
 			{
 				m_Song_document = new SongDoc();
-				m_Artist_document = new ArtistDoc();
-				m_Artist = new Artist();
 				m_listViewSong.Items.Clear();
 				SongCollection songs = Document1.GetAllSongs();
 				foreach (Song song in songs)
 				{
-					m_Artist = m_Artist_document.GetArtist(song.ArtistID);
 					m_listViewSong.Items.Add(GetListViewItem(song));
 				}
 			}
@@ -93,7 +82,7 @@ namespace meukow
 			
 			// Annar dálkurinn birtir kennitölu
 			
-			item.SubItems.Add(m_Artist.Name);
+			item.SubItems.Add(song.Artist);
 			item.SubItems.Add(song.SongPath);
 			item.SubItems.Add(song.Description);
 
