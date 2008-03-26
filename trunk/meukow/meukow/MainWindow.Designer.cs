@@ -106,10 +106,12 @@
 			// 
 			// chartView1
 			// 
+			this.chartView1.List = null;
 			this.chartView1.Location = new System.Drawing.Point(364, 31);
 			this.chartView1.Name = "chartView1";
 			this.chartView1.Size = new System.Drawing.Size(328, 330);
 			this.chartView1.TabIndex = 5;
+			this.chartView1.Load += new System.EventHandler(this.OnLoad);
 			// 
 			// m_HitParadeView
 			// 
@@ -162,6 +164,7 @@
 			// 
 			// m_SongView
 			// 
+			this.m_SongView.Document1 = null;
 			this.m_SongView.Location = new System.Drawing.Point(0, 31);
 			this.m_SongView.Name = "m_SongView";
 			this.m_SongView.Size = new System.Drawing.Size(260, 449);

@@ -38,6 +38,8 @@
     <Compile Include="ArtistConnection.cs" />
     <Compile Include="ArtistConnectionDoc.cs" />
     <Compile Include="ArtistDoc.cs" />
+    <Compile Include="Chart.cs" />
+    <Compile Include="ChartDoc.cs" />
     <Compile Include="Common\Data\BaseDocument.cs" />
     <Compile Include="Common\Data\ColumnDescription.cs" />
     <Compile Include="Common\Data\DataList.cs" />
