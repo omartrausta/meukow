@@ -291,6 +291,7 @@
 		private SongView m_SongView;
 		private HitParadeView m_HitParadeView;
 		private ChartView chartView1;
+        private ArtistView m_ArtistView;
 	}
 }
 
