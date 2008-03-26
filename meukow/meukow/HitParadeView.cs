@@ -77,10 +77,7 @@ namespace meukow
 			m_listViewHitParade.ListViewItemSorter = new ListSorter((ListColumns)e.Column, lastOrder);
 		}
 
-		//private void OnClick(object sender, EventArgs e)
-		//{
-		//    OnSelectList();
-		//}
+		
 		#endregion
 
 		#region Protected functions
@@ -125,9 +122,7 @@ namespace meukow
 		}
 
 		#endregion
-
-
-
+		
 		public void OnUpdateChart()
 		{
 			if(m_listViewHitParade.SelectedItems.Count == 1)
@@ -144,24 +139,24 @@ namespace meukow
 
 			
 		}
-		//public void OnSelectList()
-		//{
-		//    if( m_listViewHitParade.SelectedItems.Count == 1 )
-		//    {
-		//            ListViewItem listViewItem = m_listViewHitParade.SelectedItems[ 0 ];
 
-		//            // Þetta typecast er í lagi því GetListViewItem sér alltaf
-		//            // um að setja Student tilvik inn í Tag property-ið á 
-		//            // sérhverju itemi:
-		//            List list = (List)listViewItem.Tag;
+		private String OnSelectList()
+		{
+			if (m_listViewHitParade.SelectedItems.Count == 1)
+			{
+				ListViewItem listViewItem = m_listViewHitParade.SelectedItems[0];
 
-		//            using ( ChartView view = new ChartView( ) )
-		//            {
-		//                view.List = list;
-		//                view.GetList();
-		//            }
-		//    }
-		//}
+				// Þetta typecast er í lagi því GetListViewItem sér alltaf
+				// um að setja Student tilvik inn í Tag property-ið á 
+				// sérhverju itemi:
+				List list = (List)listViewItem.Tag;
+
+				return list.ID.ToString();
+			}
+			else
+				return null;
+		}
+
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
@@ -202,9 +197,9 @@ namespace meukow
 			// m_listViewHitParade
 			// 
 			this.m_listViewHitParade.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-			                                                                                  	this.m_colHeaderName,
-			                                                                                  	this.m_colHeaderNameStarts,
-			                                                                                  	this.m_colHeaderNameEnds});
+            this.m_colHeaderName,
+            this.m_colHeaderNameStarts,
+            this.m_colHeaderNameEnds});
 			this.m_listViewHitParade.ContextMenuStrip = this.m_contextMenuList;
 			this.m_listViewHitParade.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_listViewHitParade.FullRowSelect = true;
@@ -216,7 +211,7 @@ namespace meukow
 			this.m_listViewHitParade.UseCompatibleStateImageBehavior = false;
 			this.m_listViewHitParade.View = System.Windows.Forms.View.Details;
 			this.m_listViewHitParade.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.OnSortList);
-			//this.m_listViewHitParade.Click += new System.EventHandler(this.OnClick);
+			this.m_listViewHitParade.Click += new System.EventHandler(this.OnClick);
 			// 
 			// m_colHeaderName
 			// 
@@ -237,8 +232,8 @@ namespace meukow
 			// m_contextMenuList
 			// 
 			this.m_contextMenuList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			                                                                               	this.m_menuItemEditList,
-			                                                                               	this.m_menuItemDeleteList});
+            this.m_menuItemEditList,
+            this.m_menuItemDeleteList});
 			this.m_contextMenuList.Name = "m_contextMenuList";
 			this.m_contextMenuList.Size = new System.Drawing.Size(136, 48);
 			// 
@@ -276,5 +271,21 @@ namespace meukow
 		private System.Windows.Forms.ContextMenuStrip m_contextMenuList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemEditList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteList;
+
+		public delegate void HitParadeHandler(string msg);
+
+		public event HitParadeHandler HitParadeSelected;
+
+		private void OnClick(object sender, EventArgs e)
+		{
+			if (HitParadeSelected != null)
+			{
+				String nID = OnSelectList();
+				if (nID != null)
+				{
+					HitParadeSelected(nID);
+				}
+			}
+		}
 	}
 }
