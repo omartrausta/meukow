@@ -68,23 +68,23 @@ namespace meukow
 			}
 		}
 		#endregion
-
+		
 		#region Protected functions
 		/// <summary>
 		/// Fall sem tekur inn tilvik af Song, og skilar til baka
 		/// ListViewItem færslu sem táknar þetta lag.
 		/// </summary>
-		/// <param name="song"></param>
+		/// <param name=""></param>
 		/// <returns></returns>
-		private static ListViewItem GetListViewItem(Song song)
-		{
+		private ListViewItem GetListViewItem(Song song)
+		{	
 			// Fyrsti dálkurinn birtir nafn:
-			ListViewItem item = new ListViewItem(song.Name);
+			ListViewItem item = new ListViewItem(song.Name.ToString());
 
 			// Annar dálkurinn birtir kennitölu:
 			item.SubItems.Add(song.ArtistID.ToString());
-			item.SubItems.Add(song.SongPath);
-			item.SubItems.Add(song.Description);
+			item.SubItems.Add(song.SongPath.ToString());
+			item.SubItems.Add(song.Description.ToString());
 
 			// Allir nemendur fá sama icon í þetta skiptið:
 			item.ImageIndex = 0;
@@ -93,7 +93,7 @@ namespace meukow
 
 			// Látum sérhvert ListViewItem vita hvaða nemandi 
 			// hangir við hverja færslu:
-			item.Tag = song;
+			item.Tag = Name;
 
 			// Nóg í bili...
 			return item;
