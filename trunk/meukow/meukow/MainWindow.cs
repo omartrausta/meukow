@@ -19,6 +19,7 @@ namespace meukow
 			InitializeComponent();
 			m_HitParadeView.Document = doc;
 			m_chartView.Doc = chartdoc;
+			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
 		}
 
 		//private void OnParadeClick(object sender, EventArgs e)
@@ -133,7 +134,7 @@ namespace meukow
 			// m_chartView
 			// 
 			this.m_chartView.Doc = null;
-			this.m_chartView.List = null;
+			this.m_chartView.Chart = null;
 			this.m_chartView.Location = new System.Drawing.Point(364, 31);
 			this.m_chartView.Name = "m_chartView";
 			this.m_chartView.Size = new System.Drawing.Size(328, 330);

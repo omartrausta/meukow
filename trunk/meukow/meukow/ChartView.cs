@@ -12,14 +12,14 @@ namespace meukow
 	public class ChartView : UserControl
 	{
 		#region Member variables
-		private List m_list;
-		private ChartDoc m_chart;
+		private Chart m_chart;
+		private ChartDoc m_chartDoc;
 		public HitParadeView hitParadeView;	
 
 		public ChartDoc Doc
 		{
-			get { return m_chart; }
-			set { m_chart = value; }
+			get { return m_chartDoc; }
+			set { m_chartDoc = value; }
 		}
 
 
@@ -35,59 +35,24 @@ namespace meukow
 		#endregion
 
 		#region Properties
-		public List List
+		public Chart Chart
 		{
 			get
 			{
-				return m_list;
+				return m_chart;
 			}
 			set
 			{
-				m_list = value;
+				m_chart = value;
 			}
 		}
 		#endregion
-
-		//public void GetList( )
-		//{
-		//    ListPropCollection propCollection = new ListPropCollection();
-		//    ListPropDoc listPropDoc = new ListPropDoc();
-		//    SongDoc songDoc = new SongDoc();
-		//    ArtistDoc artistDoc = new ArtistDoc();
-			
-		//    propCollection = listPropDoc.GetListPropByList( m_list.ID);
-
-		//    foreach (ListProp listProp in propCollection)
-		//    {
-		//        ListViewItem item = new ListViewItem(listProp.Position.ToString());
-
-		//        Song song = new Song();
-		//        song = songDoc.GetSong(listProp.Song);
-		//        if (song != null)
-		//        {
-		//            item.SubItems.Add(song.Name);
-
-		//            Artist artist = new Artist();
-		//            artist = artistDoc.GetArtist(song.ArtistID);
-					
-		//            if (artist != null)
-		//            {
-		//                item.SubItems.Add(artist.Name);
-		//            }
-		//        }
-
-		//        item.ImageIndex = 0;
-		//        item.Tag = listProp;
-
-		//        m_listViewChart.Items.Add(item);
-		//	}
-		//}
-
+				
 		public void OnUpdateChart(int ID)
 		{
 			if (!this.DesignMode)
 			{
-				m_chart = new ChartDoc();
+				m_chartDoc = new ChartDoc();
 				m_listViewChart.Items.Clear();
 
 				//Chart.ChartCollection charts = Doc.GetAllList();
@@ -95,7 +60,7 @@ namespace meukow
 
 
 
-				DataSet ds = m_chart.GetChartList(ID);
+				DataSet ds = m_chartDoc.GetChartList(ID);
 				DataTable dv = ds.Tables[0];
 
 				for (int i = 0; i < dv.Rows.Count; i++)
@@ -217,6 +182,11 @@ namespace meukow
 		}
 
 		#endregion
+
+		public void OnHitParadeSelected(String strID)
+		{
+			OnUpdateChart(Convert.ToInt32(strID));
+		}
 
 		public System.Windows.Forms.ListView m_listViewChart;
 		private System.Windows.Forms.ColumnHeader m_colSaeti;
