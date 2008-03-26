@@ -36,6 +36,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ArtistView.Designer.cs">
+      <DependentUpon>ArtistView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListSorter.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -48,6 +54,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ArtistView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ArtistView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainWindow.cs</DependentUpon>
