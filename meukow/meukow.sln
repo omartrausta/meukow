@@ -2,8 +2,16 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "meukow", "meukow\meukow.csproj", "{005A3FCA-A60E-4986-AF85-9A6C4DBA7B2A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{C0140176-A3E1-44DB-959D-56A74A5F47BB}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\", "{017DE175-E49E-4B04-B22E-9E80686C27DD}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -22,11 +30,15 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1352"
+		VWDPort = "1462"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryTest", "ClassLibraryTest\ClassLibraryTest.csproj", "{311ADFC0-72CB-4B6F-A005-4B7116FB4766}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
