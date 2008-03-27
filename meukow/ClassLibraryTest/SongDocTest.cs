@@ -31,6 +31,7 @@ namespace ClassLibraryTest
 
 			song.Name = "SongName";
 			song.ArtistID = 2;
+			song.Artist = "ArtistName";
 			song.SongPath = "SongPath";
 			song.Description = "SongDescription";
 
@@ -45,13 +46,14 @@ namespace ClassLibraryTest
 			String strSQL = "select * from Song where ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
-
+			
 			while (reader.Read())
 			{
 				expected.Load(reader);
 
 				Assert.AreEqual(expected.ID,song.ID, "ID is not correct");
 				Assert.AreEqual(expected.Name, song.Name, "Name is not correct");
+				Assert.AreEqual(expected.Artist, song.Artist, "Artist ID is not correct");
 				Assert.AreEqual(expected.ArtistID, song.ArtistID, "Artist is not correct");
 				Assert.AreEqual(expected.SongPath, song.SongPath, "SongPath is not correct");
 				Assert.AreEqual(expected.Description, song.Description, "Description is not correct");

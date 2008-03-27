@@ -292,7 +292,7 @@ namespace meukow
 			this.Controls.Add(this.m_mainMenu);
 			this.MainMenuStrip = this.m_mainMenu;
 			this.Name = "MainWindow";
-			this.Text = "MainWindow V 0.106";
+			this.Text = "MainWindow V 0.107";
 			this.m_mainMenu.ResumeLayout(false);
 			this.m_mainMenu.PerformLayout();
 			this.m_TabControl.ResumeLayout(false);
