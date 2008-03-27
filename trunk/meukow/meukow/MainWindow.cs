@@ -78,11 +78,11 @@ namespace meukow
 			this.m_tSbtnSkodalog = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkralog = new System.Windows.Forms.ToolStripButton();
 			this.m_tabFlytjendur = new System.Windows.Forms.TabPage();
+			this.artistView1 = new meukow.ArtistView();
 			this.m_toolStripFlytjendur = new System.Windows.Forms.ToolStrip();
 			this.m_tSbtnSkodaflytjendur = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnSkraflytjendur = new System.Windows.Forms.ToolStripButton();
 			this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.artistView1 = new meukow.ArtistView();
 			this.m_mainMenu.SuspendLayout();
 			this.m_TabControl.SuspendLayout();
 			this.m_tabVinsaeldarlistar.SuspendLayout();
@@ -100,7 +100,7 @@ namespace meukow
             this.m_tSMenuItem});
 			this.m_mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.m_mainMenu.Name = "m_mainMenu";
-			this.m_mainMenu.Size = new System.Drawing.Size(1132, 24);
+			this.m_mainMenu.Size = new System.Drawing.Size(708, 24);
 			this.m_mainMenu.TabIndex = 0;
 			this.m_mainMenu.Text = "menuStrip1";
 			// 
@@ -138,7 +138,7 @@ namespace meukow
 			// 
 			this.m_chartView.Chart = null;
 			this.m_chartView.Doc = null;
-			this.m_chartView.Location = new System.Drawing.Point(364, 31);
+			this.m_chartView.Location = new System.Drawing.Point(339, 31);
 			this.m_chartView.Name = "m_chartView";
 			this.m_chartView.Size = new System.Drawing.Size(328, 330);
 			this.m_chartView.TabIndex = 5;
@@ -146,9 +146,9 @@ namespace meukow
 			// m_HitParadeView
 			// 
 			this.m_HitParadeView.Document = null;
-			this.m_HitParadeView.Location = new System.Drawing.Point(23, 31);
+			this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
 			this.m_HitParadeView.Name = "m_HitParadeView";
-			this.m_HitParadeView.Size = new System.Drawing.Size(320, 476);
+			this.m_HitParadeView.Size = new System.Drawing.Size(320, 461);
 			this.m_HitParadeView.TabIndex = 4;
 			// 
 			// m_toolStripVinlistar
@@ -198,7 +198,7 @@ namespace meukow
 			this.m_SongView.Document = null;
 			this.m_SongView.Location = new System.Drawing.Point(0, 31);
 			this.m_SongView.Name = "m_SongView";
-			this.m_SongView.Size = new System.Drawing.Size(446, 449);
+			this.m_SongView.Size = new System.Drawing.Size(434, 449);
 			this.m_SongView.TabIndex = 1;
 			// 
 			// m_toolStripLog
@@ -242,6 +242,14 @@ namespace meukow
 			this.m_tabFlytjendur.Text = "Flytjendur";
 			this.m_tabFlytjendur.UseVisualStyleBackColor = true;
 			// 
+			// artistView1
+			// 
+			this.artistView1.Document = null;
+			this.artistView1.Location = new System.Drawing.Point(0, 31);
+			this.artistView1.Name = "artistView1";
+			this.artistView1.Size = new System.Drawing.Size(532, 453);
+			this.artistView1.TabIndex = 1;
+			// 
 			// m_toolStripFlytjendur
 			// 
 			this.m_toolStripFlytjendur.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -275,24 +283,16 @@ namespace meukow
 			// 
 			this.listBindingSource.DataSource = typeof(ClassLibrary.List);
 			// 
-			// artistView1
-			// 
-			this.artistView1.Document = null;
-			this.artistView1.Location = new System.Drawing.Point(0, 31);
-			this.artistView1.Name = "artistView1";
-			this.artistView1.Size = new System.Drawing.Size(532, 453);
-			this.artistView1.TabIndex = 1;
-			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1132, 575);
+			this.ClientSize = new System.Drawing.Size(708, 575);
 			this.Controls.Add(this.m_TabControl);
 			this.Controls.Add(this.m_mainMenu);
 			this.MainMenuStrip = this.m_mainMenu;
 			this.Name = "MainWindow";
-			this.Text = "MainWindow";
+			this.Text = "MainWindow V 0.106";
 			this.m_mainMenu.ResumeLayout(false);
 			this.m_mainMenu.PerformLayout();
 			this.m_TabControl.ResumeLayout(false);

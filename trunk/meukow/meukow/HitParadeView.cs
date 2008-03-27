@@ -28,6 +28,8 @@ namespace meukow
 		#region Member variables
 		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
 		private ListDoc m_document;
+		public delegate void HitParadeHandler(string msg);
+		public event HitParadeHandler HitParadeSelected;
 		public ChartDoc m_chartDocument;
 		#endregion
 
@@ -128,16 +130,8 @@ namespace meukow
 			if(m_listViewHitParade.SelectedItems.Count == 1)
 			{
 				ListViewItem listViewItem = m_listViewHitParade.SelectedItems[0];
-				int ID = Convert.ToInt32(listViewItem.Index);
-
-				
-
-		
-				
-			}
-
-
-			
+				int ID = Convert.ToInt32(listViewItem.Index);		
+			}		
 		}
 
 		private String OnSelectList()
@@ -155,6 +149,18 @@ namespace meukow
 			}
 			else
 				return null;
+		}
+
+		private void OnClick(object sender, EventArgs e)
+		{
+			if (HitParadeSelected != null)
+			{
+				String nID = OnSelectList();
+				if (nID != null)
+				{
+					HitParadeSelected(nID);
+				}
+			}
 		}
 
 		/// <summary> 
@@ -271,21 +277,5 @@ namespace meukow
 		private System.Windows.Forms.ContextMenuStrip m_contextMenuList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemEditList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteList;
-
-		public delegate void HitParadeHandler(string msg);
-
-		public event HitParadeHandler HitParadeSelected;
-
-		private void OnClick(object sender, EventArgs e)
-		{
-			if (HitParadeSelected != null)
-			{
-				String nID = OnSelectList();
-				if (nID != null)
-				{
-					HitParadeSelected(nID);
-				}
-			}
-		}
 	}
 }

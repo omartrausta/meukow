@@ -18,14 +18,14 @@ namespace ClassLibrary
         #region Public functions
         public SongCollection GetAllSongs()
         {
-            //String strSQL = "SELECT Song.Name, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
-            String strSQL = "SELECT * from Song";
+            String strSQL = "SELECT Song.Name, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+            //String strSQL = "SELECT * from Song";
 			return base.LoadCollection<SongCollection, Song>(strSQL);
         }
 
     	public DataSet GetTable()
 		{
-    		String strSQL = "Select * from Song";
+    		String strSQL = "SELECT * Song";
     		return base.LoadData(strSQL);
 		}
 
