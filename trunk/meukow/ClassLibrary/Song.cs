@@ -78,9 +78,9 @@ namespace ClassLibrary
 	#region IDataList implementation
 	public void Load(IDataReader reader)
 	{
-		//m_nID = Convert.ToInt32(reader["ID"]);
+		m_nID = Convert.ToInt32(reader["ID"]);
 		m_strName = reader[ "Name" ].ToString( );
-		//m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
+		m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
 		m_strArtistName = reader["ArtistName"].ToString();
 		m_strSongPath = reader["SongPath"].ToString();
 		m_strDescription = reader["Description"].ToString();
@@ -136,7 +136,7 @@ namespace ClassLibrary
 				case "Name":
 					return x.Name.CompareTo( y.Name );
 				case "Artist":
-					return x.ArtistID.CompareTo( y.Artist );
+					return x.Artist.CompareTo( y.Artist );
 				case "SongPath":
 					return x.SongPath.CompareTo( y.SongPath );
 				case "Description":

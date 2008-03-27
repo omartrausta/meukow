@@ -28,7 +28,7 @@ namespace meukow
 	public partial class SongView : UserControl
 	{
 		#region Member variables
-		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
+		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)SongColumns.NumberOfColumns];
 		private SongDoc m_document;
 		#endregion
 

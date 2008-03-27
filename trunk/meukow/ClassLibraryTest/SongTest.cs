@@ -129,7 +129,7 @@ namespace ClassLibraryTest
             connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
             connection.Open();
 
-            String strSQL = "select * from Song";
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
             OleDbCommand command = new OleDbCommand(strSQL, connection);
             reader = command.ExecuteReader();
 
@@ -139,7 +139,8 @@ namespace ClassLibraryTest
 
                 Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
                 Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
-                Assert.AreEqual(Convert.ToInt32(reader["ArtistID"]), target.ArtistID, "ArtistID is not correct");
+                Assert.AreEqual(reader["ArtistID"],target.ArtistID,"ArtistID is not correct");
+				Assert.AreEqual(reader["ArtistName"].ToString(), target.Artist, "ArtistName is not correct");
                 Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath, "SongPath is not correct");
                 Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
             }
