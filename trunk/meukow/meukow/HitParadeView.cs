@@ -162,6 +162,120 @@ namespace meukow
 				int ID = Convert.ToInt32(listViewItem.Index);
 			}
 		}
+
+		public void OnEditList()
+		{
+			try
+			{
+				if ( m_listViewHitParade.SelectedItems.Count == 1 )
+				{
+					// ListView á ekkert SelectedItem property, en skilar
+					// hinsvegar collection af völdum færslum, því sá
+					// möguleiki er fyrir hendi að ListView sé MultiSelect.
+					// Við erum samt ekki að nota okkur MultiSelect í þessu
+					// tilfelli (sjá properties fyrir ListView stýringuna).
+					ListViewItem listViewItem = m_listViewHitParade.SelectedItems[ 0 ];
+
+					// Þetta typecast er í lagi því GetListViewItem sér alltaf
+					// um að setja Student tilvik inn í Tag property-ið á 
+					// sérhverju itemi:
+					List list = (List)listViewItem.Tag;
+
+					using ( ListDlg dlg = new ListDlg( ) )
+					{
+						dlg.List = list;
+
+						if ( dlg.ShowDialog( ) == DialogResult.OK )
+						{
+							// Sækjum gögnin aftur úr samtalsglugganum:
+							list = dlg.List;
+
+							// Látum vinnslulagið uppfæra nemandann. Ef það
+							// mistekst er kastað villu.
+							Document.UpdateList( list );
+
+							int nIndex = listViewItem.Index;
+							// Við uppfærum færsluna með því að fjarlægja þá sem
+							// er fyrir og setja nýja inn:
+							m_listViewHitParade.Items.Remove( listViewItem );
+							m_listViewHitParade.Items.Insert( nIndex, GetListViewItem( list ) );
+						}
+					}
+				}
+			}
+			catch ( Exception ex )
+			{
+				HandleError( ex );
+			}
+		}
+
+		public void OnNewList()
+		{
+			try
+			{
+				using( ListDlg dlg = new ListDlg())
+				{
+					dlg.List = new List();
+					if ( dlg.ShowDialog( ) == DialogResult.OK )
+					{
+						List list = dlg.List;
+
+						// Ef þetta klikkar verður kastað villu:
+						Document.AddList(list);
+
+						m_listViewHitParade.Items.Add( GetListViewItem( list ) );
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				HandleError(ex);
+			}
+		}
+
+		public void OnDeleteList()
+		{
+			try
+			{
+				if (m_listViewHitParade.SelectedItems.Count == 1)
+				{
+					if (MessageBox.Show("Viltu örugglega eyða þessum lista?", "DeleteList",
+						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+					{
+						ListViewItem listViewItem = m_listViewHitParade.SelectedItems[0];
+						// Sama gildir hér og í OnEditStudent.
+						List list = (List)listViewItem.Tag;
+
+						// Hér verður kastað villu ef þetta mistekst:
+						Document.DeleteList(list);
+						m_listViewHitParade.Items.Remove(listViewItem);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				HandleError(ex);
+			}
+		}
 		#endregion
+
+		#region Private functions
+		private void OnMenuEditList(object sender, EventArgs e)
+		{
+			OnEditList();
+		}
+
+		private void OnMenuCreateList(object sender, EventArgs e)
+		{
+			OnNewList();
+		}
+
+		private void OnMenuDeleteList(object sender, EventArgs e)
+		{
+			OnDeleteList();
+		}
+
+		#endregion
+
 	}
 }

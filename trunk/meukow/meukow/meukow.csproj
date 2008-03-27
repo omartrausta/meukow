@@ -83,6 +83,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>ArtistView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ListDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ListDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainWindow.cs</DependentUpon>

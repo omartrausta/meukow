@@ -34,22 +34,23 @@
             this.m_tSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_TabControl = new System.Windows.Forms.TabControl();
             this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
+            this.m_chartView = new meukow.ChartView();
+            this.m_HitParadeView = new meukow.HitParadeView();
             this.m_toolStripHitParadeList = new System.Windows.Forms.ToolStrip();
+            this.m_tSbtnNew = new System.Windows.Forms.ToolStripButton();
             this.m_tSbtnChange = new System.Windows.Forms.ToolStripButton();
-            this.m_tSbtnCreate = new System.Windows.Forms.ToolStripButton();
+            this.m_tSbtnDelete = new System.Windows.Forms.ToolStripButton();
             this.m_tabLog = new System.Windows.Forms.TabPage();
+            this.m_SongView = new meukow.SongView();
             this.m_toolStripLog = new System.Windows.Forms.ToolStrip();
             this.m_tSbtnSkodalog = new System.Windows.Forms.ToolStripButton();
             this.m_tSbtnSkralog = new System.Windows.Forms.ToolStripButton();
             this.m_tabFlytjendur = new System.Windows.Forms.TabPage();
+            this.artistView1 = new meukow.ArtistView();
             this.m_toolStripFlytjendur = new System.Windows.Forms.ToolStrip();
             this.m_tSbtnSkodaflytjendur = new System.Windows.Forms.ToolStripButton();
             this.m_tSbtnSkraflytjendur = new System.Windows.Forms.ToolStripButton();
             this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.m_chartView = new meukow.ChartView();
-            this.m_HitParadeView = new meukow.HitParadeView();
-            this.m_SongView = new meukow.SongView();
-            this.artistView1 = new meukow.ArtistView();
             this.m_mainMenu.SuspendLayout();
             this.m_TabControl.SuspendLayout();
             this.m_tabVinsaeldarlistar.SuspendLayout();
@@ -101,16 +102,44 @@
             this.m_tabVinsaeldarlistar.Text = "Vinsældarlistar";
             this.m_tabVinsaeldarlistar.UseVisualStyleBackColor = true;
             // 
+            // m_chartView
+            // 
+            this.m_chartView.Chart = null;
+            this.m_chartView.Doc = null;
+            this.m_chartView.Location = new System.Drawing.Point(337, 31);
+            this.m_chartView.Name = "m_chartView";
+            this.m_chartView.Size = new System.Drawing.Size(328, 330);
+            this.m_chartView.TabIndex = 5;
+            // 
+            // m_HitParadeView
+            // 
+            this.m_HitParadeView.Document = null;
+            this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
+            this.m_HitParadeView.Name = "m_HitParadeView";
+            this.m_HitParadeView.Size = new System.Drawing.Size(320, 461);
+            this.m_HitParadeView.TabIndex = 4;
+            // 
             // m_toolStripHitParadeList
             // 
             this.m_toolStripHitParadeList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_tSbtnNew,
             this.m_tSbtnChange,
-            this.m_tSbtnCreate});
+            this.m_tSbtnDelete});
             this.m_toolStripHitParadeList.Location = new System.Drawing.Point(3, 3);
             this.m_toolStripHitParadeList.Name = "m_toolStripHitParadeList";
             this.m_toolStripHitParadeList.Size = new System.Drawing.Size(1094, 25);
             this.m_toolStripHitParadeList.TabIndex = 3;
             this.m_toolStripHitParadeList.Text = "toolStrip2";
+            // 
+            // m_tSbtnNew
+            // 
+            this.m_tSbtnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.m_tSbtnNew.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnNew.Image")));
+            this.m_tSbtnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.m_tSbtnNew.Name = "m_tSbtnNew";
+            this.m_tSbtnNew.Size = new System.Drawing.Size(32, 22);
+            this.m_tSbtnNew.Text = "Skrá";
+            this.m_tSbtnNew.Click += new System.EventHandler(this.OnNewHitParade);
             // 
             // m_tSbtnChange
             // 
@@ -118,18 +147,19 @@
             this.m_tSbtnChange.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnChange.Image")));
             this.m_tSbtnChange.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_tSbtnChange.Name = "m_tSbtnChange";
-            this.m_tSbtnChange.Size = new System.Drawing.Size(109, 22);
-            this.m_tSbtnChange.Text = "Skoða vinsældarlista";
-            this.m_tSbtnChange.Click += new System.EventHandler(this.m_tSbtnSkodavinlistar_Click);
+            this.m_tSbtnChange.Size = new System.Drawing.Size(43, 22);
+            this.m_tSbtnChange.Text = "Breyta";
+            this.m_tSbtnChange.Click += new System.EventHandler(this.OnEditHitParade);
             // 
-            // m_tSbtnCreate
+            // m_tSbtnDelete
             // 
-            this.m_tSbtnCreate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.m_tSbtnCreate.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnCreate.Image")));
-            this.m_tSbtnCreate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.m_tSbtnCreate.Name = "m_tSbtnCreate";
-            this.m_tSbtnCreate.Size = new System.Drawing.Size(101, 22);
-            this.m_tSbtnCreate.Text = "Skrá vinsældarlista";
+            this.m_tSbtnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.m_tSbtnDelete.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnDelete.Image")));
+            this.m_tSbtnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.m_tSbtnDelete.Name = "m_tSbtnDelete";
+            this.m_tSbtnDelete.Size = new System.Drawing.Size(35, 22);
+            this.m_tSbtnDelete.Text = "Eyða";
+            this.m_tSbtnDelete.Click += new System.EventHandler(this.OnDeleteHitParade);
             // 
             // m_tabLog
             // 
@@ -142,6 +172,14 @@
             this.m_tabLog.TabIndex = 1;
             this.m_tabLog.Text = "Lög";
             this.m_tabLog.UseVisualStyleBackColor = true;
+            // 
+            // m_SongView
+            // 
+            this.m_SongView.Document = null;
+            this.m_SongView.Location = new System.Drawing.Point(0, 31);
+            this.m_SongView.Name = "m_SongView";
+            this.m_SongView.Size = new System.Drawing.Size(434, 449);
+            this.m_SongView.TabIndex = 1;
             // 
             // m_toolStripLog
             // 
@@ -184,6 +222,14 @@
             this.m_tabFlytjendur.Text = "Flytjendur";
             this.m_tabFlytjendur.UseVisualStyleBackColor = true;
             // 
+            // artistView1
+            // 
+            this.artistView1.Document = null;
+            this.artistView1.Location = new System.Drawing.Point(0, 31);
+            this.artistView1.Name = "artistView1";
+            this.artistView1.Size = new System.Drawing.Size(532, 453);
+            this.artistView1.TabIndex = 1;
+            // 
             // m_toolStripFlytjendur
             // 
             this.m_toolStripFlytjendur.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -217,39 +263,6 @@
             // listBindingSource
             // 
             this.listBindingSource.DataSource = typeof(ClassLibrary.List);
-            // 
-            // m_chartView
-            // 
-            this.m_chartView.Chart = null;
-            this.m_chartView.Doc = null;
-            this.m_chartView.Location = new System.Drawing.Point(337, 31);
-            this.m_chartView.Name = "m_chartView";
-            this.m_chartView.Size = new System.Drawing.Size(328, 330);
-            this.m_chartView.TabIndex = 5;
-            // 
-            // m_HitParadeView
-            // 
-            this.m_HitParadeView.Document = null;
-            this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
-            this.m_HitParadeView.Name = "m_HitParadeView";
-            this.m_HitParadeView.Size = new System.Drawing.Size(320, 461);
-            this.m_HitParadeView.TabIndex = 4;
-            // 
-            // m_SongView
-            // 
-            this.m_SongView.Document = null;
-            this.m_SongView.Location = new System.Drawing.Point(0, 31);
-            this.m_SongView.Name = "m_SongView";
-            this.m_SongView.Size = new System.Drawing.Size(434, 449);
-            this.m_SongView.TabIndex = 1;
-            // 
-            // artistView1
-            // 
-            this.artistView1.Document = null;
-            this.artistView1.Location = new System.Drawing.Point(0, 31);
-            this.artistView1.Name = "artistView1";
-            this.artistView1.Size = new System.Drawing.Size(532, 453);
-            this.artistView1.TabIndex = 1;
             // 
             // MainWindow
             // 
@@ -299,7 +312,8 @@
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkraflytjendur;
 		private System.Windows.Forms.ToolStrip m_toolStripHitParadeList;
 		private System.Windows.Forms.ToolStripButton m_tSbtnChange;
-		private System.Windows.Forms.ToolStripButton m_tSbtnCreate;
+		private System.Windows.Forms.ToolStripButton m_tSbtnNew;
+        private System.Windows.Forms.ToolStripButton m_tSbtnDelete;
 	}
 }
 
