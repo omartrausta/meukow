@@ -183,7 +183,7 @@ namespace meukow
 						// Ef þetta klikkar verður kastað villu:
 						Document.AddArtist( artist );
 
-						m_listViewArtist.Items.Add( GetListViewItem( artist ) );
+                        m_listViewArtist.Items.Add(GetListViewItem(artist));
 					}
 				}
 			}

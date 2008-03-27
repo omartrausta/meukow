@@ -96,7 +96,7 @@ namespace ClassLibrary
 				new ColumnDescription( "Name", this.Name, DbType.String ),
 				new ColumnDescription( "Description", this.Description, DbType.String ),
 				new ColumnDescription( "Picture", this.Picture, DbType.String ),
-        new ColumnDescription("Url", this.URL, DbType.String), 
+                new ColumnDescription("Url", this.URL, DbType.String), 
 			};
             return new TableDescription("Artist	", columns);
         }

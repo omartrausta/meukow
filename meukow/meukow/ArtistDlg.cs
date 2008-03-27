@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using ClassLibrary.Common.Data;
 using ClassLibrary;
 
 namespace meukow
@@ -19,7 +13,10 @@ namespace meukow
     public partial class ArtistDlg : Form
     {
         #region Member variables
+        private const String FILE_DIALOG_FILTER = "Myndaskrá (*.jpg)|*.jpg";
         private Artist m_artist;
+        private String m_fileName;
+
         #endregion
 
         public ArtistDlg()
@@ -33,7 +30,7 @@ namespace meukow
             {
                 m_artist.Name = m_txtName.Text;
                 m_artist.Description = m_txtDescription.Text;
-                //m_artist.Picture = .Text;
+                m_artist.Picture = m_txtFileName.Text;
                 m_artist.URL = m_txtUrl.Text;
                 return m_artist;
             }
@@ -42,10 +39,41 @@ namespace meukow
                 m_artist = value;
                 m_txtName.Text = m_artist.Name;
                 m_txtDescription.Text = m_artist.Description;
-               // m_txtSSN.Text = m_student.SSN;
+                m_txtFileName.Text = m_artist.Picture;
                 m_txtUrl.Text = m_artist.URL;
+            }
+
+           
+		}
+        public String Filename
+        {
+            get
+            {
+                return m_fileName;
+            }
+            set
+            {
+                m_fileName = value;
             }
         }
         #endregion
+
+        private void m_btnBrowse_Click(object sender, EventArgs e)
+        {
+            // OpenFileDialog tilvik búið til
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            // Skrártegundir síaðar út eftir fasta
+            openFileDialog.Filter = FILE_DIALOG_FILTER;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Skráarnafnið vistað sem strengur í memberbreytu
+               
+
+             Filename = openFileDialog.FileName;
+                // Skrárnafnið sett í textaboxið
+                m_txtFileName.Text = Filename;
+            }
+        }
     }
 }
