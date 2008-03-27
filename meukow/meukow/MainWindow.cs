@@ -39,6 +39,21 @@ namespace meukow
            artistView1.OnNewArtist();
         }
 
+        private void OnNewHitParade(object sender, EventArgs e)
+        {
+            m_HitParadeView.OnNewList();
+        }
+
+        private void OnEditHitParade(object sender, EventArgs e)
+        {
+            m_HitParadeView.OnEditList();
+        }
+
+        private void OnDeleteHitParade(object sender, EventArgs e)
+        {
+            m_HitParadeView.OnDeleteList();
+        }
+
 		
 	}
 }

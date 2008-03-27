@@ -34,6 +34,7 @@ namespace meukow
 			this.m_colHeaderNameStarts = new System.Windows.Forms.ColumnHeader();
 			this.m_colHeaderNameEnds = new System.Windows.Forms.ColumnHeader();
 			this.m_contextMenuList = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.newListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_menuItemEditList = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_menuItemDeleteList = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_contextMenuList.SuspendLayout();
@@ -77,22 +78,32 @@ namespace meukow
 			// m_contextMenuList
 			// 
 			this.m_contextMenuList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newListToolStripMenuItem,
             this.m_menuItemEditList,
             this.m_menuItemDeleteList});
 			this.m_contextMenuList.Name = "m_contextMenuList";
-			this.m_contextMenuList.Size = new System.Drawing.Size(136, 48);
+			this.m_contextMenuList.Size = new System.Drawing.Size(153, 92);
+			// 
+			// newListToolStripMenuItem
+			// 
+			this.newListToolStripMenuItem.Name = "newListToolStripMenuItem";
+			this.newListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newListToolStripMenuItem.Text = "New List";
+			this.newListToolStripMenuItem.Click += new System.EventHandler(this.OnMenuCreateList);
 			// 
 			// m_menuItemEditList
 			// 
 			this.m_menuItemEditList.Name = "m_menuItemEditList";
-			this.m_menuItemEditList.Size = new System.Drawing.Size(135, 22);
+			this.m_menuItemEditList.Size = new System.Drawing.Size(152, 22);
 			this.m_menuItemEditList.Text = "Edit List";
+			this.m_menuItemEditList.Click += new System.EventHandler(this.OnMenuEditList);
 			// 
 			// m_menuItemDeleteList
 			// 
 			this.m_menuItemDeleteList.Name = "m_menuItemDeleteList";
-			this.m_menuItemDeleteList.Size = new System.Drawing.Size(135, 22);
+			this.m_menuItemDeleteList.Size = new System.Drawing.Size(152, 22);
 			this.m_menuItemDeleteList.Text = "Delete List";
+			this.m_menuItemDeleteList.Click += new System.EventHandler(this.OnMenuDeleteList);
 			// 
 			// HitParadeView
 			// 
@@ -116,5 +127,6 @@ namespace meukow
 		private System.Windows.Forms.ContextMenuStrip m_contextMenuList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemEditList;
 		private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteList;
+		private System.Windows.Forms.ToolStripMenuItem newListToolStripMenuItem;
 	}
 }
