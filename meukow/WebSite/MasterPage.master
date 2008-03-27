@@ -20,7 +20,7 @@
     <div id="navigation">
         <ul>
             <li>
-                <asp:HyperLink ID="id1" runat="server" NavigateUrl="~/default.aspx">Skoğa vinsældarlista</asp:HyperLink>
+                <asp:HyperLink ID="id1" runat="server" NavigateUrl="~/default.aspx">Allir vinsældarlistar</asp:HyperLink>
             </li>
             <li>
                 <asp:HyperLink ID="id2" runat="server" NavigateUrl="~/DisplayAddChart.aspx">Nıskrá vinsældarlista</asp:HyperLink>

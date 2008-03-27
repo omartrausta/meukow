@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:GridView ID="m_listGridView" runat="server" AutoGenerateColumns="False" HorizontalAlign="Center" CellPadding="5">
         <Columns>
-            <asp:HyperLinkField DataNavigateUrlFields="ID" DataNavigateUrlFormatString="~/DisplayList.aspx?ID={0}"
+            <asp:HyperLinkField DataNavigateUrlFields="ID" DataNavigateUrlFormatString="~/DisplayChart.aspx?ID={0}"
                 DataTextField="Name" HeaderText="Listi" />
             <asp:BoundField DataField="Starts" HeaderText="Byrjar" DataFormatString="{0:dd.MM.yyyy}" >
                 <ControlStyle BorderWidth="5px" />
