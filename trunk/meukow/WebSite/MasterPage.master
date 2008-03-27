@@ -1,0 +1,39 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Vinsældarlistar Rásar tvö</title>
+    <link href="DefultStyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+ <div id="contentwrapper"> 
+    <div id="topmenu">
+        <h2>Vinsældarlistar</h2>
+    </div>
+    <div id="mainbody">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <div id="navigation">
+        <ul>
+            <li>
+                <asp:HyperLink ID="id1" runat="server" NavigateUrl="~/default.aspx">Skoğa vinsældarlista</asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink ID="id2" runat="server" NavigateUrl="~/DisplayAddChart.aspx">Nıskrá vinsældarlista</asp:HyperLink>
+            </li>
+        </ul>
+    </div>
+    <div id="more">
+        &nbsp;
+    </div>
+</div>
+<div id="footer">
+
+</div>
+    </form>
+</body>
+</html>
