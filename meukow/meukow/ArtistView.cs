@@ -75,7 +75,7 @@ namespace meukow
         /// </summary>
         /// <param name=""></param>
         /// <returns></returns>
-        private ListViewItem GetListViewItem(Artist artist)
+        protected ListViewItem GetListViewItem(Artist artist)
         {
             // Fyrsti dálkurinn birtir nafn:
             ListViewItem item = new ListViewItem(artist.Name.ToString());

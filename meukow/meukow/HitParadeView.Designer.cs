@@ -61,18 +61,18 @@ namespace meukow
 			// m_colHeaderName
 			// 
 			this.m_colHeaderName.Tag = "Name";
-			this.m_colHeaderName.Text = "Name";
+			this.m_colHeaderName.Text = "Nafn";
 			this.m_colHeaderName.Width = 120;
 			// 
 			// m_colHeaderNameStarts
 			// 
 			this.m_colHeaderNameStarts.Tag = "Starts";
-			this.m_colHeaderNameStarts.Text = "Starts";
+			this.m_colHeaderNameStarts.Text = "Byrjar";
 			// 
 			// m_colHeaderNameEnds
 			// 
 			this.m_colHeaderNameEnds.Tag = "Ends";
-			this.m_colHeaderNameEnds.Text = "Ends";
+			this.m_colHeaderNameEnds.Text = "Endar";
 			// 
 			// m_contextMenuList
 			// 

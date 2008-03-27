@@ -37,9 +37,9 @@ namespace meukow
 			// m_listViewChart
 			// 
 			this.m_listViewChart.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.m_colSaeti,
-            this.m_colLag,
-            this.m_colFlytjandi});
+			                                                                              	this.m_colSaeti,
+			                                                                              	this.m_colLag,
+			                                                                              	this.m_colFlytjandi});
 			this.m_listViewChart.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.m_listViewChart.Location = new System.Drawing.Point(0, 0);
 			this.m_listViewChart.Name = "m_listViewChart";
@@ -65,15 +65,16 @@ namespace meukow
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.m_listViewChart);
-			this.Name = "m_ChartView";
+			this.Name = "ChartView";
 			this.Size = new System.Drawing.Size(328, 423);
+			//this.Load += new System.EventHandler(this.OnLoad);
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.ListView m_listViewChart;
+		public System.Windows.Forms.ListView m_listViewChart;
 		private System.Windows.Forms.ColumnHeader m_colSaeti;
 		private System.Windows.Forms.ColumnHeader m_colLag;
 		private System.Windows.Forms.ColumnHeader m_colFlytjandi;
