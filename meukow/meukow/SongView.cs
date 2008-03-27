@@ -14,6 +14,7 @@ namespace meukow
 	/// í listanum, og hins vegar hversu margir dálkar þeir eru. Þetta enum
 	/// þarf að uppfæra ef dálkarnir breytast í design hlutanum.
 	/// </summary>
+	#region Enum
 	public enum SongColumns
 	{
 		ColName = 0,
@@ -22,7 +23,8 @@ namespace meukow
 		ColDescription = 3,
 		NumberOfColumns = 4
 	}
-	
+	#endregion
+
 	public partial class SongView : UserControl
 	{
 		#region Member variables
@@ -68,13 +70,20 @@ namespace meukow
 			}
 		}
 		#endregion
-		
-		#region Protected functions
+
+		#region Private functions
+		private void OnSortList(object sender, ColumnClickEventArgs e)
+		{
+			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
+			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+			m_listViewSong.ListViewItemSorter = new SongSorter((SongColumns)e.Column, lastOrder);
+		}
+
 		/// <summary>
 		/// Fall sem tekur inn tilvik af Song, og skilar til baka
 		/// ListViewItem færslu sem táknar þetta lag.
 		/// </summary>
-		/// <param name=""></param>
+		/// <param name="song"></param>
 		/// <returns></returns>
 		private ListViewItem GetListViewItem(Song song)
 		{	
@@ -82,7 +91,7 @@ namespace meukow
 			ListViewItem item = new ListViewItem(song.Name.ToString());
 
 			// Annar dálkurinn birtir kennitölu:
-			item.SubItems.Add(song.ArtistID.ToString());
+			item.SubItems.Add(song.Artist.ToString());
 			item.SubItems.Add(song.SongPath.ToString());
 			item.SubItems.Add(song.Description.ToString());
 
@@ -93,12 +102,14 @@ namespace meukow
 
 			// Látum sérhvert ListViewItem vita hvaða nemandi 
 			// hangir við hverja færslu:
-			item.Tag = Name;
+			item.Tag = song;
 
 			// Nóg í bili...
 			return item;
 		}
-
+		#endregion
+		
+		#region Protected functions
 		/// <summary>
 		/// HandleError sér um að birta villuskilaboð á 
 		/// einhvern (mis)smekklega hátt (má sjálfsagt laga...):
@@ -109,7 +120,6 @@ namespace meukow
 			// Hér mætti örugglega koma með vinalegri villuboð:
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
-
 		#endregion
 	}
 }
