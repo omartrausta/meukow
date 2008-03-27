@@ -1,0 +1,146 @@
+﻿body
+{
+	margin: 0;
+	padding: 0;
+	font-size: 95%;
+	font-family:  Comic Sans MS, Verdana, Serif;
+	color: black;
+	background-color: white;
+}
+
+/* * * * * * * * * * * * * * *
+  Link styles 
+ * * * * * * * * * * * * * * */
+a:link
+{
+	color: #036;
+}
+
+a:visited
+{
+	color: #066;
+}
+
+a:hover, a:active 
+{
+	color: white;
+	background-color: #036; 
+}
+
+#contentwrapper
+{
+	/* Equal height columns: */
+	overflow:hidden;
+}
+
+/* Top menu and its subitems: */
+#topmenu
+{
+	color: white;
+	background-color: #333;
+	border-bottom: 1px solid black;
+	padding: .5em;
+}
+
+#topmenu h2
+{
+	margin: 0;
+	padding: .3em 0 .3em .5em;
+	font-size: 2.2em;
+	font-weight: normal;
+}
+
+/* Left menu and its subitems: */
+#navigation
+{
+	padding: .5em;
+	
+	/* Any Order Columns: */
+	float: left;
+	width: 20%;
+	margin-left: -80%;
+	
+	/* Equal Height Columns: */
+	padding-bottom: 32000px;
+	margin-bottom: -32000px;
+}
+
+#navigation ul 
+{
+	list-style-type: none; 
+	padding: 0; 
+	margin: 0;
+} 
+
+#navigation ul li 
+{
+	margin-top: 4px; 
+}
+
+#navigation ul li a
+{
+	display: block;
+	width: 160px;
+	padding: 3px 5px 3px 10px;
+	text-decoration: none;
+	color: #000;
+}
+
+#navigation ul li a:hover
+{
+	color: #fff;
+	background-color: #ccc;
+}
+
+#more
+{
+	/* Any Order Columns: */
+	float:left;
+	width: 20%;
+	
+	/* Equal Height Columns: */
+	padding-bottom: 32000px;
+	margin-bottom: -32000px;
+}
+
+/* Footer stuff: */
+#footer
+{
+	clear: both;
+	padding: .5em 1em;
+	border-top: 1px solid #999;
+	text-align: right;
+}
+
+#footer ul 
+{
+	padding: 0; 
+	margin: 0; 
+	list-style-type: none; 
+}
+
+#footer li
+{
+	display: inline;
+	margin-right: 1em;
+}
+
+/* And finally: the content!!! */
+#mainbody
+{
+	/* Any Order Columns: */
+	float: left;
+	width: 60%;
+	margin-left: 20%;
+	
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	padding: .5em;
+	line-height: 150%;
+	
+	/* Equal Height Columns: */
+	padding-bottom: 32000px;
+	margin-bottom: -32000px;
+	
+}
+
