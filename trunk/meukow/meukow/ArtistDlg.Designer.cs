@@ -37,6 +37,8 @@ namespace meukow
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.m_txtUrl = new System.Windows.Forms.TextBox();
             this.m_btnOK = new System.Windows.Forms.Button();
+            this.m_btnBrowse = new System.Windows.Forms.Button();
+            this.m_txtFileName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // m_txtName
@@ -109,11 +111,30 @@ namespace meukow
             this.m_btnOK.Text = "OK";
             this.m_btnOK.UseVisualStyleBackColor = true;
             // 
+            // m_btnBrowse
+            // 
+            this.m_btnBrowse.Location = new System.Drawing.Point(307, 239);
+            this.m_btnBrowse.Name = "m_btnBrowse";
+            this.m_btnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.m_btnBrowse.TabIndex = 10;
+            this.m_btnBrowse.Text = "...";
+            this.m_btnBrowse.UseVisualStyleBackColor = true;
+            this.m_btnBrowse.Click += new System.EventHandler(this.m_btnBrowse_Click);
+            // 
+            // m_txtFileName
+            // 
+            this.m_txtFileName.Location = new System.Drawing.Point(104, 242);
+            this.m_txtFileName.Name = "m_txtFileName";
+            this.m_txtFileName.Size = new System.Drawing.Size(158, 20);
+            this.m_txtFileName.TabIndex = 11;
+            // 
             // ArtistDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 425);
+            this.Controls.Add(this.m_txtFileName);
+            this.Controls.Add(this.m_btnBrowse);
             this.Controls.Add(this.m_btnOK);
             this.Controls.Add(this.m_txtUrl);
             this.Controls.Add(this.m_lblUrl);
@@ -140,5 +161,7 @@ namespace meukow
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox m_txtUrl;
         private System.Windows.Forms.Button m_btnOK;
+        private System.Windows.Forms.Button m_btnBrowse;
+        private System.Windows.Forms.TextBox m_txtFileName;
     }
 }
