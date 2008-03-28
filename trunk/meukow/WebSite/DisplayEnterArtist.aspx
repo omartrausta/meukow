@@ -28,7 +28,7 @@
             <td>
                 Slóð á mynd:</td>
             <td>
-                <asp:TextBox ID="m_txtURL" runat="server"></asp:TextBox></td>
+                <asp:TextBox ID="m_txtPicture" runat="server"></asp:TextBox></td>
             <td>
             </td>
         </tr>
@@ -36,7 +36,7 @@
             <td>
                 Veffang:</td>
             <td>
-                <asp:TextBox ID="m_txtGroup" runat="server"></asp:TextBox></td>
+                <asp:TextBox ID="m_txtURL" runat="server"></asp:TextBox></td>
             <td>
             </td>
         </tr>
