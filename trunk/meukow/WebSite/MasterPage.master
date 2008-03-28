@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
  <div id="contentwrapper"> 
     <div id="topmenu">
-        <h2>Vinsældarlistar</h2>
+        <h2>Vinsældarlistar Rásar 2</h2>
     </div>
     <div id="mainbody">
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
@@ -24,6 +24,9 @@
             </li>
             <li>
                 <asp:HyperLink ID="id2" runat="server" NavigateUrl="~/DisplayAddChart.aspx">Nıskrá vinsældarlista</asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink ID="id3" runat="server" NavigateUrl="~/DisplayEnterArtist.aspx">Nıskrá hljómsveit</asp:HyperLink>
             </li>
         </ul>
     </div>
