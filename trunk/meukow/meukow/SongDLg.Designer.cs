@@ -78,6 +78,8 @@ namespace meukow
 			// 
 			// m_cmbArtist
 			// 
+			this.m_cmbArtist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+			this.m_cmbArtist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.m_cmbArtist.FormattingEnabled = true;
 			this.m_cmbArtist.Location = new System.Drawing.Point(127, 51);
 			this.m_cmbArtist.Name = "m_cmbArtist";
@@ -100,13 +102,15 @@ namespace meukow
 			// 
 			// m_txtboxDescription
 			// 
-			this.m_txtboxDescription.Location = new System.Drawing.Point(127, 108);
+			this.m_txtboxDescription.Location = new System.Drawing.Point(127, 116);
+			this.m_txtboxDescription.Multiline = true;
 			this.m_txtboxDescription.Name = "m_txtboxDescription";
-			this.m_txtboxDescription.Size = new System.Drawing.Size(121, 20);
+			this.m_txtboxDescription.Size = new System.Drawing.Size(121, 79);
 			this.m_txtboxDescription.TabIndex = 7;
 			// 
 			// m_btnOK
 			// 
+			this.m_btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.m_btnOK.Location = new System.Drawing.Point(173, 210);
 			this.m_btnOK.Name = "m_btnOK";
 			this.m_btnOK.Size = new System.Drawing.Size(75, 23);
@@ -140,6 +144,7 @@ namespace meukow
 			this.Controls.Add(this.m_lblName);
 			this.Name = "SongDlg";
 			this.Text = "SongDlg";
+			this.Load += new System.EventHandler(this.OnLoad);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

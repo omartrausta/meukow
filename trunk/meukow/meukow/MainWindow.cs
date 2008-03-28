@@ -57,6 +57,11 @@ namespace meukow
             m_HitParadeView.OnDeleteList();
         }
 
+		private void OntSbtnSong(object sender, EventArgs e)
+		{
+			m_SongView.OnNewSong();
+		}
+
 		
 	}
 }

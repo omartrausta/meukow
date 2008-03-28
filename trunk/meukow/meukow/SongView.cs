@@ -71,6 +71,34 @@ namespace meukow
 		}
 		#endregion
 
+		#region Public functions
+		
+		public void OnNewSong()
+		{
+			try
+			{
+				using (SongDlg dlg = new SongDlg())
+				{
+					dlg.song = new Song();
+					if (dlg.ShowDialog() == DialogResult.OK)
+					{
+						Song song = dlg.song;
+
+						// Ef þetta klikkar verður kastað villu:
+						Document.AddSong(song);
+
+						m_listViewSong.Items.Add(GetListViewItem(song));
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				HandleError(ex);
+			}
+		}
+
+		#endregion
+
 		#region Private functions
 		private void OnSortList(object sender, ColumnClickEventArgs e)
 		{
