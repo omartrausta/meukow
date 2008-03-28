@@ -60,10 +60,13 @@ namespace meukow
 
         private void m_btnBrowse_Click(object sender, EventArgs e)
         {
+            
+
             // OpenFileDialog tilvik búið til
             OpenFileDialog openFileDialog = new OpenFileDialog();
             // Skrártegundir síaðar út eftir fasta
             openFileDialog.Filter = FILE_DIALOG_FILTER;
+            openFileDialog.RestoreDirectory = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -73,6 +76,21 @@ namespace meukow
              Filename = openFileDialog.FileName;
                 // Skrárnafnið sett í textaboxið
                 m_txtFileName.Text = Filename;
+            }
+            
+        }
+
+        private void OnLoad(object sender, EventArgs e)
+        {
+            if (m_artist.ID == 0)
+            {
+                m_btnOK.Text = "Skrá";
+                this.Text = "Skrá flytjanda";
+            }
+            else
+            {
+                m_btnOK.Text = "Breyta";
+                this.Text = "Breyta Flytjanda";
             }
         }
     }

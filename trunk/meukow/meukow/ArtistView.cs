@@ -25,8 +25,13 @@ namespace meukow
     public partial class ArtistView : UserControl
     {
         #region Member variables
-        private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
+        private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ArtistColumn.NumberOfColumns];
         private ArtistDoc m_document;
+        #endregion
+
+        #region Event Handlers
+        public delegate void HitArtistHandler(string msg);
+        public event HitArtistHandler HitArtistSelected;
         #endregion
 
         #region Properties
@@ -66,7 +71,12 @@ namespace meukow
                 }
             }
         }
-       
+        private void OnSortList(object sender, ColumnClickEventArgs e)
+        {
+            SortOrder lastOrder = m_arrLastSortOrder[e.Column];
+            m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+            m_listViewArtist.ListViewItemSorter = new ArtistSorter((ArtistColumn)e.Column, lastOrder);
+        }
 
         /// <summary>
 		/// OnDoubleClickStudent er event handler fyrir það þegar er tvísmellt
@@ -74,9 +84,9 @@ namespace meukow
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void OnDoubleClickArtist( object sender, EventArgs e )
+		private void OnMenuNewArtist( object sender, EventArgs e )
 		{
-			OnUpdateArtist( );
+			OnNewArtist( );
 		}
 
 		/// <summary>
@@ -97,7 +107,7 @@ namespace meukow
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void OnMenuDeleteStudent( object sender, EventArgs e )
+		private void OnMenuDeleteArtist( object sender, EventArgs e )
 		{
 			OnDeleteArtist( );
 		}
@@ -239,14 +249,14 @@ namespace meukow
             item.SubItems.Add(artist.Picture.ToString());
             item.SubItems.Add(artist.URL.ToString());
 
-            // Allir nemendur fá sama icon í þetta skiptið:
+            // Allir flytjendur fá sama icon í þetta skiptið:
             item.ImageIndex = 0;
             // en ImageList getur geymt margar myndir, og sérhver færsla
             // getur haft mismunandi image index.
 
-            // Látum sérhvert ListViewItem vita hvaða nemandi 
+            // Látum sérhvert ListViewItem vita hvaða flytjandi 
             // hangir við hverja færslu:
-            item.Tag = Name;
+            item.Tag = artist;
 
             // Nóg í bili...
             return item;
@@ -264,5 +274,36 @@ namespace meukow
         }
 
         #endregion
+        protected String OnSelectList()
+        {
+            if (m_listViewArtist.SelectedItems.Count == 1)
+            {
+                ListViewItem listViewItem = m_listViewArtist.SelectedItems[0];
+
+                // Þetta typecast er í lagi því GetListViewItem sér alltaf
+                // um að setja Student tilvik inn í Tag property-ið á 
+                // sérhverju itemi:
+                List list = (List)listViewItem.Tag;
+
+                return list.ID.ToString();
+            }
+            else
+                return null;
+        }
+
+        private void OnClick(object sender, EventArgs e)
+        {
+            if (HitArtistSelected != null)
+            {
+                String nID = OnSelectList();
+                if (nID != null)
+                {
+                    HitArtistSelected(nID);
+                }
+            }
+        }
+
+        
+       
     }
 }

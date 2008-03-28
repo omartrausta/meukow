@@ -35,6 +35,10 @@ namespace meukow
             this.m_colHeaderPicture = new System.Windows.Forms.ColumnHeader();
             this.m_colHeaderURL = new System.Windows.Forms.ColumnHeader();
             this.m_contextMenuArtist = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.m_menuItemNewArtist = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_menuItemEditArtist = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_menuItemDeleteArtist = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_contextMenuArtist.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listViewArtist
@@ -44,6 +48,7 @@ namespace meukow
             this.m_colHeaderDescription,
             this.m_colHeaderPicture,
             this.m_colHeaderURL});
+            this.m_listViewArtist.ContextMenuStrip = this.m_contextMenuArtist;
             this.m_listViewArtist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_listViewArtist.FullRowSelect = true;
             this.m_listViewArtist.Location = new System.Drawing.Point(0, 0);
@@ -53,6 +58,8 @@ namespace meukow
             this.m_listViewArtist.TabIndex = 1;
             this.m_listViewArtist.UseCompatibleStateImageBehavior = false;
             this.m_listViewArtist.View = System.Windows.Forms.View.Details;
+            this.m_listViewArtist.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.OnSortList);
+            this.m_listViewArtist.Click += new System.EventHandler(this.OnClick);
             // 
             // m_colHeaderName
             // 
@@ -80,8 +87,33 @@ namespace meukow
             // 
             // m_contextMenuArtist
             // 
+            this.m_contextMenuArtist.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_menuItemNewArtist,
+            this.m_menuItemEditArtist,
+            this.m_menuItemDeleteArtist});
             this.m_contextMenuArtist.Name = "m_contextMenuArtist";
-            this.m_contextMenuArtist.Size = new System.Drawing.Size(61, 4);
+            this.m_contextMenuArtist.Size = new System.Drawing.Size(118, 70);
+            // 
+            // m_menuItemNewArtist
+            // 
+            this.m_menuItemNewArtist.Name = "m_menuItemNewArtist";
+            this.m_menuItemNewArtist.Size = new System.Drawing.Size(152, 22);
+            this.m_menuItemNewArtist.Text = "Skrá";
+            this.m_menuItemNewArtist.Click += new System.EventHandler(this.OnMenuNewArtist);
+            // 
+            // m_menuItemEditArtist
+            // 
+            this.m_menuItemEditArtist.Name = "m_menuItemEditArtist";
+            this.m_menuItemEditArtist.Size = new System.Drawing.Size(152, 22);
+            this.m_menuItemEditArtist.Text = "Breyta";
+            this.m_menuItemEditArtist.Click += new System.EventHandler(this.OnMenuEditArtist);
+            // 
+            // m_menuItemDeleteArtist
+            // 
+            this.m_menuItemDeleteArtist.Name = "m_menuItemDeleteArtist";
+            this.m_menuItemDeleteArtist.Size = new System.Drawing.Size(152, 22);
+            this.m_menuItemDeleteArtist.Text = "Eyða";
+            this.m_menuItemDeleteArtist.Click += new System.EventHandler(this.OnMenuDeleteArtist);
             // 
             // ArtistView
             // 
@@ -91,6 +123,7 @@ namespace meukow
             this.Name = "ArtistView";
             this.Size = new System.Drawing.Size(532, 453);
             this.Load += new System.EventHandler(this.OnLoad);
+            this.m_contextMenuArtist.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -103,6 +136,9 @@ namespace meukow
         private System.Windows.Forms.ColumnHeader m_colHeaderPicture;
         private System.Windows.Forms.ColumnHeader m_colHeaderURL;
         private System.Windows.Forms.ContextMenuStrip m_contextMenuArtist;
+        private System.Windows.Forms.ToolStripMenuItem m_menuItemNewArtist;
+        private System.Windows.Forms.ToolStripMenuItem m_menuItemEditArtist;
+        private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteArtist;
 
     }
 }
