@@ -58,20 +58,25 @@ namespace meukow
 		{
 			if (!DesignMode)
 			{
-				m_document = new SongDoc();
-				m_listViewSong.Items.Clear();
-
-				SongCollection songs = Document.GetAllSongs();
-
-				foreach (Song song in songs)
-				{
-					m_listViewSong.Items.Add(GetListViewItem(song));
-				}
+				HressaLista();
 			}
 		}
 		#endregion
 
 		#region Public functions
+
+		public void HressaLista()
+		{
+			m_document = new SongDoc();
+			m_listViewSong.Items.Clear();
+
+			SongCollection songs = Document.GetAllSongs();
+
+			foreach (Song song in songs)
+			{
+				m_listViewSong.Items.Add(GetListViewItem(song));
+			}	
+		}
 		
 		public void OnNewSong()
 		{
@@ -86,8 +91,8 @@ namespace meukow
 
 						// Ef þetta klikkar verður kastað villu:
 						Document.AddSong(song);
-
-						m_listViewSong.Items.Add(GetListViewItem(song));
+						HressaLista();
+						//m_listViewSong.Items.Add(GetListViewItem(song));
 					}
 				}
 			}
