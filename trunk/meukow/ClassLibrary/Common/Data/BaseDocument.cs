@@ -45,6 +45,8 @@ namespace ClassLibrary.Common.Data
 		/// Luckily, ASP.NET supports provider-agnostic code which we use.
 		/// </summary>
 		protected String m_strProviderName = "System.Data.OleDb";
+
+	    protected String m_strCurrentDirectory = Environment.CurrentDirectory;
 		#endregion
 
 		#region Constructors
@@ -66,6 +68,7 @@ namespace ClassLibrary.Common.Data
 			// in unit testing projects) we also handle it when
 			// such file doesn't exist.
 			m_strConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+
 			Debug.Assert( m_strConnectionString.Length > 0, "BaseDocument.BaseDocument: the connection string defined in .config file cannot be empty!" );
 
 		}
@@ -100,6 +103,12 @@ namespace ClassLibrary.Common.Data
 				return DbProviderFactories.GetFactory( m_strProviderName );
 			}
 		}
+
+	    public String CurrentDirectory
+	    {
+            get { return m_strCurrentDirectory; }
+            set { m_strCurrentDirectory = value; }
+	    }
 		#endregion
 
 		#region Public functions

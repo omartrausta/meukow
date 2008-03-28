@@ -10,47 +10,52 @@ namespace ClassLibrary
 	{
 		#region Member Variables
 
-		private int m_listID;
-		private int m_chartPostion;
-		private String m_chartSong;
-		private String m_chartArtist;
-		//private int m_idSong;
-		//private int m_idArtist;
+		private int m_nListID;
+		private int m_nPostion;
+	    private int m_nSongID;
+		private String m_strSongName;
+	    private int m_nArtistID;
+		private String m_strArtistName;
 
 		#endregion
 
 		#region Properties
 
-		public int ChartPostion
+		public int Postion
 		{
-			get { return m_chartPostion; }
-			set { m_chartPostion = value; }
+			get { return m_nPostion; }
+			set { m_nPostion = value; }
 		}
 
-		public String ChartSong
+	    public int SongID
+	    {
+            get { return m_nSongID; }
+            set { m_nSongID = value; }
+	    }
+
+		public String SongName
 		{
-			get { return m_chartSong; }
-			set { m_chartSong = value; }
+			get { return m_strSongName; }
+			set { m_strSongName = value; }
 		}
 
-		public String ChartArtist
+	    public int ArtistID
+	    {
+            get { return m_nArtistID; }
+            set { m_nArtistID = value; }
+	    }
+
+		public String ArtistName
 		{
-			get { return m_chartArtist; }
-			set { m_chartArtist = value; }
+			get { return m_strArtistName; }
+			set { m_strArtistName = value; }
 		}
 
 		public int ListID
 		{
-		    get { return m_listID; }
-		    set { m_listID = value; }
+		    get { return m_nListID; }
+		    set { m_nListID = value; }
 		}
-
-		//public int IdArtist
-		//{
-		//    get { return m_idArtist; }
-		//	  set { m_idArtist = value; }
-
-		//}
 
 		#endregion
 
@@ -68,7 +73,7 @@ namespace ClassLibrary
 		#region Overridden functions
 		public override string ToString()
 		{
-			return m_chartSong;
+			return m_strSongName;
 		}
 		#endregion
 
@@ -90,12 +95,16 @@ namespace ClassLibrary
 			{
 				switch (m_strOrderBy)
 				{
-					case "ChartArtist":
-						return x.ChartArtist.CompareTo(y.ChartArtist);
-					case "ChartPositon":
-						return x.ChartPostion.CompareTo(y.ChartPostion);
-					case "ChartSong":
-						return x.ChartSong.CompareTo(y.ChartSong);
+                    case "Positon":
+                        return x.Postion.CompareTo(y.Postion);
+                    case "SongID":
+                        return x.SongID.CompareTo(y.SongID);
+                    case "SongName":
+                        return x.SongName.CompareTo(y.SongName);
+                    case "ArtistID":
+                        return x.ArtistID.CompareTo(y.ArtistID);
+                    case "ArtistName":
+                        return x.ArtistName.CompareTo(y.ArtistName);
 				}
 
 				return 0;
@@ -115,16 +124,14 @@ namespace ClassLibrary
 			#endregion
 		}
 
-
 		public void Load(IDataReader reader)
 		{
-			m_listID = Convert.ToInt32(reader["List"]);
-			m_chartPostion = Convert.ToInt32(reader["Position"]);
-			m_chartSong = reader["Song_Name"].ToString();
-			m_chartArtist = reader["Artist_Name"].ToString();
-			
-			//m_idArtist = Convert.ToInt32(reader["IdArtist"]);
-			//m_idSong = Convert.ToInt32(reader["IdSong"]);
+			m_nListID = Convert.ToInt32(reader["List"]);
+			m_nPostion = Convert.ToInt32(reader["Position"]);
+		    m_nSongID = Convert.ToInt32(reader["SongID"]);
+			m_strSongName = reader["SongName"].ToString();
+		    m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
+			m_strArtistName = reader["ArtistName"].ToString();
 		}
 	}
 }
