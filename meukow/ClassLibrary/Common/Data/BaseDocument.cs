@@ -46,7 +46,7 @@ namespace ClassLibrary.Common.Data
 		/// </summary>
 		protected String m_strProviderName = "System.Data.OleDb";
 
-	    protected String m_strCurrentDirectory = Environment.CurrentDirectory;
+	   
 		#endregion
 
 		#region Constructors
@@ -104,11 +104,7 @@ namespace ClassLibrary.Common.Data
 			}
 		}
 
-	    public String CurrentDirectory
-	    {
-            get { return m_strCurrentDirectory; }
-            set { m_strCurrentDirectory = value; }
-	    }
+	    
 		#endregion
 
 		#region Public functions
