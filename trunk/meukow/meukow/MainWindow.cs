@@ -24,6 +24,7 @@ namespace meukow
 			InitializeComponent();
             
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
+            
 		}
 
 		//private void OnParadeClick(object sender, EventArgs e)
@@ -55,6 +56,23 @@ namespace meukow
         private void OnDeleteHitParade(object sender, EventArgs e)
         {
             m_HitParadeView.OnDeleteList();
+        }
+
+        private void OnMenuDeleteArtist(object sender, EventArgs e)
+        {
+            artistView1.OnDeleteArtist();
+        }
+
+        private void OnMenuEditArtist(object sender, EventArgs e)
+        {
+            artistView1.OnUpdateArtist();
+        }
+
+       
+
+        private void OnLeave(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("Ertu hættur? Á kannski bara að fara í Bubbles");
         }
 
 		private void OntSbtnSong(object sender, EventArgs e)

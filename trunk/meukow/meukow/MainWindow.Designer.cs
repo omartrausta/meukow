@@ -28,6 +28,44 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+            this.m_mainMenu = new System.Windows.Forms.MenuStrip();
+            this.m_tSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_TabControl = new System.Windows.Forms.TabControl();
+            this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
+            this.m_chartView = new meukow.ChartView();
+            this.m_HitParadeView = new meukow.HitParadeView();
+            this.m_toolStripHitParadeList = new System.Windows.Forms.ToolStrip();
+            this.m_tSbtnNew = new System.Windows.Forms.ToolStripButton();
+            this.m_tSbtnChange = new System.Windows.Forms.ToolStripButton();
+            this.m_tSbtnDelete = new System.Windows.Forms.ToolStripButton();
+            this.m_tabLog = new System.Windows.Forms.TabPage();
+            this.m_SongView = new meukow.SongView();
+            this.m_toolStripLog = new System.Windows.Forms.ToolStrip();
+            this.m_tSbtnSkodalog = new System.Windows.Forms.ToolStripButton();
+            this.m_tSbtnSkralog = new System.Windows.Forms.ToolStripButton();
+            this.m_tabFlytjendur = new System.Windows.Forms.TabPage();
+            this.artistView1 = new meukow.ArtistView();
+            this.m_toolStripFlytjendur = new System.Windows.Forms.ToolStrip();
+            this.m_tSbtnSkraflytjendur = new System.Windows.Forms.ToolStripButton();
+            this.m_tSbtnBreytaflytjanda = new System.Windows.Forms.ToolStripLabel();
+            this.m_tSbtnEyðaFlytjanda = new System.Windows.Forms.ToolStripLabel();
+            this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.m_mainMenu.SuspendLayout();
+            this.m_TabControl.SuspendLayout();
+            this.m_tabVinsaeldarlistar.SuspendLayout();
+            this.m_toolStripHitParadeList.SuspendLayout();
+            this.m_tabLog.SuspendLayout();
+            this.m_toolStripLog.SuspendLayout();
+            this.m_tabFlytjendur.SuspendLayout();
+            this.m_toolStripFlytjendur.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // m_mainMenu
+            // 
+            this.m_mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.m_mainMenu = new System.Windows.Forms.MenuStrip();
@@ -234,8 +272,73 @@
 			// m_toolStripFlytjendur
 			// 
 			this.m_toolStripFlytjendur.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.m_tSbtnSkodaflytjendur,
-            this.m_tSbtnSkraflytjendur});
+            this.m_tSbtnSkraflytjendur,
+            this.m_tSbtnBreytaflytjanda,
+            this.m_tSbtnEyðaFlytjanda});
+            this.m_toolStripFlytjendur.Location = new System.Drawing.Point(3, 3);
+            this.m_toolStripFlytjendur.Name = "m_toolStripFlytjendur";
+            this.m_toolStripFlytjendur.Size = new System.Drawing.Size(1094, 25);
+            this.m_toolStripFlytjendur.TabIndex = 0;
+            this.m_toolStripFlytjendur.Text = "toolStrip1";
+            this.m_toolStripFlytjendur.Visible = false;
+            // 
+            // m_tSbtnSkraflytjendur
+            // 
+            this.m_tSbtnSkraflytjendur.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.m_tSbtnSkraflytjendur.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkraflytjendur.Image")));
+            this.m_tSbtnSkraflytjendur.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.m_tSbtnSkraflytjendur.Name = "m_tSbtnSkraflytjendur";
+            this.m_tSbtnSkraflytjendur.Size = new System.Drawing.Size(32, 22);
+            this.m_tSbtnSkraflytjendur.Text = "Skrá";
+            this.m_tSbtnSkraflytjendur.Click += new System.EventHandler(this.OnNewArtist);
+            // 
+            // m_tSbtnBreytaflytjanda
+            // 
+            this.m_tSbtnBreytaflytjanda.Name = "m_tSbtnBreytaflytjanda";
+            this.m_tSbtnBreytaflytjanda.Size = new System.Drawing.Size(39, 22);
+            this.m_tSbtnBreytaflytjanda.Text = "Breyta";
+            this.m_tSbtnBreytaflytjanda.Click += new System.EventHandler(this.OnMenuEditArtist);
+            // 
+            // m_tSbtnEyðaFlytjanda
+            // 
+            this.m_tSbtnEyðaFlytjanda.Name = "m_tSbtnEyðaFlytjanda";
+            this.m_tSbtnEyðaFlytjanda.Size = new System.Drawing.Size(31, 22);
+            this.m_tSbtnEyðaFlytjanda.Text = "Eyða";
+            this.m_tSbtnEyðaFlytjanda.Click += new System.EventHandler(this.OnMenuDeleteArtist);
+            // 
+            // listBindingSource
+            // 
+            this.listBindingSource.DataSource = typeof(ClassLibrary.List);
+            // 
+            // MainWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(708, 575);
+            this.Controls.Add(this.m_TabControl);
+            this.Controls.Add(this.m_mainMenu);
+            this.MainMenuStrip = this.m_mainMenu;
+            this.Name = "MainWindow";
+            this.Text = "MainWindow V 0.107";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnLeave);
+            this.m_mainMenu.ResumeLayout(false);
+            this.m_mainMenu.PerformLayout();
+            this.m_TabControl.ResumeLayout(false);
+            this.m_tabVinsaeldarlistar.ResumeLayout(false);
+            this.m_tabVinsaeldarlistar.PerformLayout();
+            this.m_toolStripHitParadeList.ResumeLayout(false);
+            this.m_toolStripHitParadeList.PerformLayout();
+            this.m_tabLog.ResumeLayout(false);
+            this.m_tabLog.PerformLayout();
+            this.m_toolStripLog.ResumeLayout(false);
+            this.m_toolStripLog.PerformLayout();
+            this.m_tabFlytjendur.ResumeLayout(false);
+            this.m_tabFlytjendur.PerformLayout();
+            this.m_toolStripFlytjendur.ResumeLayout(false);
+            this.m_toolStripFlytjendur.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listBindingSource)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 			this.m_toolStripFlytjendur.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripFlytjendur.Name = "m_toolStripFlytjendur";
 			this.m_toolStripFlytjendur.Size = new System.Drawing.Size(1094, 25);
@@ -308,13 +411,14 @@
 		private System.Windows.Forms.ToolStrip m_toolStripLog;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkodalog;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkralog;
-		private System.Windows.Forms.ToolStrip m_toolStripFlytjendur;
-		private System.Windows.Forms.ToolStripButton m_tSbtnSkodaflytjendur;
+        private System.Windows.Forms.ToolStrip m_toolStripFlytjendur;
 		private System.Windows.Forms.ToolStripButton m_tSbtnSkraflytjendur;
 		private System.Windows.Forms.ToolStrip m_toolStripHitParadeList;
 		private System.Windows.Forms.ToolStripButton m_tSbtnChange;
 		private System.Windows.Forms.ToolStripButton m_tSbtnNew;
         private System.Windows.Forms.ToolStripButton m_tSbtnDelete;
+        private System.Windows.Forms.ToolStripLabel m_tSbtnBreytaflytjanda;
+        private System.Windows.Forms.ToolStripLabel m_tSbtnEyðaFlytjanda;
 	}
 }
 
