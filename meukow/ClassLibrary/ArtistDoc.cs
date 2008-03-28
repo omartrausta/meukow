@@ -45,7 +45,7 @@ namespace ClassLibrary
 			base.ExecuteSQL( strSQL );
 		}
 
-		public DataSet AllArtistName(String name)
+		public DataSet AllArtistName()
 		{
 			String strSQL = String.Format("select Name from Artist");
 			return base.LoadData(strSQL);
