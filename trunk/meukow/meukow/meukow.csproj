@@ -104,6 +104,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SongDLg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SongDLg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SongView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SongView.cs</DependentUpon>
@@ -122,6 +126,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SongDLg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SongDLg.Designer.cs">
+      <DependentUpon>SongDLg.cs</DependentUpon>
     </Compile>
     <Compile Include="SongSorter.cs" />
     <Compile Include="SongView.cs">
