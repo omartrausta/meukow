@@ -76,7 +76,7 @@ namespace ClassLibrary
             m_strName = reader["Name"].ToString();
             m_strDescription = reader["Description"].ToString();
             m_strPicture = reader["Picture"].ToString();
-            m_strURL = reader["Url"].ToString();
+            m_strURL = reader["URL"].ToString();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace ClassLibrary
 				new ColumnDescription( "Name", this.Name, DbType.String ),
 				new ColumnDescription( "Description", this.Description, DbType.String ),
 				new ColumnDescription( "Picture", this.Picture, DbType.String ),
-                new ColumnDescription("Url", this.URL, DbType.String), 
+                new ColumnDescription( "URL", this.URL, DbType.String), 
 			};
             return new TableDescription("Artist	", columns);
         }
@@ -131,6 +131,10 @@ namespace ClassLibrary
                     return x.Name.CompareTo(y.Name);
                 case "Description":
                     return x.Description.CompareTo(y.Description);
+                case "Picture":
+                    return x.Picture.CompareTo(y.Picture);
+                case "URL":
+                    return x.URL.CompareTo(y.URL);
                 
             }
 
@@ -147,6 +151,7 @@ namespace ClassLibrary
             ArtistSorter sorter = new ArtistSorter(strOrderBy);
             base.Sort(sorter);
         }
+        
         #endregion
     }
 
