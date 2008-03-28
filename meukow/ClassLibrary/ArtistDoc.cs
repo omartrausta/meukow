@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ClassLibrary.Common.Data;
+using System.Data;
 
 namespace ClassLibrary
 {
@@ -42,6 +43,12 @@ namespace ClassLibrary
 		{
 			String strSQL = String.Format( "delete from Artist where ID={0}", artist.ID );
 			base.ExecuteSQL( strSQL );
+		}
+
+		public DataSet AllArtistName(String name)
+		{
+			String strSQL = String.Format("select Name from Artist");
+			return base.LoadData(strSQL);
 		}
 		#endregion
 	}
