@@ -39,6 +39,7 @@ namespace meukow
             this.m_btnOK = new System.Windows.Forms.Button();
             this.m_btnBrowse = new System.Windows.Forms.Button();
             this.m_txtFileName = new System.Windows.Forms.TextBox();
+            this.m_btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_txtName
@@ -128,11 +129,22 @@ namespace meukow
             this.m_txtFileName.Size = new System.Drawing.Size(158, 20);
             this.m_txtFileName.TabIndex = 11;
             // 
+            // m_btnCancel
+            // 
+            this.m_btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.m_btnCancel.Location = new System.Drawing.Point(499, 380);
+            this.m_btnCancel.Name = "m_btnCancel";
+            this.m_btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.m_btnCancel.TabIndex = 12;
+            this.m_btnCancel.Text = "Hætta við";
+            this.m_btnCancel.UseVisualStyleBackColor = true;
+            // 
             // ArtistDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(601, 425);
+            this.Controls.Add(this.m_btnCancel);
             this.Controls.Add(this.m_txtFileName);
             this.Controls.Add(this.m_btnBrowse);
             this.Controls.Add(this.m_btnOK);
@@ -145,6 +157,7 @@ namespace meukow
             this.Controls.Add(this.m_txtName);
             this.Name = "ArtistDlg";
             this.Text = "ArtistDlg";
+            this.Load += new System.EventHandler(this.OnLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +176,6 @@ namespace meukow
         private System.Windows.Forms.Button m_btnOK;
         private System.Windows.Forms.Button m_btnBrowse;
         private System.Windows.Forms.TextBox m_txtFileName;
+        private System.Windows.Forms.Button m_btnCancel;
     }
 }

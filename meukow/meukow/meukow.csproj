@@ -42,6 +42,7 @@
     <Compile Include="ArtistDlg.Designer.cs">
       <DependentUpon>ArtistDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArtistSorter.cs" />
     <Compile Include="ArtistView.cs">
       <SubType>UserControl</SubType>
     </Compile>
