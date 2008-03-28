@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
+using ClassLibrary.Common.Data;
 
 namespace meukow
 {
@@ -18,6 +19,8 @@ namespace meukow
         
 		public MainWindow()
 		{
+	//	    String s = Environment.CurrentDirectory;
+            
 			InitializeComponent();
             
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);

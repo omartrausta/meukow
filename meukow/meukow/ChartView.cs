@@ -67,8 +67,8 @@ namespace meukow
 					if (dr.RowState != DataRowState.Deleted)
 					{
 						ListViewItem lvi = new ListViewItem(dr["Postition"].ToString());
-						lvi.SubItems.Add(dr["Song_Name"].ToString());
-						lvi.SubItems.Add(dr["Artist_Name"].ToString());
+						lvi.SubItems.Add(dr["SongName"].ToString());
+						lvi.SubItems.Add(dr["ArtistName"].ToString());
 
 						m_listViewChart.Items.Add(lvi);
 					}
@@ -97,11 +97,11 @@ namespace meukow
 		protected ListViewItem GetListViewItem(Chart list)
 		{
 			// Fyrsti dálkurinn birtir nafn:
-			ListViewItem item = new ListViewItem(list.ChartPostion.ToString());
+			ListViewItem item = new ListViewItem(list.Postion.ToString());
 
 			// Annar dálkurinn birtir kennitölu:
-			item.SubItems.Add(list.ChartSong.ToString());
-			item.SubItems.Add(list.ChartArtist.ToString());
+			item.SubItems.Add(list.SongName.ToString());
+			item.SubItems.Add(list.ArtistName.ToString());
 
 			// Allir nemendur fá sama icon í þetta skiptið:
 			item.ImageIndex = 0;
