@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:GridView ID="m_chartGridView" runat="server" HorizontalAlign="Center" AutoGenerateColumns="False">
         <Columns>
-            <asp:BoundField DataField="Postition" HeaderText="S&#230;ti" />
+            <asp:BoundField DataField="Position" HeaderText="S&#230;ti" />
             <asp:BoundField DataField="SongName" HeaderText="Lag" />
             <asp:BoundField DataField="ArtistName" HeaderText="Flytjandi" />
         </Columns>

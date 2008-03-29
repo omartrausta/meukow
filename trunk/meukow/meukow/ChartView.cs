@@ -97,7 +97,7 @@ namespace meukow
 		protected ListViewItem GetListViewItem(Chart list)
 		{
 			// Fyrsti dálkurinn birtir nafn:
-			ListViewItem item = new ListViewItem(list.Postion.ToString());
+			ListViewItem item = new ListViewItem(list.Position.ToString());
 
 			// Annar dálkurinn birtir kennitölu:
 			item.SubItems.Add(list.SongName.ToString());

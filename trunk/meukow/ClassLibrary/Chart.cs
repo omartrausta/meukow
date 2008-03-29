@@ -11,7 +11,7 @@ namespace ClassLibrary
 		#region Member Variables
 
 		private int m_nListID;
-		private int m_nPostion;
+		private int m_nPosition;
 	    private int m_nSongID;
 		private String m_strSongName;
 	    private int m_nArtistID;
@@ -21,10 +21,10 @@ namespace ClassLibrary
 
 		#region Properties
 
-		public int Postion
+		public int Position
 		{
-			get { return m_nPostion; }
-			set { m_nPostion = value; }
+			get { return m_nPosition; }
+			set { m_nPosition = value; }
 		}
 
 	    public int SongID
@@ -77,15 +77,40 @@ namespace ClassLibrary
 		}
 		#endregion
 
+        #region IDataList implementation
         public void Load(IDataReader reader)
         {
             m_nListID = Convert.ToInt32(reader["List"]);
-            m_nPostion = Convert.ToInt32(reader["Position"]);
+            m_nPosition = Convert.ToInt32(reader["Position"]);
             m_nSongID = Convert.ToInt32(reader["SongID"]);
             m_strSongName = reader["SongName"].ToString();
             m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
             m_strArtistName = reader["ArtistName"].ToString();
         }
+
+        /// <summary>
+        /// Fall sem skilar TableDescription hlut, en þennan hlut má svo
+        /// nota þegar tilvik af klasanum er uppfært eða nýskráð.
+        /// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
+        /// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
+        /// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
+        /// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
+        /// </summary>
+        /// <returns></returns>
+        public TableDescription GetTable()
+        {
+            ColumnDescription[] columns = 
+			{
+				new ColumnDescription( "List", this.ListID, DbType.Int32, true ),
+                new ColumnDescription( "Position", this.Position, DbType.Int32 ),
+                new ColumnDescription( "SongID", this.SongID, DbType.Int32 ),
+				new ColumnDescription( "SongName", this.SongName, DbType.String ),
+                new ColumnDescription( "ArtistID", this.ArtistID, DbType.Int32 ),
+				new ColumnDescription( "ArtistName", this.ArtistName, DbType.String ),
+			};
+            return new TableDescription("List", columns);
+        }
+        #endregion
     }
     public class ChartSorter : IComparer<Chart>
     {
@@ -106,7 +131,7 @@ namespace ClassLibrary
 		    switch (m_strOrderBy)
 		    {
                 case "Positon":
-                    return x.Postion.CompareTo(y.Postion);
+                    return x.Position.CompareTo(y.Position);
                 case "SongID":
                     return x.SongID.CompareTo(y.SongID);
                 case "SongName":
