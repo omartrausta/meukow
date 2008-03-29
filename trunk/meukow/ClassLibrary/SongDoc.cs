@@ -31,7 +31,7 @@ namespace ClassLibrary
 
         public Song GetSong(int nID)
         {
-            String strSQL = String.Format("select * from Song where ID={0}", nID);
+            String strSQL = String.Format("SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID={0}", nID);
             return base.LoadItem<Song>(strSQL);
         }
 
