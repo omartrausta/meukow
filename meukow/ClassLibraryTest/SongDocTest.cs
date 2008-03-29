@@ -31,7 +31,7 @@ namespace ClassLibraryTest
 
 			song.Name = "SongName";
 			song.ArtistID = 2;
-			song.Artist = "ArtistName";
+			song.Artist = "Afsakið";
 			song.SongPath = "SongPath";
 			song.Description = "SongDescription";
 
@@ -43,7 +43,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-			String strSQL = "select * from Song where ID = " + song.ID.ToString();
+            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 			
@@ -84,7 +84,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-			String strSQL = "select * from Song where ID = " + song.ID.ToString();
+            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -122,7 +122,8 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-			String strSQL = "select * from Song";
+		    String strSQL =
+		        "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -176,7 +177,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-			String strSQL = "select * from Song where ID = " + nID.ToString();
+            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + nID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -224,7 +225,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-			String strSQL = "select * from Song where ID = " + song.ID.ToString();
+            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 

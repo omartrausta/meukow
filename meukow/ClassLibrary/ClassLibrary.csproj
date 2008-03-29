@@ -53,6 +53,7 @@
     <Compile Include="Song.cs" />
     <Compile Include="SongDoc.cs" />
     <Compile Include="Statistic.cs" />
+    <Compile Include="StatisticDoc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

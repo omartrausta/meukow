@@ -46,6 +46,7 @@
     <Compile Include="ArtistDocTest.cs" />
     <Compile Include="ArtistTest.cs" />
     <Compile Include="ChartDocTest.cs" />
+    <Compile Include="ChartTest.cs" />
     <Compile Include="ListDocTest.cs" />
     <Compile Include="ListPropDocTest.cs" />
     <Compile Include="ListPropTest.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="ListTest.cs" />
     <Compile Include="SongDocTest.cs" />
     <Compile Include="SongTest.cs" />
+    <Compile Include="StatisticDocTest.cs" />
+    <Compile Include="StatisticTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary\ClassLibrary.csproj">

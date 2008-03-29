@@ -281,7 +281,7 @@ namespace ClassLibraryTest
             connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
             connection.Open();
 
-            String strSQL = "select * from Song";
+            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
             OleDbCommand command = new OleDbCommand(strSQL, connection);
             reader = command.ExecuteReader();
 

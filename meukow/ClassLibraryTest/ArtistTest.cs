@@ -84,7 +84,7 @@ namespace ClassLibraryTest
 			Assert.AreEqual(DbType.String, actual.Columns[3].Type, "Type is not the same for Picture");
 			Assert.AreEqual(false, actual.Columns[3].IsPrimaryKey, "IsPrimaryKey is not the same for Picture");
 
-			Assert.AreEqual("Url", actual.Columns[4].Name, "Name is not the same for Url");
+			Assert.AreEqual("URL", actual.Columns[4].Name, "Name is not the same for Url");
 			Assert.AreEqual(null, actual.Columns[4].Value, "Value is not the same for Url");
 			Assert.AreEqual(DbType.String, actual.Columns[4].Type, "Type is not the same for Url");
 			Assert.AreEqual(false, actual.Columns[4].IsPrimaryKey, "IsPrimaryKey is not the same for Url");
