@@ -134,6 +134,7 @@ namespace ClassLibraryTest
 				expectedSong.ID = Convert.ToInt32(reader["ID"]);
 				expectedSong.Name = reader["Name"].ToString();
 				expectedSong.ArtistID = Convert.ToInt32(reader["ArtistID"]);
+			    expectedSong.Artist = reader["ArtistName"].ToString();
 				expectedSong.SongPath = reader["SongPath"].ToString();
 				expectedSong.Description = reader["Description"].ToString();
 
@@ -147,6 +148,7 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected[i].ID, actual[i].ID, "ID is not correct");
 				Assert.AreEqual(expected[i].Name, actual[i].Name, "Name is not correct");
 				Assert.AreEqual(expected[i].ArtistID, actual[i].ArtistID, "ArtistID is not correct");
+                Assert.AreEqual(expected[i].Artist, actual[i].Artist,"ArtistName is not correct");
 				Assert.AreEqual(expected[i].SongPath, actual[i].SongPath, "SongPath is not correct");
 				Assert.AreEqual(expected[i].Description, actual[i].Description, "Description is not correct");
 			}
