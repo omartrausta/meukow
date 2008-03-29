@@ -134,12 +134,12 @@ namespace meukow
 							// Látum vinnslulagið uppfæra nemandann. Ef það
 							// mistekst er kastað villu.
 							Document.UpdateSong(song);
-							HressaLista();
-							//int nIndex = listViewItem.Index;
+							//HressaLista();
+							int nIndex = listViewItem.Index;
 							// Við uppfærum færsluna með því að fjarlægja þá sem
 							// er fyrir og setja nýja inn:
-							//m_listViewSong.Items.Remove(listViewItem);
-							//m_listViewSong.Items.Insert(nIndex, GetListViewItem(song));
+							m_listViewSong.Items.Remove(listViewItem);
+							m_listViewSong.Items.Insert(nIndex, GetListViewItem(song));
 						}
 					}
 				}

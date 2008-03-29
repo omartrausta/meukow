@@ -14,7 +14,6 @@ namespace meukow
 	{
 		private ArtistCollection m_artistCollection = new ArtistCollection();
 		private Artist m_artist = new Artist();
-		private Artist m_selectedArtist = new Artist();
 		private ArtistDoc artistDoc = new ArtistDoc();
 		private Song m_song = null;
 
@@ -22,9 +21,10 @@ namespace meukow
 		{
 			get
 			{
-				m_selectedArtist = (Artist)m_cmbArtist.SelectedItem;
+				m_artist = (Artist)m_cmbArtist.SelectedItem;
 				m_song.Name = m_txtboxName.Text;
-				m_song.ArtistID = m_selectedArtist.ID;
+				m_song.ArtistID = m_artist.ID;
+				m_song.Artist = m_artist.Name;
 				m_song.SongPath = m_txtboxSongpath.Text;
 				m_song.Description = m_txtboxDescription.Text;
 				return m_song;
