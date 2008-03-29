@@ -249,6 +249,53 @@ namespace ClassLibraryTest
 			reader.Dispose();
 		}
 
+        /// <summary>
+        ///A test for AddList (List)
+        ///</summary>
+        [Test]
+        public void AddListDateTest()
+        {
+            System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+
+            ListDoc target = new ListDoc();
+
+            List list = new List();
+            List expected = new List();
+
+            list.Name = "ListName";
+            list.Starts = DateTime.Now.AddDays(-7);
+            list.Ends = DateTime.Now;
+            list.WeekList = true;
+
+            target.AddList(list);
+
+            Assert.AreNotEqual(0, list.ID, "ID is 0 in List.");
+
+            IDataReader reader = null;
+
+            OleDbConnection connection = GetConnection();
+
+            String strSQL = "select * from List where ID = " + list.ID.ToString();
+            OleDbCommand command = new OleDbCommand(strSQL, connection);
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                expected.Load(reader);
+
+                Assert.AreEqual(expected.ID, list.ID, "ID is not correct");
+                Assert.AreEqual(expected.Name, list.Name, "Name is not correct");
+                Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
+                Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
+                Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
+
+            }
+
+            connection.Dispose();
+            command.Dispose();
+            reader.Dispose();
+        }
+
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();

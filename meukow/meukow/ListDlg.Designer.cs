@@ -28,6 +28,7 @@ namespace meukow
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.m_lblName = new System.Windows.Forms.Label();
             this.m_lblStarts = new System.Windows.Forms.Label();
             this.m_txtName = new System.Windows.Forms.TextBox();
@@ -47,7 +48,10 @@ namespace meukow
             this.m_txtPosition = new System.Windows.Forms.TextBox();
             this.m_cmbArtist = new System.Windows.Forms.ComboBox();
             this.m_gbHitParadeList = new System.Windows.Forms.GroupBox();
-            this.chartView1 = new meukow.ChartView();
+            this.m_validator = new Itboy.Components.Validator(this.components);
+            this.m_btnOK = new System.Windows.Forms.Button();
+            this.m_btnCancel = new System.Windows.Forms.Button();
+            this.chartView2 = new meukow.ChartView();
             this.m_gbHitParadeListInfo.SuspendLayout();
             this.m_gbHitParadeDetail.SuspendLayout();
             this.m_gbHitParadeList.SuspendLayout();
@@ -80,6 +84,7 @@ namespace meukow
             this.m_txtName.Name = "m_txtName";
             this.m_txtName.Size = new System.Drawing.Size(271, 21);
             this.m_txtName.TabIndex = 3;
+            this.m_validator.SetType(this.m_txtName, Itboy.Components.ValidationType.Required);
             // 
             // m_dtStarts
             // 
@@ -165,11 +170,12 @@ namespace meukow
             this.m_btnAddToList.TabIndex = 8;
             this.m_btnAddToList.Text = "Bæta við í lista";
             this.m_btnAddToList.UseVisualStyleBackColor = true;
+            this.m_btnAddToList.Click += new System.EventHandler(this.OnAddToListClick);
             // 
             // m_btnNewSong
             // 
             this.m_btnNewSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_btnNewSong.Location = new System.Drawing.Point(200, 77);
+            this.m_btnNewSong.Location = new System.Drawing.Point(200, 49);
             this.m_btnNewSong.Name = "m_btnNewSong";
             this.m_btnNewSong.Size = new System.Drawing.Size(106, 23);
             this.m_btnNewSong.TabIndex = 7;
@@ -182,15 +188,16 @@ namespace meukow
             this.m_cmbSong.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.m_cmbSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.m_cmbSong.FormattingEnabled = true;
-            this.m_cmbSong.Location = new System.Drawing.Point(72, 77);
+            this.m_cmbSong.Location = new System.Drawing.Point(72, 49);
             this.m_cmbSong.Name = "m_cmbSong";
             this.m_cmbSong.Size = new System.Drawing.Size(121, 23);
             this.m_cmbSong.TabIndex = 6;
+            this.m_cmbSong.SelectedValueChanged += new System.EventHandler(this.OnSongChanged);
             // 
             // m_btnNewArtist
             // 
             this.m_btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_btnNewArtist.Location = new System.Drawing.Point(200, 48);
+            this.m_btnNewArtist.Location = new System.Drawing.Point(200, 78);
             this.m_btnNewArtist.Name = "m_btnNewArtist";
             this.m_btnNewArtist.Size = new System.Drawing.Size(106, 23);
             this.m_btnNewArtist.TabIndex = 5;
@@ -201,7 +208,7 @@ namespace meukow
             // 
             this.m_lblSong.AutoSize = true;
             this.m_lblSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_lblSong.Location = new System.Drawing.Point(14, 80);
+            this.m_lblSong.Location = new System.Drawing.Point(14, 52);
             this.m_lblSong.Name = "m_lblSong";
             this.m_lblSong.Size = new System.Drawing.Size(28, 15);
             this.m_lblSong.TabIndex = 4;
@@ -211,7 +218,7 @@ namespace meukow
             // 
             this.m_lblArtist.AutoSize = true;
             this.m_lblArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_lblArtist.Location = new System.Drawing.Point(14, 51);
+            this.m_lblArtist.Location = new System.Drawing.Point(14, 81);
             this.m_lblArtist.Name = "m_lblArtist";
             this.m_lblArtist.Size = new System.Drawing.Size(52, 15);
             this.m_lblArtist.TabIndex = 3;
@@ -237,16 +244,18 @@ namespace meukow
             // 
             // m_cmbArtist
             // 
+            this.m_cmbArtist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.m_cmbArtist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.m_cmbArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.m_cmbArtist.FormattingEnabled = true;
-            this.m_cmbArtist.Location = new System.Drawing.Point(72, 49);
+            this.m_cmbArtist.Location = new System.Drawing.Point(72, 79);
             this.m_cmbArtist.Name = "m_cmbArtist";
             this.m_cmbArtist.Size = new System.Drawing.Size(121, 23);
             this.m_cmbArtist.TabIndex = 0;
             // 
             // m_gbHitParadeList
             // 
-            this.m_gbHitParadeList.Controls.Add(this.chartView1);
+            this.m_gbHitParadeList.Controls.Add(this.chartView2);
             this.m_gbHitParadeList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.m_gbHitParadeList.Location = new System.Drawing.Point(13, 305);
             this.m_gbHitParadeList.Name = "m_gbHitParadeList";
@@ -255,27 +264,58 @@ namespace meukow
             this.m_gbHitParadeList.TabStop = false;
             this.m_gbHitParadeList.Text = "Vinsældalisti";
             // 
-            // chartView1
+            // m_validator
             // 
-            this.chartView1.Chart = null;
-            this.chartView1.Doc = null;
-            this.chartView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.chartView1.Location = new System.Drawing.Point(17, 23);
-            this.chartView1.Margin = new System.Windows.Forms.Padding(4);
-            this.chartView1.Name = "chartView1";
-            this.chartView1.Size = new System.Drawing.Size(437, 306);
-            this.chartView1.TabIndex = 0;
+            this.m_validator.Form = this;
+            // 
+            // m_btnOK
+            // 
+            this.m_btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.m_btnOK.Location = new System.Drawing.Point(340, 648);
+            this.m_btnOK.Name = "m_btnOK";
+            this.m_btnOK.Size = new System.Drawing.Size(75, 23);
+            this.m_btnOK.TabIndex = 6;
+            this.m_btnOK.Text = "Í lagi";
+            this.m_btnOK.UseVisualStyleBackColor = true;
+            // 
+            // m_btnCancel
+            // 
+            this.m_btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.m_btnCancel.Location = new System.Drawing.Point(421, 648);
+            this.m_btnCancel.Name = "m_btnCancel";
+            this.m_btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.m_btnCancel.TabIndex = 7;
+            this.m_btnCancel.Text = "Hætta við";
+            this.m_btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // chartView2
+            // 
+            this.chartView2.Chart = null;
+            this.chartView2.Doc = null;
+            this.chartView2.Location = new System.Drawing.Point(7, 23);
+            this.chartView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chartView2.Name = "chartView2";
+            this.chartView2.Size = new System.Drawing.Size(410, 300);
+            this.chartView2.TabIndex = 0;
             // 
             // ListDlg
             // 
+            this.AcceptButton = this.m_btnAddToList;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 647);
+            this.ClientSize = new System.Drawing.Size(649, 694);
+            this.Controls.Add(this.m_btnCancel);
+            this.Controls.Add(this.m_btnOK);
             this.Controls.Add(this.m_gbHitParadeList);
             this.Controls.Add(this.m_gbHitParadeDetail);
             this.Controls.Add(this.m_gbHitParadeListInfo);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(657, 674);
             this.Name = "ListDlg";
-            this.Text = "ListDlg";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Upplýsingar um vinsældalista";
             this.Load += new System.EventHandler(this.OnLoad);
             this.m_gbHitParadeListInfo.ResumeLayout(false);
             this.m_gbHitParadeListInfo.PerformLayout();
@@ -308,5 +348,9 @@ namespace meukow
         private System.Windows.Forms.GroupBox m_gbHitParadeList;
         private ChartView chartView1;
         private System.Windows.Forms.Button m_btnAddToList;
+        private Itboy.Components.Validator m_validator;
+        private System.Windows.Forms.Button m_btnCancel;
+        private System.Windows.Forms.Button m_btnOK;
+        private ChartView chartView2;
 	}
 }
