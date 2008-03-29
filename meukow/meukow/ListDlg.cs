@@ -112,8 +112,8 @@ namespace meukow
 
                         if (dr.RowState != DataRowState.Deleted)
                         {
-                            dsPosition = Convert.ToInt32(dr["Position"]);
-                            dsArtistID = Convert.ToInt32(dr["SongID"]);
+                            dsPosition = Convert.ToInt32(dr["Postition"]);
+                            dsArtistID = Convert.ToInt32(dr["ArtistID"]);
                             dsSongID = Convert.ToInt32(dr["SongID"]);
 
                             if (dsPosition.Equals(position))
@@ -137,6 +137,10 @@ namespace meukow
                     listProp.Song = m_song.ID;
 
                     listPropDoc.AddListProp(listProp);
+
+                    m_chartView.OnUpdateChart( m_list.ID );
+
+                    m_txtPosition.Text = (position + 1).ToString();
                 }
             }
         }
@@ -155,5 +159,8 @@ namespace meukow
                 }
             }
         }
+
+        
+
 	}
 }
