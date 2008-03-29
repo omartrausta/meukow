@@ -48,10 +48,10 @@ namespace meukow
             this.m_txtPosition = new System.Windows.Forms.TextBox();
             this.m_cmbArtist = new System.Windows.Forms.ComboBox();
             this.m_gbHitParadeList = new System.Windows.Forms.GroupBox();
+            this.m_chartView = new meukow.ChartView();
             this.m_validator = new Itboy.Components.Validator(this.components);
             this.m_btnOK = new System.Windows.Forms.Button();
             this.m_btnCancel = new System.Windows.Forms.Button();
-            this.chartView2 = new meukow.ChartView();
             this.m_gbHitParadeListInfo.SuspendLayout();
             this.m_gbHitParadeDetail.SuspendLayout();
             this.m_gbHitParadeList.SuspendLayout();
@@ -255,7 +255,7 @@ namespace meukow
             // 
             // m_gbHitParadeList
             // 
-            this.m_gbHitParadeList.Controls.Add(this.chartView2);
+            this.m_gbHitParadeList.Controls.Add(this.m_chartView);
             this.m_gbHitParadeList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.m_gbHitParadeList.Location = new System.Drawing.Point(13, 305);
             this.m_gbHitParadeList.Name = "m_gbHitParadeList";
@@ -263,6 +263,16 @@ namespace meukow
             this.m_gbHitParadeList.TabIndex = 5;
             this.m_gbHitParadeList.TabStop = false;
             this.m_gbHitParadeList.Text = "Vinsældalisti";
+            // 
+            // m_chartView
+            // 
+            this.m_chartView.Chart = null;
+            this.m_chartView.Doc = null;
+            this.m_chartView.Location = new System.Drawing.Point(7, 23);
+            this.m_chartView.Margin = new System.Windows.Forms.Padding(4);
+            this.m_chartView.Name = "m_chartView";
+            this.m_chartView.Size = new System.Drawing.Size(410, 300);
+            this.m_chartView.TabIndex = 0;
             // 
             // m_validator
             // 
@@ -287,16 +297,6 @@ namespace meukow
             this.m_btnCancel.TabIndex = 7;
             this.m_btnCancel.Text = "Hætta við";
             this.m_btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // chartView2
-            // 
-            this.chartView2.Chart = null;
-            this.chartView2.Doc = null;
-            this.chartView2.Location = new System.Drawing.Point(7, 23);
-            this.chartView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chartView2.Name = "chartView2";
-            this.chartView2.Size = new System.Drawing.Size(410, 300);
-            this.chartView2.TabIndex = 0;
             // 
             // ListDlg
             // 
@@ -351,6 +351,6 @@ namespace meukow
         private Itboy.Components.Validator m_validator;
         private System.Windows.Forms.Button m_btnCancel;
         private System.Windows.Forms.Button m_btnOK;
-        private ChartView chartView2;
+        private ChartView m_chartView;
 	}
 }

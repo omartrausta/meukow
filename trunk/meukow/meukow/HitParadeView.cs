@@ -218,12 +218,8 @@ namespace meukow
 					dlg.List = new List();
 					if ( dlg.ShowDialog( ) == DialogResult.OK )
 					{
-						List list = dlg.List;
-
-						// Ef þetta klikkar verður kastað villu:
-						Document.AddList(list);
-
-						m_listViewHitParade.Items.Add( GetListViewItem( list ) );
+						m_listViewHitParade.Items.Add( GetListViewItem( dlg.List ) );
+                        Invalidate();
 					}
 				}
 			}
