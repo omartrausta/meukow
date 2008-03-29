@@ -92,8 +92,8 @@ namespace meukow
 
 						// Ef þetta klikkar verður kastað villu:
 						Document.AddSong(song);
-						HressaLista();
-						//m_listViewSong.Items.Add(GetListViewItem(song));
+						//HressaLista();
+						m_listViewSong.Items.Add(GetListViewItem(song));
 					}
 				}
 			}
@@ -156,7 +156,7 @@ namespace meukow
 			{
 				if (m_listViewSong.SelectedItems.Count == 1)
 				{
-					if (MessageBox.Show("Are you sure you want to delete this student?", "DeleteStudent",
+					if (MessageBox.Show("Viltu örugglega eyða þessu lagi?", "Eyða lagi",
 						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 					{
 						ListViewItem listViewItem = m_listViewSong.SelectedItems[0];
