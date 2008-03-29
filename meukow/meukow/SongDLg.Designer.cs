@@ -85,6 +85,7 @@ namespace meukow
 			this.m_cmbArtist.Name = "m_cmbArtist";
 			this.m_cmbArtist.Size = new System.Drawing.Size(121, 21);
 			this.m_cmbArtist.TabIndex = 4;
+			this.m_cmbArtist.Click += new System.EventHandler(this.OnClick);
 			// 
 			// m_txtboxName
 			// 
@@ -144,7 +145,6 @@ namespace meukow
 			this.Controls.Add(this.m_lblName);
 			this.Name = "SongDlg";
 			this.Text = "SongDlg";
-			this.Load += new System.EventHandler(this.OnLoad);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
