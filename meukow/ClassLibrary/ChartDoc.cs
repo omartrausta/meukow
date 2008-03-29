@@ -23,5 +23,14 @@ namespace ClassLibrary
 			//base.ExecuteSQL(strSQL);
 			return base.LoadData(strSQL);
 		}
+
+		public DataSet GetSongTimesInPos()
+		{
+			//String strSQL = string.Format("SELECT Song.[Name] AS SongName, [ListProp].[Position] AS Position, COUNT([Song].[ID] AS TimesInPos FROM [Song] INNER JOIN ListProp ON [Song].[ID] = [ListProp].[Song] AND [ListProp].[Position] = 1 INNER JOIN [List] ON [ListProp].[List] = [List].[ID] AND [List].[WeekList] = 1 GROUP by [Song].[Name], [ListProp].[Position]");
+			String strSQL = "SELECT Song.[ArtistID] FROM (Song INNER JOIN [ListProp] ON Song.[ID] = ListProp.[List])";
+		
+			return base.LoadData(strSQL);
+		}
+
 	}
 }
