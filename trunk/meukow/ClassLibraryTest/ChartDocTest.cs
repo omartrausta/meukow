@@ -13,18 +13,6 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ChartDocTest
 	{
-		[Test]	
-		public void GetSongTimesInPosTest()
-		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
-
-			ChartDoc chartdoc = new ChartDoc();
-
-			DataSet ds = chartdoc.GetSongTimesInPos();
-
-			Assert.IsNotNull(ds,"DataSet is not null");
-		}
-
         [Test]
         public void GetChartListTest()
         {
