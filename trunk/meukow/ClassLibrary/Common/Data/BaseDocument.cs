@@ -68,6 +68,7 @@ namespace ClassLibrary.Common.Data
 			// in unit testing projects) we also handle it when
 			// such file doesn't exist.
 			m_strConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+            
 
 			Debug.Assert( m_strConnectionString.Length > 0, "BaseDocument.BaseDocument: the connection string defined in .config file cannot be empty!" );
 

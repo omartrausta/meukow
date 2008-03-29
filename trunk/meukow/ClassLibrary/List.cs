@@ -40,7 +40,11 @@ namespace ClassLibrary
 		public DateTime Starts
 		{
 			get { return m_dtStarts; }
-			set { m_dtStarts = value; }
+			set 
+            { 
+                m_dtStarts = value; 
+                m_dtStarts = new DateTime( m_dtStarts.Year, m_dtStarts.Month, m_dtStarts.Day );
+            }
 		}
 
 		/// <summary>
@@ -49,7 +53,12 @@ namespace ClassLibrary
 		public DateTime Ends
 		{
 			get { return m_dtEnds; }
-			set { m_dtEnds = value; }
+			set
+			{
+			    m_dtEnds = value;
+                m_dtEnds = new DateTime(m_dtEnds.Year, m_dtEnds.Month, m_dtEnds.Day);
+
+			}
 		}
 
 		/// <summary>
