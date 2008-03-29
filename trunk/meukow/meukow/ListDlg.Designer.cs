@@ -39,19 +39,17 @@ namespace meukow
             this.m_gbHitParadeListInfo = new System.Windows.Forms.GroupBox();
             this.m_gbHitParadeDetail = new System.Windows.Forms.GroupBox();
             this.m_btnAddToList = new System.Windows.Forms.Button();
-            this.m_btnNewSong = new System.Windows.Forms.Button();
             this.m_cmbSong = new System.Windows.Forms.ComboBox();
-            this.m_btnNewArtist = new System.Windows.Forms.Button();
             this.m_lblSong = new System.Windows.Forms.Label();
             this.m_lblArtist = new System.Windows.Forms.Label();
             this.m_lblPosition = new System.Windows.Forms.Label();
             this.m_txtPosition = new System.Windows.Forms.TextBox();
             this.m_cmbArtist = new System.Windows.Forms.ComboBox();
             this.m_gbHitParadeList = new System.Windows.Forms.GroupBox();
-            this.m_chartView = new meukow.ChartView();
             this.m_validator = new Itboy.Components.Validator(this.components);
             this.m_btnOK = new System.Windows.Forms.Button();
             this.m_btnCancel = new System.Windows.Forms.Button();
+            this.m_chartView = new meukow.ChartView();
             this.m_gbHitParadeListInfo.SuspendLayout();
             this.m_gbHitParadeDetail.SuspendLayout();
             this.m_gbHitParadeList.SuspendLayout();
@@ -137,7 +135,7 @@ namespace meukow
             this.m_gbHitParadeListInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.m_gbHitParadeListInfo.Location = new System.Drawing.Point(12, 12);
             this.m_gbHitParadeListInfo.Name = "m_gbHitParadeListInfo";
-            this.m_gbHitParadeListInfo.Size = new System.Drawing.Size(514, 140);
+            this.m_gbHitParadeListInfo.Size = new System.Drawing.Size(427, 140);
             this.m_gbHitParadeListInfo.TabIndex = 3;
             this.m_gbHitParadeListInfo.TabStop = false;
             this.m_gbHitParadeListInfo.Text = "Upplýsingar um vinsældalista";
@@ -145,9 +143,7 @@ namespace meukow
             // m_gbHitParadeDetail
             // 
             this.m_gbHitParadeDetail.Controls.Add(this.m_btnAddToList);
-            this.m_gbHitParadeDetail.Controls.Add(this.m_btnNewSong);
             this.m_gbHitParadeDetail.Controls.Add(this.m_cmbSong);
-            this.m_gbHitParadeDetail.Controls.Add(this.m_btnNewArtist);
             this.m_gbHitParadeDetail.Controls.Add(this.m_lblSong);
             this.m_gbHitParadeDetail.Controls.Add(this.m_lblArtist);
             this.m_gbHitParadeDetail.Controls.Add(this.m_lblPosition);
@@ -156,7 +152,7 @@ namespace meukow
             this.m_gbHitParadeDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.m_gbHitParadeDetail.Location = new System.Drawing.Point(13, 159);
             this.m_gbHitParadeDetail.Name = "m_gbHitParadeDetail";
-            this.m_gbHitParadeDetail.Size = new System.Drawing.Size(513, 140);
+            this.m_gbHitParadeDetail.Size = new System.Drawing.Size(426, 140);
             this.m_gbHitParadeDetail.TabIndex = 4;
             this.m_gbHitParadeDetail.TabStop = false;
             this.m_gbHitParadeDetail.Text = "Skrá í vinsældalista";
@@ -168,19 +164,9 @@ namespace meukow
             this.m_btnAddToList.Name = "m_btnAddToList";
             this.m_btnAddToList.Size = new System.Drawing.Size(116, 23);
             this.m_btnAddToList.TabIndex = 8;
-            this.m_btnAddToList.Text = "Bæta við í lista";
+            this.m_btnAddToList.Text = "Vista í lista";
             this.m_btnAddToList.UseVisualStyleBackColor = true;
             this.m_btnAddToList.Click += new System.EventHandler(this.OnAddToListClick);
-            // 
-            // m_btnNewSong
-            // 
-            this.m_btnNewSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_btnNewSong.Location = new System.Drawing.Point(200, 49);
-            this.m_btnNewSong.Name = "m_btnNewSong";
-            this.m_btnNewSong.Size = new System.Drawing.Size(106, 23);
-            this.m_btnNewSong.TabIndex = 7;
-            this.m_btnNewSong.Text = "Nýtt lag";
-            this.m_btnNewSong.UseVisualStyleBackColor = true;
             // 
             // m_cmbSong
             // 
@@ -193,16 +179,6 @@ namespace meukow
             this.m_cmbSong.Size = new System.Drawing.Size(121, 23);
             this.m_cmbSong.TabIndex = 6;
             this.m_cmbSong.SelectedValueChanged += new System.EventHandler(this.OnSongChanged);
-            // 
-            // m_btnNewArtist
-            // 
-            this.m_btnNewArtist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.m_btnNewArtist.Location = new System.Drawing.Point(200, 78);
-            this.m_btnNewArtist.Name = "m_btnNewArtist";
-            this.m_btnNewArtist.Size = new System.Drawing.Size(106, 23);
-            this.m_btnNewArtist.TabIndex = 5;
-            this.m_btnNewArtist.Text = "Nýr flytjandi";
-            this.m_btnNewArtist.UseVisualStyleBackColor = true;
             // 
             // m_lblSong
             // 
@@ -259,10 +235,34 @@ namespace meukow
             this.m_gbHitParadeList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.m_gbHitParadeList.Location = new System.Drawing.Point(13, 305);
             this.m_gbHitParadeList.Name = "m_gbHitParadeList";
-            this.m_gbHitParadeList.Size = new System.Drawing.Size(513, 336);
+            this.m_gbHitParadeList.Size = new System.Drawing.Size(426, 336);
             this.m_gbHitParadeList.TabIndex = 5;
             this.m_gbHitParadeList.TabStop = false;
             this.m_gbHitParadeList.Text = "Vinsældalisti";
+            // 
+            // m_validator
+            // 
+            this.m_validator.Form = this;
+            // 
+            // m_btnOK
+            // 
+            this.m_btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.m_btnOK.Location = new System.Drawing.Point(355, 647);
+            this.m_btnOK.Name = "m_btnOK";
+            this.m_btnOK.Size = new System.Drawing.Size(75, 23);
+            this.m_btnOK.TabIndex = 6;
+            this.m_btnOK.Text = "Í lagi";
+            this.m_btnOK.UseVisualStyleBackColor = true;
+            // 
+            // m_btnCancel
+            // 
+            this.m_btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.m_btnCancel.Location = new System.Drawing.Point(274, 647);
+            this.m_btnCancel.Name = "m_btnCancel";
+            this.m_btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.m_btnCancel.TabIndex = 7;
+            this.m_btnCancel.Text = "Hætta við";
+            this.m_btnCancel.UseVisualStyleBackColor = true;
             // 
             // m_chartView
             // 
@@ -274,36 +274,12 @@ namespace meukow
             this.m_chartView.Size = new System.Drawing.Size(410, 300);
             this.m_chartView.TabIndex = 0;
             // 
-            // m_validator
-            // 
-            this.m_validator.Form = this;
-            // 
-            // m_btnOK
-            // 
-            this.m_btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.m_btnOK.Location = new System.Drawing.Point(340, 648);
-            this.m_btnOK.Name = "m_btnOK";
-            this.m_btnOK.Size = new System.Drawing.Size(75, 23);
-            this.m_btnOK.TabIndex = 6;
-            this.m_btnOK.Text = "Í lagi";
-            this.m_btnOK.UseVisualStyleBackColor = true;
-            // 
-            // m_btnCancel
-            // 
-            this.m_btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_btnCancel.Location = new System.Drawing.Point(421, 648);
-            this.m_btnCancel.Name = "m_btnCancel";
-            this.m_btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.m_btnCancel.TabIndex = 7;
-            this.m_btnCancel.Text = "Hætta við";
-            this.m_btnCancel.UseVisualStyleBackColor = true;
-            // 
             // ListDlg
             // 
             this.AcceptButton = this.m_btnAddToList;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 694);
+            this.ClientSize = new System.Drawing.Size(455, 678);
             this.Controls.Add(this.m_btnCancel);
             this.Controls.Add(this.m_btnOK);
             this.Controls.Add(this.m_gbHitParadeList);
@@ -311,11 +287,11 @@ namespace meukow
             this.Controls.Add(this.m_gbHitParadeListInfo);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(657, 674);
+            this.MinimumSize = new System.Drawing.Size(400, 674);
             this.Name = "ListDlg";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Upplýsingar um vinsældalista";
+            this.Text = "Skrá vinsældalista";
             this.Load += new System.EventHandler(this.OnLoad);
             this.m_gbHitParadeListInfo.ResumeLayout(false);
             this.m_gbHitParadeListInfo.PerformLayout();
@@ -343,14 +319,12 @@ namespace meukow
         private System.Windows.Forms.Label m_lblSong;
         private System.Windows.Forms.Label m_lblArtist;
         private System.Windows.Forms.ComboBox m_cmbSong;
-        private System.Windows.Forms.Button m_btnNewArtist;
-        private System.Windows.Forms.Button m_btnNewSong;
         private System.Windows.Forms.GroupBox m_gbHitParadeList;
         private ChartView chartView1;
         private System.Windows.Forms.Button m_btnAddToList;
         private Itboy.Components.Validator m_validator;
-        private System.Windows.Forms.Button m_btnCancel;
         private System.Windows.Forms.Button m_btnOK;
         private ChartView m_chartView;
+        private System.Windows.Forms.Button m_btnCancel;
 	}
 }
