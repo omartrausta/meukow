@@ -154,22 +154,19 @@ namespace meukow
             }
         }
 
-        private void OnSongChanged(object sender, EventArgs e)
-        {
-            if (m_cmbSong.SelectedIndex > 0)
-            {
-                Song song = new Song();
-                song = (Song)m_cmbSong.SelectedItem;
+		private void OnSongChanged(object sender, EventArgs e)
+		{
+			if (m_cmbSong.SelectedIndex > 0)
+			{
+				Song song = new Song();
+				song = (Song) m_cmbSong.SelectedItem;
 
-                if (song.ID != 0 && song.ArtistID != 0)
-                {
-                    m_cmbArtist.Text = string.Empty;
-                    m_cmbArtist.Text = song.Artist;
-                }
-            }
-        }
-
-        
-
+				if (song.ID != 0 && song.ArtistID != 0)
+				{
+					m_cmbArtist.Text = string.Empty;
+					m_cmbArtist.Text = song.Artist;
+				}
+			}
+		}
 	}
 }
