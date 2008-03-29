@@ -30,7 +30,8 @@ namespace meukow
 			{
 				m_song = value;
 				m_txtboxName.Text = m_song.Name;
-				//m_artist.ID = m_song.ArtistID;
+				m_artist.ID = m_song.ArtistID;
+				m_cmbArtist.Text = m_song.Artist;
 				m_txtboxSongpath.Text = m_song.SongPath;
 				m_txtboxDescription.Text = m_song.Description;
 			}

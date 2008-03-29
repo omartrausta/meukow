@@ -73,11 +73,19 @@ namespace meukow
             MessageBox.Show("Ertu hættur? Á kannski bara að fara í Bubbles");
         }
 
-		private void OntSbtnSong(object sender, EventArgs e)
+		private void OntSbtnSkraSong(object sender, EventArgs e)
 		{
 			m_SongView.OnNewSong();
 		}
 
-		
+		private void OntSbtnBreytaSong(object sender, EventArgs e)
+		{
+			m_SongView.OnUpdateSong();
+		}
+
+		private void OntSbtnEydaSong(object sender, EventArgs e)
+		{
+			m_SongView.OnDeleteSong();
+		}
 	}
 }
