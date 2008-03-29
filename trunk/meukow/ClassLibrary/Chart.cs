@@ -77,61 +77,60 @@ namespace ClassLibrary
 		}
 		#endregion
 
-		public class ChartSorter : IComparer<Chart>
-		{
-			#region Member variables
-			private String m_strOrderBy;
-			#endregion
+        public void Load(IDataReader reader)
+        {
+            m_nListID = Convert.ToInt32(reader["List"]);
+            m_nPostion = Convert.ToInt32(reader["Position"]);
+            m_nSongID = Convert.ToInt32(reader["SongID"]);
+            m_strSongName = reader["SongName"].ToString();
+            m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
+            m_strArtistName = reader["ArtistName"].ToString();
+        }
+    }
+    public class ChartSorter : IComparer<Chart>
+    {
+	    #region Member variables
+	    private String m_strOrderBy;
+	    #endregion
 
-			#region Constructors
-			public ChartSorter(String strOrderBy)
-			{
-				m_strOrderBy = strOrderBy;
-			}
-			#endregion
+	    #region Constructors
+	    public ChartSorter(String strOrderBy)
+	    {
+		    m_strOrderBy = strOrderBy;
+	    }
+	    #endregion
 
-			#region IComparer implementation
-			public int Compare(Chart x, Chart y)
-			{
-				switch (m_strOrderBy)
-				{
-                    case "Positon":
-                        return x.Postion.CompareTo(y.Postion);
-                    case "SongID":
-                        return x.SongID.CompareTo(y.SongID);
-                    case "SongName":
-                        return x.SongName.CompareTo(y.SongName);
-                    case "ArtistID":
-                        return x.ArtistID.CompareTo(y.ArtistID);
-                    case "ArtistName":
-                        return x.ArtistName.CompareTo(y.ArtistName);
-				}
+	    #region IComparer implementation
+	    public int Compare(Chart x, Chart y)
+	    {
+		    switch (m_strOrderBy)
+		    {
+                case "Positon":
+                    return x.Postion.CompareTo(y.Postion);
+                case "SongID":
+                    return x.SongID.CompareTo(y.SongID);
+                case "SongName":
+                    return x.SongName.CompareTo(y.SongName);
+                case "ArtistID":
+                    return x.ArtistID.CompareTo(y.ArtistID);
+                case "ArtistName":
+                    return x.ArtistName.CompareTo(y.ArtistName);
+		    }
 
-				return 0;
-			}
-			#endregion
+		    return 0;
+	    }
+	    #endregion
 
-		}
+    }
 
-		public class ChartCollection : DataList<Chart>
-		{
-			#region Public functions
-			public void Sort(String strOrderBy)
-			{
-				ChartSorter sorter = new ChartSorter(strOrderBy);
-				base.Sort(sorter);
-			}
-			#endregion
-		}
-
-		public void Load(IDataReader reader)
-		{
-			m_nListID = Convert.ToInt32(reader["List"]);
-			m_nPostion = Convert.ToInt32(reader["Position"]);
-		    m_nSongID = Convert.ToInt32(reader["SongID"]);
-			m_strSongName = reader["SongName"].ToString();
-		    m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
-			m_strArtistName = reader["ArtistName"].ToString();
-		}
-	}
+    public class ChartCollection : DataList<Chart>
+    {
+	    #region Public functions
+	    public void Sort(String strOrderBy)
+	    {
+		    ChartSorter sorter = new ChartSorter(strOrderBy);
+		    base.Sort(sorter);
+	    }
+	    #endregion
+    }
 }
