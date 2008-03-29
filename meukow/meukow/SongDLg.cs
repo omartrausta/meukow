@@ -22,6 +22,7 @@ namespace meukow
 		{
 			get
 			{
+				m_selectedArtist = (Artist)m_cmbArtist.SelectedItem;
 				m_song.Name = m_txtboxName.Text;
 				m_song.ArtistID = m_selectedArtist.ID;
 				m_song.SongPath = m_txtboxSongpath.Text;
@@ -61,13 +62,7 @@ namespace meukow
 		private void HressaCombo()
 		{
 			m_artistCollection = artistDoc.GetAllArtists();
-			m_cmbArtist.DataSource = m_artistCollection;	
+			m_cmbArtist.DataSource = m_artistCollection;
 		}
-
-		private void OnCombo(object sender, EventArgs e)
-		{
-			m_selectedArtist = (Artist)m_cmbArtist.SelectedItem;
-		}
-
 	}
 }
