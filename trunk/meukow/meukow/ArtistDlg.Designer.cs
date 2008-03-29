@@ -118,7 +118,7 @@ namespace meukow
             this.m_btnBrowse.Name = "m_btnBrowse";
             this.m_btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.m_btnBrowse.TabIndex = 10;
-            this.m_btnBrowse.Text = "...";
+            this.m_btnBrowse.Text = "Finna mynd";
             this.m_btnBrowse.UseVisualStyleBackColor = true;
             this.m_btnBrowse.Click += new System.EventHandler(this.m_btnBrowse_Click);
             // 
@@ -126,6 +126,7 @@ namespace meukow
             // 
             this.m_txtFileName.Location = new System.Drawing.Point(104, 242);
             this.m_txtFileName.Name = "m_txtFileName";
+            this.m_txtFileName.ReadOnly = true;
             this.m_txtFileName.Size = new System.Drawing.Size(158, 20);
             this.m_txtFileName.TabIndex = 11;
             // 
