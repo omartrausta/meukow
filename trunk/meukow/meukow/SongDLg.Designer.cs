@@ -85,7 +85,6 @@ namespace meukow
 			this.m_cmbArtist.Name = "m_cmbArtist";
 			this.m_cmbArtist.Size = new System.Drawing.Size(121, 21);
 			this.m_cmbArtist.TabIndex = 4;
-			this.m_cmbArtist.Click += new System.EventHandler(this.OnCombo);
 			// 
 			// m_txtboxName
 			// 
