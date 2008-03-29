@@ -76,24 +76,33 @@ namespace meukow
                    
                 }
 
-                if (m_txtPosition.Text.Trim() != string.Empty && m_cmbSong.SelectedIndex > 0 && m_cmbArtist.SelectedIndex > 0)
+                if (m_txtPosition.Text.Trim() != string.Empty && m_cmbSong.Text != "" && m_cmbArtist.Text != "")
                 {
                     int position = Convert.ToInt32(m_txtPosition.Text);
 
                     m_artist = new Artist();
                     m_artist = (Artist) m_cmbArtist.SelectedItem;
-
-                    if (m_artist.ID == 0)
+                    if (m_artist == null)
                     {
+                        m_artist = new Artist();
                         m_artistDoc = new ArtistDoc();
+                        m_artist.Name = m_cmbArtist.Text;
+                        m_artist.Description = String.Empty;
+                        m_artist.Picture = String.Empty;
+                        m_artist.URL = String.Empty;
                         m_artistDoc.AddArtist(m_artist);
                     }
 
                     m_song = new Song();
                     m_song = (Song) m_cmbSong.SelectedItem;
-                    if (m_song.ID == 0)
+                    if (m_song == null)
                     {
+                        m_song = new Song();
                         m_songDoc = new SongDoc();
+                        m_song.Name = m_cmbSong.Text;
+                        m_song.ArtistID = m_artist.ID;
+                        m_song.SongPath = String.Empty;
+                        m_song.Description = String.Empty;
                         m_songDoc.AddSong(m_song);
                     }
 
