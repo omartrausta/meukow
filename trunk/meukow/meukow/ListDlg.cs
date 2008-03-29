@@ -112,7 +112,7 @@ namespace meukow
 
                         if (dr.RowState != DataRowState.Deleted)
                         {
-                            dsPosition = Convert.ToInt32(dr["Postition"]);
+                            dsPosition = Convert.ToInt32(dr["Position"]);
                             dsArtistID = Convert.ToInt32(dr["ArtistID"]);
                             dsSongID = Convert.ToInt32(dr["SongID"]);
 

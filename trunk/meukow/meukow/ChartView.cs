@@ -66,7 +66,7 @@ namespace meukow
 
 					if (dr.RowState != DataRowState.Deleted)
 					{
-						ListViewItem lvi = new ListViewItem(dr["Postition"].ToString());
+						ListViewItem lvi = new ListViewItem(dr["Position"].ToString());
 						lvi.SubItems.Add(dr["SongName"].ToString());
 						lvi.SubItems.Add(dr["ArtistName"].ToString());
 
