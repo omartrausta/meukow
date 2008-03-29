@@ -23,10 +23,13 @@
                 <asp:HyperLink ID="id1" runat="server" NavigateUrl="~/default.aspx">Allir vinsældarlistar</asp:HyperLink>
             </li>
             <li>
-                <asp:HyperLink ID="id2" runat="server" NavigateUrl="~/DisplayViewStatistics.aspx">Skoða tölfræði</asp:HyperLink>
+                <asp:HyperLink ID="id2" runat="server" NavigateUrl="~/DisplaySong.aspx">Skoða Lög</asp:HyperLink>
             </li>
             <li>
-                <asp:HyperLink ID="id3" runat="server" NavigateUrl="~/DisplayEnterArtist.aspx">Nýskrá hljómsveit</asp:HyperLink>
+                <asp:HyperLink ID="id3" runat="server" NavigateUrl="~/DisplayViewStatistics.aspx">Skoða tölfræði</asp:HyperLink>
+            </li>
+            <li>
+                <asp:HyperLink ID="id4" runat="server" NavigateUrl="~/DisplayEnterArtist.aspx">Nýskrá hljómsveit</asp:HyperLink>
             </li>
         </ul>
     </div>
