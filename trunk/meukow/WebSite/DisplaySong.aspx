@@ -8,8 +8,6 @@
             <asp:HyperLinkField DataNavigateUrlFields="SongPath" DataTextField="Name" HeaderText="Lag" />
             <asp:BoundField DataField="Artist" HeaderText="Flytjandi" />
             <asp:BoundField DataField="Description" HeaderText="L&#253;sing" />
-            <asp:ButtonField ButtonType="Button" CausesValidation="True" CommandName="PlaySong"
-                Text="Spila lag" />
         </Columns>
     </asp:GridView>
 </asp:Content>
