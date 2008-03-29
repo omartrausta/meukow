@@ -102,6 +102,78 @@ namespace meukow
 			}
 		}
 
+		public void OnUpdateSong()
+		{
+			try
+			{
+				// Tékkum á því hvort það sé ekki örugglega einhver valinn:
+				if (m_listViewSong.SelectedItems.Count == 1)
+				{
+					// ListView á ekkert SelectedItem property, en skilar
+					// hinsvegar collection af völdum færslum, því sá
+					// möguleiki er fyrir hendi að ListView sé MultiSelect.
+					// Við erum samt ekki að nota okkur MultiSelect í þessu
+					// tilfelli (sjá properties fyrir ListView stýringuna).
+					ListViewItem listViewItem = m_listViewSong.SelectedItems[0];
+
+					// Þetta typecast er í lagi því GetListViewItem sér alltaf
+					// um að setja Student tilvik inn í Tag property-ið á 
+					// sérhverju itemi:
+					Song song = (Song)listViewItem.Tag;
+
+					using (SongDlg dlg = new SongDlg())
+					{
+						dlg.song = song;
+
+						if (dlg.ShowDialog() == DialogResult.OK)
+						{
+							// Sækjum gögnin aftur úr samtalsglugganum:
+							song = dlg.song;
+
+							// Látum vinnslulagið uppfæra nemandann. Ef það
+							// mistekst er kastað villu.
+							Document.UpdateSong(song);
+
+							int nIndex = listViewItem.Index;
+							// Við uppfærum færsluna með því að fjarlægja þá sem
+							// er fyrir og setja nýja inn:
+							m_listViewSong.Items.Remove(listViewItem);
+							m_listViewSong.Items.Insert(nIndex, GetListViewItem(song));
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				HandleError(ex);
+			}
+		}
+
+		public void OnDeleteSong()
+		{
+			try
+			{
+				if (m_listViewSong.SelectedItems.Count == 1)
+				{
+					if (MessageBox.Show("Are you sure you want to delete this student?", "DeleteStudent",
+						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+					{
+						ListViewItem listViewItem = m_listViewSong.SelectedItems[0];
+						// Sama gildir hér og í OnEditStudent.
+						Song song = (Song)listViewItem.Tag;
+
+						// Hér verður kastað villu ef þetta mistekst:
+						Document.DeleteSong(song);
+						m_listViewSong.Items.Remove(listViewItem);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				HandleError(ex);
+			}
+		}
+
 		#endregion
 
 		#region Private functions
