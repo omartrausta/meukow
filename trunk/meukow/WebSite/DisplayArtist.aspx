@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayArtist.aspx.cs" Inherits="DisplayArtist" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayArtist.aspx.cs" Inherits="DisplayArtist" Title="Flytjendur" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:GridView ID="m_artistGridView" runat="server" AutoGenerateColumns="False">
         <Columns>
