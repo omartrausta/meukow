@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.OleDb;
 using System.Diagnostics;
 using System.Configuration;
 using ClassLibrary.Common.Data;
@@ -22,6 +21,10 @@ namespace ClassLibrary.Common.Data
 	public class BaseDocument
 	{
 		#region Delegates
+		/// <summary>
+		/// Delegate for OnFetchRow
+		/// </summary>
+		/// <param name="reader">IDataReader</param>
 		public delegate void OnFetchRow( IDataReader reader );
 		#endregion
 
@@ -45,16 +48,20 @@ namespace ClassLibrary.Common.Data
 		/// Luckily, ASP.NET supports provider-agnostic code which we use.
 		/// </summary>
 		protected String m_strProviderName = "System.Data.OleDb";
-
-	   
 		#endregion
 
 		#region Constructors
-		public BaseDocument( )
-			: this( "" )
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public BaseDocument( ) : this( "" )
 		{
 		}
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strConnectionStringName">The connection string</param>
 		public BaseDocument( String strConnectionStringName )
 		{
 			if ( !String.IsNullOrEmpty( strConnectionStringName ) )
@@ -68,15 +75,12 @@ namespace ClassLibrary.Common.Data
 			// in unit testing projects) we also handle it when
 			// such file doesn't exist.
 			m_strConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
-            
 
 			Debug.Assert( m_strConnectionString.Length > 0, "BaseDocument.BaseDocument: the connection string defined in .config file cannot be empty!" );
-
 		}
 		#endregion
 
 		#region Properties
-
 		/// <summary>
 		/// Gets/Sets the connection string property. This is basically 
 		/// supplied in order to allow unit tests to specify a custom
@@ -104,8 +108,6 @@ namespace ClassLibrary.Common.Data
 				return DbProviderFactories.GetFactory( m_strProviderName );
 			}
 		}
-
-	    
 		#endregion
 
 		#region Public functions
@@ -134,7 +136,7 @@ namespace ClassLibrary.Common.Data
 		/// <typeparam name="T">The collection which will be returned (must
 		/// inherit from Common.Data.DataList</typeparam>
 		/// <typeparam name="U">The type which the collection stores (must
-		/// inherit from Common.Data.IDataItem</typeparam>
+		/// inherit from Common.Data.IDataItem)</typeparam>
 		/// <param name="strSQL">The SQL statement which will be used
 		/// to load the collection.</param>
 		/// <returns>A T collection of U objects</returns>
@@ -153,35 +155,34 @@ namespace ClassLibrary.Common.Data
 		/// constructed and loaded object, or null if no object was
 		/// found based on the SQL statement.
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="strSQL"></param>
+		/// <typeparam name="T">The type of the object which is to be loaded (must
+		/// inherit from Common.Data.IDataItem</typeparam>
+		/// <param name="strSQL">The SQL statement which will be used.</param>
 		/// <returns></returns>
-		public T LoadItem<T>( String strSQL )
+		public T LoadItem<T>( String strSQL ) 
 			where T : IDataItem, new( )
 		{
 			T t = default(T);
 
 			OnFetchRow func = delegate( IDataReader reader )
-			                  	{
-			                  		t = new T( );
-			                  		t.Load( reader );
-			                  	};
-			
+			{
+				t = new T( );
+				t.Load( reader );
+			};
+
 			this.LoadData( strSQL, func );
 
 			return t;
 		}
 
 		/// <summary>
-		/// LoadData sér um að sækja gögn samkvæmt uppgefinni SQL setningu
-		/// og skilar þeim í DataSet hlut. Ef eitthvað klikkar er skilað null.
-		/// Ef eitthvað fer úrskeiðis er birtur Assert gluggi í debug útgáfu
-		/// og fallið skilar null.
+		/// LoadData fetches data from a given SQL statement and returns a 
+		/// DataSet object. If something fails it returns null and shows an
+		/// Assert window.
 		/// </summary>
-		/// <param name="strSQL">SQL strengurinn (oftast SELECT setning) sem
-		/// á að keyra.</param>
-		/// <returns>DataSet hlut sem inniheldur gögnin sem var skilað, eða 
-		/// null ef villa kemur upp.</returns>
+		/// <param name="strSQL">SQL statement</param>
+		/// <returns>DataSet item that includes the data or null if there was
+		/// an error.</returns>
 		public DataSet LoadData( String strSQL )
 		{
 			DataSet ds = null;
@@ -201,33 +202,33 @@ namespace ClassLibrary.Common.Data
 			catch ( Exception ex )
 			{
 				Debug.Fail( ex.Message, ex.Source );
-				// Notum throw; en ekki throw ex; til þess að StackTrace haldi sér:
 				throw;
 			}
 			finally
 			{
-				// Tryggjum að við lekum engum auðlindum:
 				if ( adapter != null && adapter is IDisposable )
 				{
 					( (IDisposable)adapter ).Dispose( );
 				}
-				if ( command != null )
-					command.Dispose( );
-				if ( connection != null )
-					connection.Dispose( );
+				if (command != null)
+				{
+					command.Dispose();
+				}
+				if (connection != null)
+				{
+					connection.Dispose();
+				}
 			}
-
 			return ds;
 		}
 
 		/// <summary>
-		/// Þetta overload af fallinu LoadData skilar ekki DataSet hlut,
-		/// heldur tekur það inn delegate sem er kallað í fyrir sérhverja
-		/// færslu sem er lesin inn. Fallið notar DataReader til að lesa
-		/// gögnin, og er því tilvalið að nota með DataList hlut.
+		/// This overload of the function LoadData takes in delegate
+		/// object which called for each datarow that is read in.
+		/// This function uses DataReader to read the data.
 		/// </summary>
-		/// <param name="strSQL"></param>
-		/// <param name="fetchRowDelegate"></param>
+		/// <param name="strSQL">The SQL statement which will be used.</param>
+		/// <param name="fetchRowDelegate">OnFetchRow delegate</param>
 		public void LoadData( String strSQL, OnFetchRow fetchRowDelegate )
 		{
 			IDbConnection connection = null;
@@ -272,10 +273,9 @@ namespace ClassLibrary.Common.Data
 		}
 
 		/// <summary>
-		/// ExecuteSQL sér um að keyra tiltekna SQL setningu (t.d. DELETE FROM
-		/// setningu). Ef skipunin mistekst er kastað villu.
+		/// This function runs a specific SQL statement.
 		/// </summary>
-		/// <param name="strSQL">SQL skipunin sem á að keyra.</param>
+		/// <param name="strSQL">The SQL statement to be run.</param>
 		public void ExecuteSQL( String strSQL )
 		{
 			IDbConnection connection = null;
@@ -295,10 +295,14 @@ namespace ClassLibrary.Common.Data
 			finally
 			{
 				// Clean up:
-				if ( command != null )
-					command.Dispose( );
-				if ( connection != null )
-					connection.Dispose( );
+				if (command != null)
+				{
+					command.Dispose();
+				}
+				if (connection != null)
+				{
+					connection.Dispose();
+				}
 			}
 		}
 
@@ -357,7 +361,7 @@ namespace ClassLibrary.Common.Data
 		/// be inserted, and the primary key which controls what record should
 		/// be updated.
 		/// </summary>
-		/// <param name="table"></param>
+		/// <param name="table">TableDescription of the table to be updated.</param>
 		public void UpdateData( TableDescription table )
 		{
 			IDbConnection connection = null;
@@ -398,9 +402,9 @@ namespace ClassLibrary.Common.Data
 				}
 
 				strSQL = String.Format( "UPDATE {0} SET {1} WHERE {2}",
-				                        table.Name,
-				                        strBldr.ToString( ),
-				                        strWhere );
+									table.Name,
+									strBldr.ToString( ),
+									strWhere );
 
 				command = CreateCommand( strSQL, connection );
 
@@ -453,7 +457,7 @@ namespace ClassLibrary.Common.Data
 		/// table in question will generate its own primary key. The function
 		/// then fetches the generated primary key and returns it.
 		/// </summary>
-		/// <param name="table"></param>
+		/// <param name="table">TableDescription of the table to be inserted into.</param>
 		/// <returns>The generated primary key of the new record.</returns>
 		public int AddData( TableDescription table )
 		{
@@ -494,9 +498,9 @@ namespace ClassLibrary.Common.Data
 				}
 
 				strSQL = String.Format( "INSERT INTO {0} ( {1} ) VALUES ({2})",
-				                        table.Name,
-				                        strBldrColumnNames.ToString( ),
-				                        strBldrValues.ToString( ) );
+									table.Name,
+									strBldrColumnNames.ToString( ),
+									strBldrValues.ToString( ) );
 
 				connection = OpenConnection( );
 
@@ -556,14 +560,14 @@ namespace ClassLibrary.Common.Data
 		#region Protected helper functions
 
 		/// <summary>
-		/// Fall sem býr til Parameter fyrir INSERT/UPDATE skipun.
+		/// Function that creates parameter for INSERT/UPDATE statements.
 		/// </summary>
-		/// <param name="command">IDbCommand hlutur sem á að bæta parameter við</param>
-		/// <param name="strName">Nafn færibreytunnar. Hún er notuð tvisvar, þ.e. bæði fyrir
-		/// SourceColumn og sem nafn færibreytunnar.</param>
-		/// <param name="oValue">Gildið sem verður sett inn.</param>
-		/// <param name="type">Tag dálksins.</param>
-		/// <returns></returns>
+		/// <param name="command">IDbCommand object that is added parameters to.</param>
+		/// <param name="strName">Name of the parameter. It is used twice, both for
+		/// SourceColumn and as name for the parameter.</param>
+		/// <param name="oValue">The value for the parameter.</param>
+		/// <param name="type">Type of the column.</param>
+		/// <returns>The columns needed for INSERT/UPDATE.</returns>
 		protected DbParameter CreateParameter( IDbCommand command, String strName, object oValue, DbType type )
 		{
 			DbParameter param = Factory.CreateParameter( );
@@ -579,19 +583,24 @@ namespace ClassLibrary.Common.Data
 		}
 
 		/// <summary>
-		/// "Overload" af CreateParameter sem er skilgreint ofar, þar sem við þurfum 
-		/// oftast að kalla á þetta fyrir dálka sem geyma strengi er alveg þess
-		/// virði að skilgreina það sérstaklega.
+		/// Overload of CreateParameter that is declared above.
 		/// </summary>
-		/// <param name="command"></param>
-		/// <param name="strName"></param>
-		/// <param name="oValue"></param>
-		/// <returns></returns>
-		protected DbParameter CreateParameter( IDbCommand command, String strName, object oValue )
+		/// <param name="command">IDbCommand object that is added parameters to.</param>
+		/// <param name="strName">Name of the parameter. It is used twice, both for
+		/// SourceColumn and as name for the parameter.</param>
+		/// <param name="oValue">The value for the parameter.</param>
+		/// <returns>DbParameter</returns>
+		protected DbParameter CreateParameter(IDbCommand command, String strName, object oValue)
 		{
 			return CreateParameter( command, strName, oValue, DbType.String );
 		}
 
+		/// <summary>
+		/// Function that creates a command.
+		/// </summary>
+		/// <param name="strSQL">SQL statement</param>
+		/// <param name="connection">IDbconnection</param>
+		/// <returns>IDbCommand</returns>
 		protected IDbCommand CreateCommand( String strSQL, IDbConnection connection )
 		{
 			IDbCommand command = Factory.CreateCommand( );
@@ -601,13 +610,26 @@ namespace ClassLibrary.Common.Data
 			return command;
 		}
 
+		/// <summary>
+		/// Function that creates a command.
+		/// </summary>
+		/// <param name="strSQL">SQL statement</param>
+		/// <param name="connection">IDbconnection</param>
+		/// <param name="transaction">IDbTransaction</param>
+		/// <returns>IDbCommand</returns>
 		protected IDbCommand CreateCommand( String strSQL, IDbConnection connection, IDbTransaction transaction )
 		{
 			IDbCommand command = CreateCommand( strSQL, connection );
 			command.Transaction = transaction;
+
 			return command;
 		}
 
+		/// <summary>
+		/// Creates adapter with Factory.CreateDataAdapter( ) for the command.
+		/// </summary>
+		/// <param name="command">IDbCommand</param>
+		/// <returns>IDbDataAdapter</returns>
 		protected IDbDataAdapter CreateSelectAdapter( IDbCommand command )
 		{
 			IDbDataAdapter adapter = Factory.CreateDataAdapter( );
@@ -615,7 +637,6 @@ namespace ClassLibrary.Common.Data
 
 			return adapter;
 		}
-
 		#endregion
 	}
 }

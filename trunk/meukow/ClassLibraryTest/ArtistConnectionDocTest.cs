@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 namespace ClassLibraryTest
 {
@@ -15,18 +14,20 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistConnectionDocTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for AddArtistConnection (ArtistConnection)
 		///</summary>
 		[Test]
 		public void AddArtistConnectionTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
-
 			ArtistConnection actual = new ArtistConnection();
 			ArtistConnection expected = new ArtistConnection();
 
@@ -65,10 +66,9 @@ namespace ClassLibraryTest
 		[Test]
 		public void DeleteArtistConnectionTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
-
 			ArtistConnection actual = new ArtistConnection();
 
 			actual.IDParent = 14;
@@ -81,7 +81,7 @@ namespace ClassLibraryTest
 			OleDbConnection connection = GetConnection();
 
 			String strSQL = "select * from ArtistConnection where IDParent = " + actual.IDParent.ToString() + " and IDChild = " +
-			                actual.IDChild.ToString();
+			actual.IDChild.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -107,7 +107,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetAllArtistsConnectionTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
@@ -152,7 +152,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetArtistConnectionTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
@@ -169,7 +169,7 @@ namespace ClassLibraryTest
 			OleDbConnection connection = GetConnection();
 
 			String strSQL = "select * from ArtistConnection where IDParent = " + nIDParent.ToString() + " and IDChild = " +
-			                nIDChild.ToString();
+			nIDChild.ToString();
 
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
@@ -193,7 +193,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void UpdateArtistConnectionTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnectionDoc target = new ArtistConnectionDoc();
 
@@ -221,42 +221,42 @@ namespace ClassLibraryTest
 			OleDbConnection connection = GetConnection();
 
 			String strSQL = "select * from ArtistConnection where IDParent = " + oldArtistConnection.IDParent.ToString() +
-			                " and IDChild = " + oldArtistConnection.IDChild.ToString();
+			" and IDChild = " + oldArtistConnection.IDChild.ToString();
 
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
 			while (reader.Read())
 			{
-				while (reader.Read())
-				{
-					Assert.Fail("Delete failed for ArtistConnection");
-				}
+				Assert.Fail("Delete failed for ArtistConnection");
 			}
 
 
 			strSQL = "select * from ArtistConnection where IDParent = " + newArtistConnection.IDParent.ToString() +
-								" and IDChild = " + newArtistConnection.IDChild.ToString();
+			" and IDChild = " + newArtistConnection.IDChild.ToString();
 
 			command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
 			while (reader.Read())
 			{
-				while (reader.Read())
-				{
-					expected.Load(reader);
+				expected.Load(reader);
 
-					Assert.AreEqual(expected.IDParent, newArtistConnection.IDParent, "IDParent is not correct");
-					Assert.AreEqual(expected.IDChild, newArtistConnection.IDChild, "IDChild is not correct");
-				}
+				Assert.AreEqual(expected.IDParent, newArtistConnection.IDParent, "IDParent is not correct");
+				Assert.AreEqual(expected.IDChild, newArtistConnection.IDChild, "IDChild is not correct");
 			}
 
 			connection.Dispose();
 			command.Dispose();
 			reader.Dispose();
 		}
+		#endregion
 
+		#region private functions
+		/// <summary>
+		/// Opens connection to database.
+		/// </summary>
+		/// <returns>Open connection to database.</returns>
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();
@@ -266,7 +266,14 @@ namespace ClassLibraryTest
 			return connection;
 		}
 
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
+		#endregion
 	}
-
-
 }

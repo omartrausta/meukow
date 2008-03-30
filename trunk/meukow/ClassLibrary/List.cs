@@ -5,6 +5,9 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
+	/// <summary>
+	/// List that inherits IDataItem
+	/// </summary>
 	public class List : IDataItem
 	{
 		#region Member variables
@@ -17,73 +20,98 @@ namespace ClassLibrary
 
 		#region Properties
 		/// <summary>
-		/// public int property for ID
+		/// Gets or sets the id for the list.
 		/// </summary>
 		public int ID
 		{
-			get { return m_nID; }
-			set { m_nID = value; }
-		}
-
-		/// <summary>
-		/// public string property for Name
-		/// </summary>
-		public String Name
-		{
-			get { return m_strName; }
-			set { m_strName = value; }
-		}
-
-		/// <summary>
-		/// public date time property for Starts
-		/// </summary>
-		public DateTime Starts
-		{
-			get { return m_dtStarts; }
-			set 
-            { 
-                m_dtStarts = value; 
-                m_dtStarts = new DateTime( m_dtStarts.Year, m_dtStarts.Month, m_dtStarts.Day );
-            }
-		}
-
-		/// <summary>
-		/// public date time property for Ends
-		/// </summary>
-		public DateTime Ends
-		{
-			get { return m_dtEnds; }
+			get
+			{
+				return m_nID;
+			}
 			set
 			{
-			    m_dtEnds = value;
-                m_dtEnds = new DateTime(m_dtEnds.Year, m_dtEnds.Month, m_dtEnds.Day);
-
+				m_nID = value;
 			}
 		}
 
 		/// <summary>
-		/// public bool property for WeekList
+		/// Gets or sets the name of the list.
+		/// </summary>
+		public String Name
+		{
+			get
+			{
+				return m_strName;
+			}
+			set
+			{
+				m_strName = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the start date of the list.
+		/// </summary>
+		public DateTime Starts
+		{
+			get
+			{
+				return m_dtStarts;
+			}
+			set 
+			{ 
+				m_dtStarts = value; 
+				m_dtStarts = new DateTime( m_dtStarts.Year, m_dtStarts.Month, m_dtStarts.Day );
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the end date of the list.
+		/// </summary>
+		public DateTime Ends
+		{
+			get
+			{
+				return m_dtEnds;
+			}
+			set
+			{
+				m_dtEnds = value;
+				m_dtEnds = new DateTime(m_dtEnds.Year, m_dtEnds.Month, m_dtEnds.Day);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets wether the list is a week list or not.
 		/// </summary>
 		public bool WeekList
 		{
-			get { return m_bWeekList; }
-			set { m_bWeekList = value; }
+			get
+			{
+				return m_bWeekList;
+			}
+			set
+			{
+				m_bWeekList = value;
+			}
 		}
-
 		#endregion
 
 		#region Constructors
-
 		/// <summary>
-		/// Default constructor for List
+		/// Default constructor
 		/// </summary>
 		public List( )
 		{
 		}
 
-#endregion
+		#endregion
 
 		#region Overridden functions
+		/// <summary>
+		/// Overridden function for ToString()
+		/// </summary>
+		/// <returns>Returns the name of the list.</returns>
 		public override string ToString()
 		{
 			return m_strName;
@@ -91,6 +119,11 @@ namespace ClassLibrary
 		#endregion
 
 		#region IDataList implementation
+		/// <summary>
+		/// Load function that loads data from IDataReader to
+		/// member variables for list.
+		/// </summary>
+		/// <param name="reader">IDataReader with data for list.</param>
 		public void Load(IDataReader reader)
 		{
 			m_nID = Convert.ToInt32(reader["ID"]);
@@ -101,14 +134,10 @@ namespace ClassLibrary
 		}
 
 		/// <summary>
-		/// Fall sem skilar TableDescription hlut, en þennan hlut má svo
-		/// nota þegar tilvik af klasanum er uppfært eða nýskráð.
-		/// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
-		/// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
-		/// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
-		/// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
+		/// Function that returns TableDescription object, this object
+		/// can be used when an instance of the class is updated or added.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Returns table description for list.</returns>
 		public TableDescription GetTable()
 		{
 			ColumnDescription[] columns = 
@@ -119,19 +148,26 @@ namespace ClassLibrary
 				new ColumnDescription( "Ends", this.Ends, DbType.DateTime ),
 				new ColumnDescription( "WeekList", this.WeekList, DbType.Boolean ),
 			};
+
 			return new TableDescription("List", columns);
 		}
-
 		#endregion
 	}
 
+	/// <summary>
+	/// ListSorter sorts instances of List.
+	/// </summary>
 	public class ListSorter : IComparer<List>
 	{
 		#region Member variables
-		private String m_strOrderBy;
+		private readonly String m_strOrderBy;
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strOrderBy">String to be ordered by</param>
 		public ListSorter(String strOrderBy)
 		{
 			m_strOrderBy = strOrderBy;
@@ -139,6 +175,12 @@ namespace ClassLibrary
 		#endregion
 
 		#region IComparer implementation
+		/// <summary>
+		/// Function that compares two instances of List.
+		/// </summary>
+		/// <param name="x">Instance x of List</param>
+		/// <param name="y">Instance y of List</param>
+		/// <returns></returns>
 		public int Compare(List x, List y)
 		{
 			switch (m_strOrderBy)
@@ -158,9 +200,16 @@ namespace ClassLibrary
 		#endregion
 	}
 
+	/// <summary>
+	/// ListCollection has collection of List
+	/// </summary>
 	public class ListCollection : DataList<List>
 	{
 		#region Public functions
+		/// <summary>
+		/// Sorts List by a column.
+		/// </summary>
+		/// <param name="strOrderBy">The column to be sorted by</param>
 		public void Sort(String strOrderBy)
 		{
 			ListSorter sorter = new ListSorter(strOrderBy);

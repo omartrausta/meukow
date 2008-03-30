@@ -1,86 +1,93 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
 
 namespace meukow
 {
-    /// <summary>
-    /// StudentListColumns skilgreinir annars vegar hvaða dálkar eru
-    /// í listanum, og hins vegar hversu margir dálkar þeir eru. Þetta enum
-    /// þarf að uppfæra ef dálkarnir breytast í design hlutanum.
-    /// </summary>
-    public enum ArtistColumn
-    {
-        ColName = 0,
-        ColDescription = 1,
-        ColPicture = 2,
-        ColURL = 3,
-        NumberOfColumns = 4
-    }
-    public partial class ArtistView : UserControl
-    {
-        #region Member variables
-        private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ArtistColumn.NumberOfColumns];
-        private ArtistDoc m_document;
-        #endregion
+	/// <summary>
+	/// Public enum that includes the name of the columns in the view and
+	/// also how many columns are in the view
+	/// </summary>
+	public enum ArtistColumn
+	{
+		ColName = 0,
+		ColDescription = 1,
+		ColPicture = 2,
+		ColURL = 3,
+		NumberOfColumns = 4
+	}
 
-        #region Event Handlers
-        public delegate void HitArtistHandler(string msg);
-        public event HitArtistHandler HitArtistSelected;
-        #endregion
+	public partial class ArtistView : UserControl
+	{
+		#region Member variables
+		private readonly SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ArtistColumn.NumberOfColumns];
+		private ArtistDoc m_document;
+		#endregion
 
-        #region Properties
-        public ArtistDoc Document
-        {
-            get { return m_document; }
-            set { m_document = value; }
-        }
-        #endregion
+		#region Properties
+		/// <summary>
+		/// Gets or sets the ArtistDoc document.
+		/// </summary>
+		public ArtistDoc Document
+		{
+			get
+			{
+				return m_document;
+			}
+			set
+			{
+				m_document = value;
+			}
+		}
+		#endregion
 
-        #region Constructors
-        public ArtistView()
-        {
-            InitializeComponent();
-        }
-        #endregion
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public ArtistView()
+		{
+			InitializeComponent();
+		}
+		#endregion
 
-        #region Event handlers
-        /// <summary>
-        /// OnLoad er keyrt í upphafi. Við notum það til þess að sækja allar 
-        /// færslur og birta í listanum.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnLoad(object sender, EventArgs e)
-        {
-            if (!DesignMode)
-            {
-                m_document = new ArtistDoc();
-               m_listViewArtist.Items.Clear();
+		#region Event handlers
+		/// <summary>
+		/// OnLoad is run when the view is loaded and the view is populated
+		/// with data.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnLoad(object sender, EventArgs e)
+		{
+			if (!DesignMode)
+			{
+				m_document = new ArtistDoc();
+				m_listViewArtist.Items.Clear();
 
-                ArtistCollection artists = Document.GetAllArtists();
+				ArtistCollection artists = Document.GetAllArtists();
 
-                foreach (Artist artist in artists)
-                {
-                    m_listViewArtist.Items.Add(GetListViewItem(artist));
-                }
-            }
-        }
-        private void OnSortList(object sender, ColumnClickEventArgs e)
-        {
-            SortOrder lastOrder = m_arrLastSortOrder[e.Column];
-            m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-            m_listViewArtist.ListViewItemSorter = new ArtistSorter((ArtistColumn)e.Column, lastOrder);
-        }
+				foreach (Artist artist in artists)
+				{
+					m_listViewArtist.Items.Add(GetListViewItem(artist));
+				}
+			}
+		}
 
-        /// <summary>
-		/// OnDoubleClickStudent er event handler fyrir það þegar er tvísmellt
-		/// á færslu í listanum.
+		/// <summary>
+		/// Catches when the user wants to sort the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnSortList(object sender, ColumnClickEventArgs e)
+		{
+			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
+			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+			m_listViewArtist.ListViewItemSorter = new ArtistSorter((ArtistColumn)e.Column, lastOrder);
+		}
+
+		/// <summary>
+		/// OnMenuNewArtist when the add is selected from context menu.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -90,20 +97,7 @@ namespace meukow
 		}
 
 		/// <summary>
-		/// OnSortArtist er event handler fyrir það þegar er smellt á dálk
-		/// í Artistlistanum.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		/*private void OnSortArtist( object sender, ColumnClickEventArgs e )
-		{
-			SortOrder lastOrder = m_arrLastSortOrder[ e.Column ];
-			m_arrLastSortOrder[ e.Column ] = ( lastOrder == SortOrder.Ascending ) ? SortOrder.Descending : SortOrder.Ascending;
-			m_listViewArtist.ListViewItemSorter = new ArtistListSorter( (ArtistListColumns)e.Column, lastOrder );
-		}*/
-
-		/// <summary>
-		/// Fall sem er tengt við Context menu listans.
+		/// OnMenuNewArtist when the delete is selected from context menu.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -113,38 +107,28 @@ namespace meukow
 		}
 
 		/// <summary>
-		/// Annað Context menu fall.
+		/// OnMenuNewArtist when the edit is selected from context menu.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void OnMenuEditArtist( object sender, EventArgs e )
 		{
-			OnUpdateArtist( );
+			OnEditArtist( );
 		}
 		#endregion
 
 		#region Public functions
 		/// <summary>
-		/// OnUpdateStudent er notað til að breyta tiltekinni færslu.
-		/// Fallið passar upp á að gera ekkert ef engin færsla er valin.
+		/// OnEditArtist is used to change one row in the list.
+		/// This function doesn't do anything if nothing is selected.
 		/// </summary>
-		public void OnUpdateArtist( )
+		public void OnEditArtist( )
 		{
 			try
 			{
-				// Tékkum á því hvort það sé ekki örugglega einhver valinn:
 				if ( m_listViewArtist.SelectedItems.Count == 1 )
 				{
-					// ListView á ekkert SelectedItem property, en skilar
-					// hinsvegar collection af völdum færslum, því sá
-					// möguleiki er fyrir hendi að ListView sé MultiSelect.
-					// Við erum samt ekki að nota okkur MultiSelect í þessu
-					// tilfelli (sjá properties fyrir ListView stýringuna).
 					ListViewItem listViewItem = m_listViewArtist.SelectedItems[ 0 ];
-
-					// Þetta typecast er í lagi því GetListViewItem sér alltaf
-					// um að setja Student tilvik inn í Tag property-ið á 
-					// sérhverju itemi:
 					Artist artist = (Artist)listViewItem.Tag;
 
 					using ( ArtistDlg dlg = new ArtistDlg( ) )
@@ -153,21 +137,22 @@ namespace meukow
 
 						if ( dlg.ShowDialog( ) == DialogResult.OK )
 						{
-							// Sækjum gögnin aftur úr samtalsglugganum:
 							artist = dlg.Artist;
 
-							// Látum vinnslulagið uppfæra nemandann. Ef það
-							// mistekst er kastað villu.
 							Document.UpdateArtist( artist );
 
 							int nIndex = listViewItem.Index;
-							// Við uppfærum færsluna með því að fjarlægja þá sem
-							// er fyrir og setja nýja inn:
+
 							m_listViewArtist.Items.Remove( listViewItem );
 							m_listViewArtist.Items.Insert( nIndex, GetListViewItem( artist ) );
 						}
 					}
 				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu flytjanda til að breyta.");
+				}
+
 			}
 			catch ( Exception ex )
 			{
@@ -176,8 +161,7 @@ namespace meukow
 		}
 
 		/// <summary>
-		/// OnNewStudent sér um að leyfa notandanum að búa til nýjan
-		/// nemanda, og birta hann ef það tekst.
+		/// OnNewArtist adds a new artist to the database.
 		/// </summary>
 		public void OnNewArtist( )
 		{
@@ -189,11 +173,9 @@ namespace meukow
 					if ( dlg.ShowDialog( ) == DialogResult.OK )
 					{
 						Artist artist = dlg.Artist;
+						Document.AddArtist(artist);
 
-						// Ef þetta klikkar verður kastað villu:
-						Document.AddArtist( artist );
-
-                        m_listViewArtist.Items.Add(GetListViewItem(artist));
+						m_listViewArtist.Items.Add(GetListViewItem(artist));
 					}
 				}
 			}
@@ -204,7 +186,7 @@ namespace meukow
 		}
 
 		/// <summary>
-		/// Gettu hvað þetta fall gerir...
+		/// OnDeleteArtist deletes the selected artist.
 		/// </summary>
 		public void OnDeleteArtist( )
 		{
@@ -213,16 +195,18 @@ namespace meukow
 				if ( m_listViewArtist.SelectedItems.Count == 1 )
 				{
 					if ( MessageBox.Show( "Ertu viss um að þú viljir eyða þessum flytjanda?", "DeleteArtist",
-						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning ) == DialogResult.OK )
+					MessageBoxButtons.OKCancel, MessageBoxIcon.Warning ) == DialogResult.OK )
 					{
 						ListViewItem listViewItem = m_listViewArtist.SelectedItems[ 0 ];
-						// Sama gildir hér og í OnEditStudent.
 						Artist artist = (Artist)listViewItem.Tag;
 
-						// Hér verður kastað villu ef þetta mistekst:
 						Document.DeleteArtist( artist );
 						m_listViewArtist.Items.Remove( listViewItem );
 					}
+				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu flytjanda til að eyða.");
 				}
 			}
 			catch ( Exception ex )
@@ -232,78 +216,34 @@ namespace meukow
 		}
 		#endregion
 
-        #region Protected functions
-        /// <summary>
-        /// Fall sem tekur inn tilvik af Song, og skilar til baka
-        /// ListViewItem færslu sem táknar þetta lag.
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns></returns>
-        protected ListViewItem GetListViewItem(Artist artist)
-        {
-            // Fyrsti dálkurinn birtir nafn:
-            ListViewItem item = new ListViewItem(artist.Name.ToString());
+		#region Protected functions
+		/// <summary>
+		/// Function that add an instance of Artist into a ListViewItem.
+		/// </summary>
+		/// <param name="artist">Artist</param>
+		/// <returns>ListViewItem</returns>
+		protected static ListViewItem GetListViewItem(Artist artist)
+		{
+			ListViewItem item = new ListViewItem(artist.Name.ToString());
 
-            // Annar dálkurinn birtir kennitölu:
-            item.SubItems.Add(artist.Description.ToString());
-            item.SubItems.Add(artist.Picture.ToString());
-            item.SubItems.Add(artist.URL.ToString());
+			item.SubItems.Add(artist.Description.ToString());
+			item.SubItems.Add(artist.Picture.ToString());
+			item.SubItems.Add(artist.URL.ToString());
 
-            // Allir flytjendur fá sama icon í þetta skiptið:
-            item.ImageIndex = 0;
-            // en ImageList getur geymt margar myndir, og sérhver færsla
-            // getur haft mismunandi image index.
+			item.ImageIndex = 0;
+			item.Tag = artist;
 
-            // Látum sérhvert ListViewItem vita hvaða flytjandi 
-            // hangir við hverja færslu:
-            item.Tag = artist;
+			return item;
+		}
 
-            // Nóg í bili...
-            return item;
-        }
-
-        /// <summary>
-        /// HandleError sér um að birta villuskilaboð á 
-        /// einhvern (mis)smekklega hátt (má sjálfsagt laga...):
-        /// </summary>
-        /// <param name="ex"></param>
-        protected static void HandleError(Exception ex)
-        {
-            // Hér mætti örugglega koma með vinalegri villuboð:
-            MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
-        }
-
-        #endregion
-        protected String OnSelectList()
-        {
-            if (m_listViewArtist.SelectedItems.Count == 1)
-            {
-                ListViewItem listViewItem = m_listViewArtist.SelectedItems[0];
-
-                // Þetta typecast er í lagi því GetListViewItem sér alltaf
-                // um að setja Student tilvik inn í Tag property-ið á 
-                // sérhverju itemi:
-                List list = (List)listViewItem.Tag;
-
-                return list.ID.ToString();
-            }
-            else
-                return null;
-        }
-
-        private void OnClick(object sender, EventArgs e)
-        {
-            if (HitArtistSelected != null)
-            {
-                String nID = OnSelectList();
-                if (nID != null)
-                {
-                    HitArtistSelected(nID);
-                }
-            }
-        }
-
-        
-       
-    }
+		/// <summary>
+		/// Shows error message.
+		/// </summary>
+		/// <param name="ex">Exception</param>
+		protected static void HandleError(Exception ex)
+		{
+			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
+		}
+		#endregion
+	}
 }

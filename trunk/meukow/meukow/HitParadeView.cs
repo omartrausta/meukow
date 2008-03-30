@@ -1,19 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
-using System.Diagnostics;
 
 namespace meukow
 {
 	/// <summary>
-	/// StudentListColumns skilgreinir annars vegar hvaða dálkar eru
-	/// í listanum, og hins vegar hversu margir dálkar þeir eru. Þetta enum
-	/// þarf að uppfæra ef dálkarnir breytast í design hlutanum.
+	/// Public enum that includes the name of the columns in the view and
+	/// also how many columns are in the view
 	/// </summary>
 	public enum ListColumns
 	{
@@ -30,20 +23,32 @@ namespace meukow
 		private ListDoc m_document;
 		#endregion
 
-		#region Event Handlers
+		#region Events and delegates
 		public delegate void HitParadeHandler(string msg);
 		public event HitParadeHandler HitParadeSelected;
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets or sets the ListDoc document.
+		/// </summary>
 		public ListDoc Document
 		{
-			get { return m_document; }
-			set { m_document = value; }
+			get
+			{
+				return m_document;
+			}
+			set
+			{
+				m_document = value;
+			}
 		}
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public HitParadeView()
 		{
 			InitializeComponent();
@@ -52,8 +57,7 @@ namespace meukow
 
 		#region Event handlers
 		/// <summary>
-		/// OnLoad er keyrt í upphafi. Við notum það til þess að sækja allar 
-		/// færslur og birta í listanum.
+		/// Is fired when the view is loaded
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -73,7 +77,11 @@ namespace meukow
 			}
 		}
 
-		// TODO Skjala þetta fall
+		/// <summary>
+		/// Catches when the user wants to sort the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnSortList(object sender, ColumnClickEventArgs e)
 		{
 			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
@@ -81,6 +89,11 @@ namespace meukow
 			m_listViewHitParade.ListViewItemSorter = new ListSorter((ListColumns)e.Column, lastOrder);
 		}
 
+		/// <summary>
+		/// Fired when the user select a single line in the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnClick(object sender, EventArgs e)
 		{
 			if (HitParadeSelected != null)
@@ -92,58 +105,77 @@ namespace meukow
 				}
 			}
 		}
+
+		/// <summary>
+		/// OnMenuEditList when the edit is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuEditList(object sender, EventArgs e)
+		{
+			OnEditList();
+		}
+
+		/// <summary>
+		/// OnMenuCreateList when the add is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuCreateList(object sender, EventArgs e)
+		{
+			OnNewList();
+		}
+
+		/// <summary>
+		/// OnMenuDeleteList when the delete is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuDeleteList(object sender, EventArgs e)
+		{
+			OnDeleteList();
+		}
 		#endregion
 
 		#region Protected functions
 		/// <summary>
-		/// Fall sem tekur inn tilvik af List, og skilar til baka
-		/// ListViewItem færslu sem táknar þennan lista.
+		/// Function that add an instance of List into a ListViewItem.
 		/// </summary>
-		/// <param name="list"></param>
-		/// <returns></returns>
+		/// <param name="list">List</param>
+		/// <returns>ListViewItem</returns>
 		private ListViewItem GetListViewItem(List list)
 		{
-			// Fyrsti dálkurinn birtir nafn:
 			ListViewItem item = new ListViewItem(list.Name);
 
-			// Annar dálkurinn birtir kennitölu:
 			item.SubItems.Add(list.Starts.ToString().Replace(" 00:00:00",""));
 			item.SubItems.Add(list.Ends.ToString().Replace(" 00:00:00", ""));
 			item.SubItems.Add(list.WeekList.ToString());
 
-			// Allir nemendur fá sama icon í þetta skiptið:
 			item.ImageIndex = 0;
-			// en ImageList getur geymt margar myndir, og sérhver færsla
-			// getur haft mismunandi image index.
-
-			// Látum sérhvert ListViewItem vita hvaða nemandi 
-			// hangir við hverja færslu:
 			item.Tag = list;
 
-			// Nóg í bili...
 			return item;
 		}
 
 		/// <summary>
-		/// HandleError sér um að birta villuskilaboð á 
-		/// einhvern (mis)smekklega hátt (má sjálfsagt laga...):
+		/// Shows error message.
 		/// </summary>
-		/// <param name="ex"></param>
+		/// <param name="ex">Exception</param>
 		protected void HandleError(Exception ex)
 		{
-			// Hér mætti örugglega koma með vinalegri villuboð:
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
 
+		/// <summary>
+		/// Update the ChartView
+		/// </summary>
+		/// <returns></returns>
 		protected String OnSelectList()
 		{
 			if (m_listViewHitParade.SelectedItems.Count == 1)
 			{
 				ListViewItem listViewItem = m_listViewHitParade.SelectedItems[0];
 
-				// Þetta typecast er í lagi því GetListViewItem sér alltaf
-				// um að setja Student tilvik inn í Tag property-ið á 
-				// sérhverju itemi:
 				List list = (List)listViewItem.Tag;
 
 				return list.ID.ToString();
@@ -154,6 +186,9 @@ namespace meukow
 		#endregion
 
 		#region Public functions
+		/// <summary>
+		/// Updates ChartView.
+		/// </summary>
 		public void OnUpdateChart()
 		{
 			if (m_listViewHitParade.SelectedItems.Count == 1)
@@ -163,22 +198,17 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// OnEditList updates selected list to the database.
+		/// </summary>
 		public void OnEditList()
 		{
 			try
 			{
 				if ( m_listViewHitParade.SelectedItems.Count == 1 )
 				{
-					// ListView á ekkert SelectedItem property, en skilar
-					// hinsvegar collection af völdum færslum, því sá
-					// möguleiki er fyrir hendi að ListView sé MultiSelect.
-					// Við erum samt ekki að nota okkur MultiSelect í þessu
-					// tilfelli (sjá properties fyrir ListView stýringuna).
 					ListViewItem listViewItem = m_listViewHitParade.SelectedItems[ 0 ];
 
-					// Þetta typecast er í lagi því GetListViewItem sér alltaf
-					// um að setja Student tilvik inn í Tag property-ið á 
-					// sérhverju itemi:
 					List list = (List)listViewItem.Tag;
 
 					using ( ListDlg dlg = new ListDlg( ) )
@@ -187,20 +217,18 @@ namespace meukow
 
 						if ( dlg.ShowDialog( ) == DialogResult.OK )
 						{
-							// Sækjum gögnin aftur úr samtalsglugganum:
 							list = dlg.List;
-
-							// Látum vinnslulagið uppfæra nemandann. Ef það
-							// mistekst er kastað villu.
 							Document.UpdateList( list );
 
 							int nIndex = listViewItem.Index;
-							// Við uppfærum færsluna með því að fjarlægja þá sem
-							// er fyrir og setja nýja inn:
 							m_listViewHitParade.Items.Remove( listViewItem );
 							m_listViewHitParade.Items.Insert( nIndex, GetListViewItem( list ) );
 						}
 					}
+				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu vinsældarlista til að breyta.");
 				}
 			}
 			catch ( Exception ex )
@@ -209,6 +237,9 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// OnNewList adds a new list to the database.
+		/// </summary>
 		public void OnNewList()
 		{
 			try
@@ -219,7 +250,7 @@ namespace meukow
 					if ( dlg.ShowDialog( ) == DialogResult.OK )
 					{
 						m_listViewHitParade.Items.Add( GetListViewItem( dlg.List ) );
-                        Invalidate();
+						Invalidate();
 					}
 				}
 			}
@@ -229,6 +260,9 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// OnDeleteList deletes the selected list.
+		/// </summary>
 		public void OnDeleteList()
 		{
 			try
@@ -236,17 +270,20 @@ namespace meukow
 				if (m_listViewHitParade.SelectedItems.Count == 1)
 				{
 					if (MessageBox.Show("Viltu örugglega eyða þessum lista?", "DeleteList",
-						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+					MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 					{
 						ListViewItem listViewItem = m_listViewHitParade.SelectedItems[0];
-						// Sama gildir hér og í OnEditStudent.
 						List list = (List)listViewItem.Tag;
 
-						// Hér verður kastað villu ef þetta mistekst:
 						Document.DeleteList(list);
 						m_listViewHitParade.Items.Remove(listViewItem);
 					}
 				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu vinsældarlista til að eyða.");
+				}
+
 			}
 			catch (Exception ex)
 			{
@@ -254,24 +291,5 @@ namespace meukow
 			}
 		}
 		#endregion
-
-		#region Private functions
-		private void OnMenuEditList(object sender, EventArgs e)
-		{
-			OnEditList();
-		}
-
-		private void OnMenuCreateList(object sender, EventArgs e)
-		{
-			OnNewList();
-		}
-
-		private void OnMenuDeleteList(object sender, EventArgs e)
-		{
-			OnDeleteList();
-		}
-
-		#endregion
-
 	}
 }

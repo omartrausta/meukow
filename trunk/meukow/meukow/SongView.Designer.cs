@@ -35,12 +35,20 @@ namespace meukow
 			this.m_colHeaderArtist = new System.Windows.Forms.ColumnHeader();
 			this.m_colHeaderSongpath = new System.Windows.Forms.ColumnHeader();
 			this.m_colHeaderDescription = new System.Windows.Forms.ColumnHeader();
+			this.m_menuItemNewSong = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_menuItemEditSong = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_menuItemDeleteSong = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_contextMenuSong.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// m_contextMenuSong
 			// 
+			this.m_contextMenuSong.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_menuItemNewSong,
+            this.m_menuItemEditSong,
+            this.m_menuItemDeleteSong});
 			this.m_contextMenuSong.Name = "m_contextMenuSong";
-			this.m_contextMenuSong.Size = new System.Drawing.Size(61, 4);
+			this.m_contextMenuSong.Size = new System.Drawing.Size(153, 92);
 			// 
 			// m_listViewSong
 			// 
@@ -51,6 +59,7 @@ namespace meukow
             this.m_colHeaderDescription});
 			this.m_listViewSong.ContextMenuStrip = this.m_contextMenuSong;
 			this.m_listViewSong.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.m_listViewSong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_listViewSong.FullRowSelect = true;
 			this.m_listViewSong.Location = new System.Drawing.Point(0, 0);
 			this.m_listViewSong.MultiSelect = false;
@@ -65,25 +74,46 @@ namespace meukow
 			// 
 			this.m_colHeaderName.Tag = "Name";
 			this.m_colHeaderName.Text = "Nafn";
-			this.m_colHeaderName.Width = 113;
+			this.m_colHeaderName.Width = 135;
 			// 
 			// m_colHeaderArtist
 			// 
 			this.m_colHeaderArtist.Tag = "Artist";
 			this.m_colHeaderArtist.Text = "Flytjandi";
-			this.m_colHeaderArtist.Width = 88;
+			this.m_colHeaderArtist.Width = 98;
 			// 
 			// m_colHeaderSongpath
 			// 
 			this.m_colHeaderSongpath.Tag = "Songpath";
 			this.m_colHeaderSongpath.Text = "Slóð á lag";
-			this.m_colHeaderSongpath.Width = 74;
+			this.m_colHeaderSongpath.Width = 103;
 			// 
 			// m_colHeaderDescription
 			// 
 			this.m_colHeaderDescription.Tag = "Description";
 			this.m_colHeaderDescription.Text = "Lýsing / umsögn";
-			this.m_colHeaderDescription.Width = 142;
+			this.m_colHeaderDescription.Width = 169;
+			// 
+			// m_menuItemNewSong
+			// 
+			this.m_menuItemNewSong.Name = "m_menuItemNewSong";
+			this.m_menuItemNewSong.Size = new System.Drawing.Size(152, 22);
+			this.m_menuItemNewSong.Text = "Skrá";
+			this.m_menuItemNewSong.Click += new System.EventHandler(this.OnMenuNewSong);
+			// 
+			// m_menuItemEditSong
+			// 
+			this.m_menuItemEditSong.Name = "m_menuItemEditSong";
+			this.m_menuItemEditSong.Size = new System.Drawing.Size(152, 22);
+			this.m_menuItemEditSong.Text = "Breyta";
+			this.m_menuItemEditSong.Click += new System.EventHandler(this.OnMenuEditSong);
+			// 
+			// m_menuItemDeleteSong
+			// 
+			this.m_menuItemDeleteSong.Name = "m_menuItemDeleteSong";
+			this.m_menuItemDeleteSong.Size = new System.Drawing.Size(152, 22);
+			this.m_menuItemDeleteSong.Text = "Eyða";
+			this.m_menuItemDeleteSong.Click += new System.EventHandler(this.OnMenuDeleteSong);
 			// 
 			// SongView
 			// 
@@ -93,6 +123,7 @@ namespace meukow
 			this.Name = "SongView";
 			this.Size = new System.Drawing.Size(513, 449);
 			this.Load += new System.EventHandler(this.OnLoad);
+			this.m_contextMenuSong.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -105,5 +136,8 @@ namespace meukow
 		private System.Windows.Forms.ColumnHeader m_colHeaderArtist;
 		private System.Windows.Forms.ColumnHeader m_colHeaderSongpath;
 		private System.Windows.Forms.ColumnHeader m_colHeaderDescription;
+		private System.Windows.Forms.ToolStripMenuItem m_menuItemNewSong;
+		private System.Windows.Forms.ToolStripMenuItem m_menuItemEditSong;
+		private System.Windows.Forms.ToolStripMenuItem m_menuItemDeleteSong;
 	}
 }

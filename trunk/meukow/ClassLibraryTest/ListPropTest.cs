@@ -15,8 +15,11 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListPropTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for GetTable ()
 		///</summary>
@@ -194,8 +197,9 @@ namespace ClassLibraryTest
 
 			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.ListProp.ToString did not return the expected value.");
 		}
-
+		#endregion
 	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.ListPropCollection and is intended
 	///to contain all ClassLibrary.ListPropCollection Unit Tests
@@ -219,6 +223,7 @@ namespace ClassLibraryTest
 		}
 
 	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.ListPropSorter and is intended
 	///to contain all ClassLibrary.ListPropSorter Unit Tests

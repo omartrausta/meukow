@@ -13,15 +13,18 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistDocTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
-		///A test for AddList (List)
+		///A test for AddArtist (Artist)
 		///</summary>
 		[Test]
 		public void AddArtistTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistDoc target = new ArtistDoc();
 			Artist artist = new Artist();
@@ -61,15 +64,14 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for DeleteList (List)
+		///A test for DeleteArtist (Artist)
 		///</summary>
 		[Test]
 		public void DeleteArtistTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistDoc target = new ArtistDoc();
-
 			Artist artist = new Artist();
 
 			artist.ID = 1;
@@ -101,12 +103,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for GetAllList ()
+		///A test for GetAllArtist ()
 		///</summary>
 		[Test]
 		public void GetAllArtistTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistDoc target = new ArtistDoc();
 
@@ -152,12 +154,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for GetList (int)
+		///A test for GetArtist (int)
 		///</summary>
 		[Test]
 		public void GetArtistTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistDoc target = new ArtistDoc();
 
@@ -193,19 +195,16 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for UpdateList (List)
+		///A test for UpdateArtist (Artist)
 		///</summary>
 		[Test]
 		public void UpdateArtistTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistDoc target = new ArtistDoc();
-
 			Artist artist = new Artist();
-
 			Artist expected = new Artist();
-
 			String val = "Test Update Artist";
 
 			artist = target.GetArtist(1);
@@ -240,6 +239,70 @@ namespace ClassLibraryTest
 			reader.Dispose();
 		}
 
+		/// <summary>
+		///A test for GetAllArtistName ()
+		///</summary>
+		[Test]
+		public void GetAllArtistNameTest()
+		{
+			CopyFile();
+
+			ArtistDoc target = new ArtistDoc();
+
+			ArtistCollection expected = new ArtistCollection();
+			Artist expectedArtist = null;
+			DataSet actual = target.AllArtistName();
+			DataTable dv = actual.Tables[0];
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "select [Name] from [Artist]";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+			expectedArtist = new Artist();
+
+			expectedArtist.Name = reader["Name"].ToString();
+
+			expected.Add(expectedArtist);
+			}
+
+			Assert.AreEqual(expected.Count, actual.Tables[0].Rows.Count, "Count is not the same.");
+
+			for (int i = 0; i < dv.Rows.Count; i++)
+				{
+				DataRow dr = dv.Rows[i];
+
+				if (dr.RowState != DataRowState.Deleted)
+				{
+					Assert.AreEqual(expected[i].Name, dr["Name"].ToString(), "Name is not correct");
+				}
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
+		#endregion
+
+		#region private functions
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
+
+		/// <summary>
+		/// Opens connection to database.
+		/// </summary>
+		/// <returns>Open connection to database.</returns>
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();
@@ -248,5 +311,6 @@ namespace ClassLibraryTest
 			connection.Open();
 			return connection;
 		}
+		#endregion
 	}
 }

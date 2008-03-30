@@ -15,8 +15,11 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ArtistConnectionTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for ArtistConnection ()
 		///</summary>
@@ -96,7 +99,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void LoadTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ArtistConnection target = new ArtistConnection();
 
@@ -125,29 +128,43 @@ namespace ClassLibraryTest
 			reader.Dispose();
 		}
 
+
 		/// <summary>
 		///A test for ToString ()
 		///</summary>
 		[Test]
 		public void ToStringTest()
 		{
-			ArtistConnection target = new ArtistConnection();
+		ArtistConnection target = new ArtistConnection();
 
-			int actual = 0;
+		int actual = 0;
 
-			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
+		Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
 
-			actual = 12;
+		actual = 12;
 
-			target.IDParent = actual;
+		target.IDParent = actual;
 
-			Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
-		}
+		Assert.AreEqual(actual.ToString(), target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
 	}
+		#endregion
+
+		#region private functions
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
+		#endregion
+	}
+
 	/// <summary>
-	///This is a test class for ClassLibrary.ArtistConnectionCollection and is intended
-	///to contain all ClassLibrary.ArtistConnectionCollection Unit Tests
-	///</summary>
+		///This is a test class for ClassLibrary.ArtistConnectionCollection and is intended
+		///to contain all ClassLibrary.ArtistConnectionCollection Unit Tests
+		///</summary>
 	[TestFixture]
 	public class ArtistConnectionCollectionTest
 	{
@@ -165,8 +182,8 @@ namespace ClassLibraryTest
 
 			Assert.IsFalse(target.Count > 0, "ArtistConnectionCollection is greater than 0.");
 		}
-
 	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.ArtistConnectionSorter and is intended
 	///to contain all ClassLibrary.ArtistConnectionSorter Unit Tests
@@ -217,8 +234,5 @@ namespace ClassLibraryTest
 			command.Dispose();
 			reader.Dispose();
 		}
-
 	}
-
-
 }

@@ -1,12 +1,9 @@
 using System;
-using System.Text;
 using NUnit.Framework;
 using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
-using System.Collections.Generic;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 namespace ClassLibraryTest
 {
@@ -17,15 +14,18 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListDocTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for AddList (List)
 		///</summary>
 		[Test]
 		public void AddListTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb",true);
+			CopyFile();
 
 			ListDoc target = new ListDoc();
 
@@ -38,7 +38,7 @@ namespace ClassLibraryTest
 			list.WeekList = true;
 
 			target.AddList(list);
-			
+
 			Assert.AreNotEqual(0, list.ID, "ID is 0 in List.");
 
 			IDataReader reader = null;
@@ -58,7 +58,6 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
 				Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
 				Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
-
 			}
 
 			connection.Dispose();
@@ -72,7 +71,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void DeleteListTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListDoc target = new ListDoc();
 
@@ -89,7 +88,7 @@ namespace ClassLibraryTest
 			String strSQL = "select * from List where ID = " + list.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
-			
+
 			try
 			{
 				while (reader.Read())
@@ -112,14 +111,12 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetAllListTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListDoc target = new ListDoc();
-
 			ListCollection expected = new ListCollection();
 			List expectedList = null;
 			ListCollection actual = target.GetAllList();
-			
 			IDataReader reader = null;
 
 			OleDbConnection connection = GetConnection();
@@ -150,9 +147,8 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected[i].Starts, actual[i].Starts, "Starts is not correct");
 				Assert.AreEqual(expected[i].Ends, actual[i].Ends, "Ends is not correct");
 				Assert.AreEqual(expected[i].WeekList, actual[i].WeekList, "WeekList is not correct");
-
 			}
-				
+
 			connection.Dispose();
 			command.Dispose();
 			reader.Dispose();
@@ -164,7 +160,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetListTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListDoc target = new ListDoc();
 
@@ -192,7 +188,6 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected.Starts, actual.Starts, "Starts is not correct");
 				Assert.AreEqual(expected.Ends, actual.Ends, "Ends is not correct");
 				Assert.AreEqual(expected.WeekList, actual.WeekList, "WeekList is not correct");
-
 			}
 
 			connection.Dispose();
@@ -206,8 +201,8 @@ namespace ClassLibraryTest
 		[Test]
 		public void UpdateListTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
-			
+			CopyFile();
+
 			ListDoc target = new ListDoc();
 
 			List list = new List();
@@ -241,7 +236,6 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
 				Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
 				Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
-
 			}
 
 			connection.Dispose();
@@ -249,60 +243,75 @@ namespace ClassLibraryTest
 			reader.Dispose();
 		}
 
-        /// <summary>
-        ///A test for AddList (List)
-        ///</summary>
-        [Test]
-        public void AddListDateTest()
-        {
-            System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		/// <summary>
+		///A test for AddList (List)
+		///</summary>
+		[Test]
+		public void AddListDateTest()
+		{
+			CopyFile();
 
-            ListDoc target = new ListDoc();
+			ListDoc target = new ListDoc();
+			List list = new List();
+			List expected = new List();
 
-            List list = new List();
-            List expected = new List();
+			list.Name = "ListName";
+			list.Starts = DateTime.Now.AddDays(-7);
+			list.Ends = DateTime.Now;
+			list.WeekList = true;
 
-            list.Name = "ListName";
-            list.Starts = DateTime.Now.AddDays(-7);
-            list.Ends = DateTime.Now;
-            list.WeekList = true;
+			target.AddList(list);
 
-            target.AddList(list);
+			Assert.AreNotEqual(0, list.ID, "ID is 0 in List.");
 
-            Assert.AreNotEqual(0, list.ID, "ID is 0 in List.");
+			IDataReader reader = null;
 
-            IDataReader reader = null;
+			OleDbConnection connection = GetConnection();
 
-            OleDbConnection connection = GetConnection();
+			String strSQL = "select * from List where ID = " + list.ID.ToString();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
 
-            String strSQL = "select * from List where ID = " + list.ID.ToString();
-            OleDbCommand command = new OleDbCommand(strSQL, connection);
-            reader = command.ExecuteReader();
+			while (reader.Read())
+			{
+				expected.Load(reader);
 
-            while (reader.Read())
-            {
-                expected.Load(reader);
+				Assert.AreEqual(expected.ID, list.ID, "ID is not correct");
+				Assert.AreEqual(expected.Name, list.Name, "Name is not correct");
+				Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
+				Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
+				Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
+			}
 
-                Assert.AreEqual(expected.ID, list.ID, "ID is not correct");
-                Assert.AreEqual(expected.Name, list.Name, "Name is not correct");
-                Assert.AreEqual(expected.Starts, list.Starts, "Starts is not correct");
-                Assert.AreEqual(expected.Ends, list.Ends, "Ends is not correct");
-                Assert.AreEqual(expected.WeekList, list.WeekList, "WeekList is not correct");
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
+		#endregion
 
-            }
+		#region private functions
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
 
-            connection.Dispose();
-            command.Dispose();
-            reader.Dispose();
-        }
-
+		/// <summary>
+		/// Opens connection to database.
+		/// </summary>
+		/// <returns>Open connection to database.</returns>
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();
 
 			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
 			connection.Open();
+
 			return connection;
 		}
+		#endregion
 	}
 }

@@ -5,12 +5,12 @@ using ClassLibrary;
 namespace meukow
 {
 	/// <summary>
-	/// SongSorter that inherits IComparer
+	/// ChartSorter that inherits IComparer
 	/// </summary>
-	public class SongSorter : IComparer
+	public class ChartSorter : IComparer
 	{
 		#region Member variables
-		private readonly SongColumns m_column;
+		private readonly ChartColumns m_column;
 		private readonly SortOrder m_order;
 		#endregion
 
@@ -20,7 +20,7 @@ namespace meukow
 		/// </summary>
 		/// <param name="column">SongColumns</param>
 		/// <param name="order">Sortorder</param>
-		public SongSorter(SongColumns column, SortOrder order)
+		public ChartSorter(ChartColumns column, SortOrder order)
 		{
 			m_column = column;
 			m_order = order;
@@ -37,23 +37,20 @@ namespace meukow
 			ListViewItem item1 = (ListViewItem)a;
 			ListViewItem item2 = (ListViewItem)b;
 
-			Song song1 = (Song)item1.Tag;
-			Song song2 = (Song)item2.Tag;
+			Chart chart1 = (Chart)item1.Tag;
+			Chart chart2 = (Chart)item2.Tag;
 
 			int nRetval = 0;
 			switch (m_column)
 			{
-				case SongColumns.ColName:
-					nRetval = song1.Name.CompareTo(song2.Name);
+				case ChartColumns.ColPosition:
+					nRetval = chart1.Position.CompareTo(chart2.Position);
 					break;
-				case SongColumns.ColArtist:
-					nRetval = song1.Artist.CompareTo(song2.Artist);
+				case ChartColumns.ColSong:
+					nRetval = chart1.SongName.CompareTo(chart2.SongName);
 					break;
-				case SongColumns.ColSongpath:
-					nRetval = song1.SongPath.CompareTo(song2.SongPath);
-					break;
-				case SongColumns.ColDescription:
-					nRetval = song1.Description.CompareTo(song2.Description);
+				case ChartColumns.ColArtist:
+					nRetval = chart1.ArtistName.CompareTo(chart2.ArtistName);
 					break;
 			}
 
@@ -67,4 +64,3 @@ namespace meukow
 		#endregion
 	}
 }
-

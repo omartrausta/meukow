@@ -53,6 +53,7 @@
     <Compile Include="ArtistView.Designer.cs">
       <DependentUpon>ArtistView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChartSorter.cs" />
     <Compile Include="ChartView.Designer.cs">
       <DependentUpon>ChartView.cs</DependentUpon>
     </Compile>
