@@ -15,18 +15,18 @@ namespace ClassLibrary
 			return base.LoadCollection<BlogCollection, Blog>(strSQL);
 		}
 
-		public Song GetBlogSong(int nID)
+		public Blog GetBlogSong(int nID)
 			{
 				String strSQL =String.Format("SELECT Blogs.ID, Blogs.Title, Blogs.BlogDate, Blogs.Content FROM (Blogs INNER JOIN Song ON Blogs.SongID = Song.ID) WHERE (Blogs.SongID ={0})",
 						nID);
-					return base.LoadItem<Song>(strSQL);
+				return base.LoadItem<Blog>(strSQL);
 			}
 		
-		public Song GetBlog(int nID)
+		public Blog GetBlog(int nID)
 		{
 			String strSQL = String.Format("SELECT Blogs.ID, Blogs.Title, Blogs.BlogDate, Blogs.Content FROM (Blogs INNER JOIN Song ON Blogs.SongID = Song.ID) WHERE (Blogs.ID ={0})",
 					nID);
-			return base.LoadItem<Song>(strSQL);
+			return base.LoadItem<Blog>(strSQL);
 		}
 
 		public void AddBlog(Blog blog)
