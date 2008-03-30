@@ -214,6 +214,27 @@ namespace meukow
 				HandleError( ex );
 			}
 		}
+
+		/// <summary>
+		/// Updates the view.
+		/// </summary>
+		public void UpdateArtistView()
+		{
+			Invalidate();
+			m_document = new ArtistDoc();
+			m_listViewArtist.Items.Clear();
+
+			ArtistCollection artists = Document.GetAllArtists();
+
+			foreach (Artist artist in artists)
+			{
+				m_listViewArtist.Items.Add(GetListViewItem(artist));
+			}
+			SortOrder lastOrder = m_arrLastSortOrder[0];
+			m_arrLastSortOrder[0] = SortOrder.Ascending;
+			m_listViewArtist.ListViewItemSorter = new ArtistSorter((ArtistColumn)0, lastOrder);
+		}
+
 		#endregion
 
 		#region Protected functions

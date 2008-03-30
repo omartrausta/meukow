@@ -40,6 +40,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutDlg.Designer.cs">
+      <DependentUpon>AboutDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="ArtistDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ArtistDlg.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ArtistDlg.cs</DependentUpon>
@@ -152,6 +162,9 @@
       <Project>{C0140176-A3E1-44DB-959D-56A74A5F47BB}</Project>
       <Name>ClassLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="meukow.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

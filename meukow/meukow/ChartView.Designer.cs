@@ -79,19 +79,19 @@ namespace meukow
             this.m_menuItemEditChart,
             this.m_menuItemDeleteChart});
 			this.m_contextMenuChart.Name = "contextMenuStrip1";
-			this.m_contextMenuChart.Size = new System.Drawing.Size(118, 48);
+			this.m_contextMenuChart.Size = new System.Drawing.Size(153, 70);
 			// 
 			// m_menuItemEditChart
 			// 
 			this.m_menuItemEditChart.Name = "m_menuItemEditChart";
-			this.m_menuItemEditChart.Size = new System.Drawing.Size(117, 22);
+			this.m_menuItemEditChart.Size = new System.Drawing.Size(152, 22);
 			this.m_menuItemEditChart.Text = "Breyta";
 			this.m_menuItemEditChart.Click += new System.EventHandler(this.OnEditChart);
 			// 
 			// m_menuItemDeleteChart
 			// 
 			this.m_menuItemDeleteChart.Name = "m_menuItemDeleteChart";
-			this.m_menuItemDeleteChart.Size = new System.Drawing.Size(117, 22);
+			this.m_menuItemDeleteChart.Size = new System.Drawing.Size(152, 22);
 			this.m_menuItemDeleteChart.Text = "Eyða";
 			this.m_menuItemDeleteChart.Click += new System.EventHandler(this.OnDeleteChart);
 			// 

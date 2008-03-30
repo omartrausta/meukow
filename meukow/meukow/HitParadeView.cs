@@ -21,6 +21,8 @@ namespace meukow
 		#region Member variables
 		private SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ListColumns.NumberOfColumns];
 		private ListDoc m_document;
+		private bool m_bIsNewSong;
+		private bool m_bIsNewArtist;
 		#endregion
 
 		#region Events and delegates
@@ -41,6 +43,36 @@ namespace meukow
 			set
 			{
 				m_document = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets wether a new song was created.
+		/// </summary>
+		public bool IsNewSong
+		{
+			get
+			{
+				return m_bIsNewSong;
+			}
+			set
+			{
+				m_bIsNewSong = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets wether a new artist was created.
+		/// </summary>
+		public bool IsNewArtist
+		{
+			get
+			{
+				return m_bIsNewArtist;
+			}
+			set
+			{
+				m_bIsNewArtist = value;
 			}
 		}
 		#endregion
@@ -247,10 +279,32 @@ namespace meukow
 				using( ListDlg dlg = new ListDlg())
 				{
 					dlg.List = new List();
-					if ( dlg.ShowDialog( ) == DialogResult.OK )
+					String result = dlg.ShowDialog().ToString();
+					if (result == "OK")
 					{
 						m_listViewHitParade.Items.Add( GetListViewItem( dlg.List ) );
+						m_bIsNewSong = dlg.IsNewSong;
+						m_bIsNewArtist = dlg.IsNewArtist;
 						Invalidate();
+					}
+					else if( result == "Cancel")
+					{
+						if (dlg.List.ID != 0)
+						{
+							ListDoc listDoc = new ListDoc();
+							ListPropDoc listPropDoc = new ListPropDoc();
+							ListPropCollection collection = new ListPropCollection();
+
+							listDoc.DeleteList(dlg.List);
+
+							collection = listPropDoc.GetListPropByList(dlg.List.ID);
+							if (collection.Count > 0)
+							{
+								ListProp listProp = new ListProp();
+								listProp = listPropDoc.GetListProp(collection[0].ID);
+								listPropDoc.DeleteListProp(listProp);
+							}
+						}
 					}
 				}
 			}
