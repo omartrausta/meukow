@@ -1,5 +1,4 @@
 using System;
-
 using ClassLibrary;
 
 public partial class DisplaySongBlog : System.Web.UI.Page
@@ -10,8 +9,16 @@ public partial class DisplaySongBlog : System.Web.UI.Page
 		{
 			BlogDoc doc = new BlogDoc();
 
-			m_blogRepeater.DataSource = doc.GetAllBlogs();
-			m_blogRepeater.DataBind();
+			String strID = Request.QueryString["ID"];
+
+			if ( !String.IsNullOrEmpty( strID ))
+			{		
+				m_blogRepeater.DataSource = doc.GetBlogSong(Convert.ToInt32(strID));	
+				m_blogRepeater.DataBind();
+			}
+			
+			//m_blogRepeater.DataSource = doc.GetAllBlogs();
+			//m_blogRepeater.DataBind();
 		}
 	}
 }
