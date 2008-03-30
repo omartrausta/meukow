@@ -22,15 +22,8 @@ namespace meukow
 			InitializeComponent();
             
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
-			m_chartView.ContextMenuStrip = new ContextMenuStrip();
-            
+			m_chartView.HideContextMenu();
 		}
-
-		//private void OnParadeClick(object sender, EventArgs e)
-		//{
-		//    m_HitParadeView.OnUpdateChart();
-		
-		//}
 
 		private void m_tSbtnSkodavinlistar_Click(object sender, EventArgs e)
 		{
@@ -87,6 +80,36 @@ namespace meukow
 		private void OntSbtnEydaSong(object sender, EventArgs e)
 		{
 			m_SongView.OnDeleteSong();
+		}
+
+		private void OnTabControlClick(object sender, EventArgs e)
+		{
+			if( m_TabControl.SelectedIndex == 1 && m_HitParadeView.IsNewSong == true )
+			{
+				m_SongView.UpdateSongView();
+			}
+
+			if (m_TabControl.SelectedIndex == 2 && m_HitParadeView.IsNewArtist == true)
+			{
+			  artistView1.UpdateArtistView();
+			}
+		}
+
+		private void OnQuitClick(object sender, EventArgs e)
+		{
+			String s = MessageBox.Show("Viltu örugglega hætta?", "Hætta", MessageBoxButtons.YesNo).ToString();
+			if (s == "Yes")
+			{
+				this.Close();
+			}
+		}
+
+		private void OnAboutClick(object sender, EventArgs e)
+		{
+			using( AboutDlg dlg = new AboutDlg())
+			{
+				dlg.ShowDialog();
+			}
 		}
 	}
 }

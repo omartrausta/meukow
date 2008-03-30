@@ -31,7 +31,8 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
 			this.m_mainMenu = new System.Windows.Forms.MenuStrip();
-			this.m_tSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_tSFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_tsMenuItemQuit = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_TabControl = new System.Windows.Forms.TabControl();
 			this.m_tabVinsaeldarlistar = new System.Windows.Forms.TabPage();
 			this.m_chartView = new meukow.ChartView();
@@ -53,6 +54,8 @@
 			this.m_tSbtnEditArtist = new System.Windows.Forms.ToolStripButton();
 			this.m_tSbtnDeleteArtist = new System.Windows.Forms.ToolStripButton();
 			this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.m_tSHelpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.m_tsMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_mainMenu.SuspendLayout();
 			this.m_TabControl.SuspendLayout();
 			this.m_tabVinsaeldarlistar.SuspendLayout();
@@ -67,39 +70,52 @@
 			// m_mainMenu
 			// 
 			this.m_mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.m_tSMenuItem});
+            this.m_tSFileMenuItem,
+            this.m_tSHelpMenuItem});
 			this.m_mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.m_mainMenu.Name = "m_mainMenu";
 			this.m_mainMenu.Size = new System.Drawing.Size(736, 24);
 			this.m_mainMenu.TabIndex = 0;
 			this.m_mainMenu.Text = "menuStrip1";
 			// 
-			// m_tSMenuItem
+			// m_tSFileMenuItem
 			// 
-			this.m_tSMenuItem.Name = "m_tSMenuItem";
-			this.m_tSMenuItem.Size = new System.Drawing.Size(35, 20);
-			this.m_tSMenuItem.Text = "File";
+			this.m_tSFileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_tsMenuItemQuit});
+			this.m_tSFileMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+			this.m_tSFileMenuItem.Name = "m_tSFileMenuItem";
+			this.m_tSFileMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.m_tSFileMenuItem.Text = "Skrá";
+			// 
+			// m_tsMenuItemQuit
+			// 
+			this.m_tsMenuItemQuit.Name = "m_tsMenuItemQuit";
+			this.m_tsMenuItemQuit.Size = new System.Drawing.Size(152, 22);
+			this.m_tsMenuItemQuit.Text = "Hætta";
+			this.m_tsMenuItemQuit.Click += new System.EventHandler(this.OnQuitClick);
 			// 
 			// m_TabControl
 			// 
 			this.m_TabControl.Controls.Add(this.m_tabVinsaeldarlistar);
 			this.m_TabControl.Controls.Add(this.m_tabLog);
 			this.m_TabControl.Controls.Add(this.m_tabFlytjendur);
+			this.m_TabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_TabControl.Location = new System.Drawing.Point(0, 24);
 			this.m_TabControl.Name = "m_TabControl";
 			this.m_TabControl.SelectedIndex = 0;
 			this.m_TabControl.Size = new System.Drawing.Size(730, 539);
 			this.m_TabControl.TabIndex = 3;
+			this.m_TabControl.Click += new System.EventHandler(this.OnTabControlClick);
 			// 
 			// m_tabVinsaeldarlistar
 			// 
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_chartView);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_HitParadeView);
 			this.m_tabVinsaeldarlistar.Controls.Add(this.m_toolStripHitParadeList);
-			this.m_tabVinsaeldarlistar.Location = new System.Drawing.Point(4, 22);
+			this.m_tabVinsaeldarlistar.Location = new System.Drawing.Point(4, 24);
 			this.m_tabVinsaeldarlistar.Name = "m_tabVinsaeldarlistar";
 			this.m_tabVinsaeldarlistar.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabVinsaeldarlistar.Size = new System.Drawing.Size(722, 513);
+			this.m_tabVinsaeldarlistar.Size = new System.Drawing.Size(722, 511);
 			this.m_tabVinsaeldarlistar.TabIndex = 0;
 			this.m_tabVinsaeldarlistar.Text = "Vinsældarlistar";
 			this.m_tabVinsaeldarlistar.UseVisualStyleBackColor = true;
@@ -116,6 +132,9 @@
 			// m_HitParadeView
 			// 
 			this.m_HitParadeView.Document = null;
+			this.m_HitParadeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+			this.m_HitParadeView.IsNewArtist = false;
+			this.m_HitParadeView.IsNewSong = false;
 			this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
 			this.m_HitParadeView.Name = "m_HitParadeView";
 			this.m_HitParadeView.Size = new System.Drawing.Size(385, 476);
@@ -123,6 +142,7 @@
 			// 
 			// m_toolStripHitParadeList
 			// 
+			this.m_toolStripHitParadeList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_toolStripHitParadeList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_tSbtnNew,
             this.m_tSbtnChange,
@@ -139,7 +159,7 @@
 			this.m_tSbtnNew.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnNew.Image")));
 			this.m_tSbtnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnNew.Name = "m_tSbtnNew";
-			this.m_tSbtnNew.Size = new System.Drawing.Size(32, 22);
+			this.m_tSbtnNew.Size = new System.Drawing.Size(36, 22);
 			this.m_tSbtnNew.Text = "Skrá";
 			this.m_tSbtnNew.Click += new System.EventHandler(this.OnNewHitParade);
 			// 
@@ -149,7 +169,7 @@
 			this.m_tSbtnChange.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnChange.Image")));
 			this.m_tSbtnChange.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnChange.Name = "m_tSbtnChange";
-			this.m_tSbtnChange.Size = new System.Drawing.Size(43, 22);
+			this.m_tSbtnChange.Size = new System.Drawing.Size(45, 22);
 			this.m_tSbtnChange.Text = "Breyta";
 			this.m_tSbtnChange.Click += new System.EventHandler(this.OnEditHitParade);
 			// 
@@ -159,7 +179,7 @@
 			this.m_tSbtnDelete.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnDelete.Image")));
 			this.m_tSbtnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnDelete.Name = "m_tSbtnDelete";
-			this.m_tSbtnDelete.Size = new System.Drawing.Size(35, 22);
+			this.m_tSbtnDelete.Size = new System.Drawing.Size(38, 22);
 			this.m_tSbtnDelete.Text = "Eyða";
 			this.m_tSbtnDelete.Click += new System.EventHandler(this.OnDeleteHitParade);
 			// 
@@ -167,10 +187,10 @@
 			// 
 			this.m_tabLog.Controls.Add(this.m_SongView);
 			this.m_tabLog.Controls.Add(this.m_toolStripLog);
-			this.m_tabLog.Location = new System.Drawing.Point(4, 22);
+			this.m_tabLog.Location = new System.Drawing.Point(4, 24);
 			this.m_tabLog.Name = "m_tabLog";
 			this.m_tabLog.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabLog.Size = new System.Drawing.Size(722, 513);
+			this.m_tabLog.Size = new System.Drawing.Size(722, 511);
 			this.m_tabLog.TabIndex = 1;
 			this.m_tabLog.Text = "Lög";
 			this.m_tabLog.UseVisualStyleBackColor = true;
@@ -185,6 +205,7 @@
 			// 
 			// m_toolStripLog
 			// 
+			this.m_toolStripLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_toolStripLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_tSbtnSkralog,
             this.m_tSbtnBrytalog,
@@ -201,7 +222,7 @@
 			this.m_tSbtnSkralog.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnSkralog.Image")));
 			this.m_tSbtnSkralog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnSkralog.Name = "m_tSbtnSkralog";
-			this.m_tSbtnSkralog.Size = new System.Drawing.Size(32, 22);
+			this.m_tSbtnSkralog.Size = new System.Drawing.Size(36, 22);
 			this.m_tSbtnSkralog.Text = "Skrá";
 			this.m_tSbtnSkralog.Click += new System.EventHandler(this.OntSbtnSkraSong);
 			// 
@@ -211,7 +232,7 @@
 			this.m_tSbtnBrytalog.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnBrytalog.Image")));
 			this.m_tSbtnBrytalog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnBrytalog.Name = "m_tSbtnBrytalog";
-			this.m_tSbtnBrytalog.Size = new System.Drawing.Size(43, 22);
+			this.m_tSbtnBrytalog.Size = new System.Drawing.Size(45, 22);
 			this.m_tSbtnBrytalog.Text = "Breyta";
 			this.m_tSbtnBrytalog.Click += new System.EventHandler(this.OntSbtnBreytaSong);
 			// 
@@ -221,7 +242,7 @@
 			this.m_tSbtnEydalog.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnEydalog.Image")));
 			this.m_tSbtnEydalog.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnEydalog.Name = "m_tSbtnEydalog";
-			this.m_tSbtnEydalog.Size = new System.Drawing.Size(35, 22);
+			this.m_tSbtnEydalog.Size = new System.Drawing.Size(38, 22);
 			this.m_tSbtnEydalog.Text = "Eyða";
 			this.m_tSbtnEydalog.Click += new System.EventHandler(this.OntSbtnEydaSong);
 			// 
@@ -229,10 +250,10 @@
 			// 
 			this.m_tabFlytjendur.Controls.Add(this.artistView1);
 			this.m_tabFlytjendur.Controls.Add(this.m_toolStripFlytjendur);
-			this.m_tabFlytjendur.Location = new System.Drawing.Point(4, 22);
+			this.m_tabFlytjendur.Location = new System.Drawing.Point(4, 24);
 			this.m_tabFlytjendur.Name = "m_tabFlytjendur";
 			this.m_tabFlytjendur.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabFlytjendur.Size = new System.Drawing.Size(722, 513);
+			this.m_tabFlytjendur.Size = new System.Drawing.Size(722, 511);
 			this.m_tabFlytjendur.TabIndex = 2;
 			this.m_tabFlytjendur.Text = "Flytjendur";
 			this.m_tabFlytjendur.UseVisualStyleBackColor = true;
@@ -247,6 +268,7 @@
 			// 
 			// m_toolStripFlytjendur
 			// 
+			this.m_toolStripFlytjendur.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_toolStripFlytjendur.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_tSbtnAddArtist,
             this.m_tSbtnEditArtist,
@@ -263,7 +285,7 @@
 			this.m_tSbtnAddArtist.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnAddArtist.Image")));
 			this.m_tSbtnAddArtist.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnAddArtist.Name = "m_tSbtnAddArtist";
-			this.m_tSbtnAddArtist.Size = new System.Drawing.Size(32, 22);
+			this.m_tSbtnAddArtist.Size = new System.Drawing.Size(36, 22);
 			this.m_tSbtnAddArtist.Text = "Skrá";
 			this.m_tSbtnAddArtist.Click += new System.EventHandler(this.OnNewArtist);
 			// 
@@ -273,7 +295,7 @@
 			this.m_tSbtnEditArtist.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnEditArtist.Image")));
 			this.m_tSbtnEditArtist.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnEditArtist.Name = "m_tSbtnEditArtist";
-			this.m_tSbtnEditArtist.Size = new System.Drawing.Size(43, 22);
+			this.m_tSbtnEditArtist.Size = new System.Drawing.Size(45, 22);
 			this.m_tSbtnEditArtist.Text = "Breyta";
 			this.m_tSbtnEditArtist.Click += new System.EventHandler(this.OnMenuEditArtist);
 			// 
@@ -283,13 +305,28 @@
 			this.m_tSbtnDeleteArtist.Image = ((System.Drawing.Image)(resources.GetObject("m_tSbtnDeleteArtist.Image")));
 			this.m_tSbtnDeleteArtist.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.m_tSbtnDeleteArtist.Name = "m_tSbtnDeleteArtist";
-			this.m_tSbtnDeleteArtist.Size = new System.Drawing.Size(35, 22);
+			this.m_tSbtnDeleteArtist.Size = new System.Drawing.Size(38, 22);
 			this.m_tSbtnDeleteArtist.Text = "Eyða";
 			this.m_tSbtnDeleteArtist.Click += new System.EventHandler(this.OnMenuDeleteArtist);
 			// 
 			// listBindingSource
 			// 
 			this.listBindingSource.DataSource = typeof(ClassLibrary.List);
+			// 
+			// m_tSHelpMenuItem
+			// 
+			this.m_tSHelpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.m_tsMenuItemAbout});
+			this.m_tSHelpMenuItem.Name = "m_tSHelpMenuItem";
+			this.m_tSHelpMenuItem.Size = new System.Drawing.Size(43, 20);
+			this.m_tSHelpMenuItem.Text = "Hjálp";
+			// 
+			// m_tsMenuItemAbout
+			// 
+			this.m_tsMenuItemAbout.Name = "m_tsMenuItemAbout";
+			this.m_tsMenuItemAbout.Size = new System.Drawing.Size(152, 22);
+			this.m_tsMenuItemAbout.Text = "Um kerfi";
+			this.m_tsMenuItemAbout.Click += new System.EventHandler(this.OnAboutClick);
 			// 
 			// MainWindow
 			// 
@@ -326,7 +363,7 @@
 
 		private System.Windows.Forms.BindingSource listBindingSource;
 		private System.Windows.Forms.MenuStrip m_mainMenu;
-		private System.Windows.Forms.ToolStripMenuItem m_tSMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem m_tSFileMenuItem;
 		private System.Windows.Forms.TabControl m_TabControl;
 		private System.Windows.Forms.TabPage m_tabVinsaeldarlistar;
 		private System.Windows.Forms.TabPage m_tabLog;
@@ -343,6 +380,9 @@
         private System.Windows.Forms.ToolStripButton m_tSbtnEydalog;
         private System.Windows.Forms.ToolStripButton m_tSbtnEditArtist;
         private System.Windows.Forms.ToolStripButton m_tSbtnDeleteArtist;
+		private System.Windows.Forms.ToolStripMenuItem m_tsMenuItemQuit;
+		private System.Windows.Forms.ToolStripMenuItem m_tSHelpMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem m_tsMenuItemAbout;
 	}
 }
 

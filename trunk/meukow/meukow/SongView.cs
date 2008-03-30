@@ -64,7 +64,7 @@ namespace meukow
 		{
 			if (!DesignMode)
 			{
-				UpdateList();
+				UpdateSongView();
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace meukow
 		/// <summary>
 		/// Updates the view.
 		/// </summary>
-		public void UpdateList()
+		public void UpdateSongView()
 		{
 			Invalidate();
 			m_document = new SongDoc();
@@ -126,7 +126,11 @@ namespace meukow
 			foreach (Song song in songs)
 			{
 				m_listViewSong.Items.Add(GetListViewItem(song));
-			}	
+			}
+			SortOrder lastOrder = m_arrLastSortOrder[0];
+			m_arrLastSortOrder[0] = SortOrder.Ascending;
+			m_listViewSong.ListViewItemSorter = new SongSorter((SongColumns)0, lastOrder);
+
 		}
 
 		/// <summary>
@@ -260,7 +264,5 @@ namespace meukow
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
 		#endregion
-
-		
 	}
 }

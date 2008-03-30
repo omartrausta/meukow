@@ -164,6 +164,12 @@ namespace meukow
 				HandleError(ex);
 			}
 		}
+
+		public void HideContextMenu()
+		{
+			m_contextMenuChart.Items[0].Enabled = false; 
+			m_contextMenuChart.Items[1].Enabled = false;
+		}
 		#endregion
 
 		#region Event Handlers

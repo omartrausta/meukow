@@ -20,6 +20,8 @@ namespace meukow
 		private SongDoc m_songDoc = null;
 		private ArtistDoc m_artistDoc = null;
 	  private ListDoc m_listDoc = null;
+		private bool m_bIsNewSong;
+		private bool m_bIsNewArtist;
 		#endregion
 
 		#region Properties
@@ -35,6 +37,28 @@ namespace meukow
 			set
 			{
 				m_list = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets wether a new song was created.
+		/// </summary>
+		public bool IsNewSong
+		{
+			get
+			{
+				return m_bIsNewSong;
+			}
+		}
+
+		/// <summary>
+		/// Gets wether a new artist was created.
+		/// </summary>
+		public bool IsNewArtist
+		{
+			get
+			{
+				return m_bIsNewArtist;
 			}
 		}
 		#endregion
@@ -126,6 +150,7 @@ namespace meukow
                         m_artist.Picture = String.Empty;
                         m_artist.URL = String.Empty;
                         m_artistDoc.AddArtist(m_artist);
+                    	m_bIsNewArtist = true;
                     }
 
                     m_song = new Song();
@@ -139,6 +164,7 @@ namespace meukow
                         m_song.SongPath = String.Empty;
                         m_song.Description = String.Empty;
                         m_songDoc.AddSong(m_song);
+												m_bIsNewSong = true;
                     }
 
                     int dsPosition = 0;
@@ -205,6 +231,7 @@ namespace meukow
 		}
 		#endregion
 
+		#region Public functions
 		/// <summary>
 		/// Fired when a single line is selected in ChartView
 		/// </summary>
@@ -215,5 +242,6 @@ namespace meukow
 			m_cmbArtist.Text = chart.ArtistName;
 			m_cmbSong.Text = chart.SongName;
 		}
+		#endregion
 	}
 }
