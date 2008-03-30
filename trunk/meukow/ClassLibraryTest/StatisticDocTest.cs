@@ -67,6 +67,53 @@ namespace ClassLibraryTest
 			command.Dispose();
 			reader.Dispose();
 		}
+		/// <summary>
+		/// A test for GetStatisticsByPos ()
+		/// Gets songs and number of times they have been in a given position on chart 
+		/// </summary>
+		[Test]
+		public void GetStatisticsByPosTest()
+		{
+			CopyFile();
+			int pos = 1;
+			StatisticDoc target = new StatisticDoc();
+
+			StatisticCollection expected = new StatisticCollection();
+			Statistic expectedStatistic = null;
+			StatisticCollection actual = target.GetStatisticsByPos(pos);
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = string.Format("SELECT [Song].[Name] AS [SongName], [ListProp].[Position] AS [Position], COUNT([Song].[ID]) AS [TimesInPosition] FROM [Song] INNER JOIN ([List] INNER JOIN [ListProp] ON [List].[ID] = [ListProp].[List]) ON [Song].[ID] = [ListProp].[Song] WHERE ((([List].[WeekList])=True) and (([Position]) = {0})) GROUP by [Song].[Name], [ListProp].[Position]", pos);
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expectedStatistic = new Statistic();
+
+				expectedStatistic.SongName = reader["SongName"].ToString();
+				expectedStatistic.Position = Convert.ToInt32(reader["Position"]);
+				expectedStatistic.TimesInPosition = Convert.ToInt32(reader["TimesInPosition"]);
+
+				expected.Add(expectedStatistic);
+			}
+
+			Assert.AreEqual(expected.Count, actual.Count, "Count is not the same.");
+
+			for (int i = 0; i < actual.Count; i++)
+			{
+				Assert.AreEqual(expected[i].SongName, actual[i].SongName, "SongName is not correct");
+				Assert.AreEqual(expected[i].Position, actual[i].Position, "Position is not correct");
+				Assert.AreEqual(expected[i].TimesInPosition, actual[i].TimesInPosition, "TimesInPosition is not correct");
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
 
 		#region private functions
 		/// <summary>
