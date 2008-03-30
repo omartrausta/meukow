@@ -38,6 +38,8 @@
     <Compile Include="ArtistConnection.cs" />
     <Compile Include="ArtistConnectionDoc.cs" />
     <Compile Include="ArtistDoc.cs" />
+    <Compile Include="Blog.cs" />
+    <Compile Include="BlogDoc.cs" />
     <Compile Include="Chart.cs" />
     <Compile Include="ChartDoc.cs" />
     <Compile Include="Common\Data\BaseDocument.cs" />
