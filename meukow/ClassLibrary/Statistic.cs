@@ -5,78 +5,102 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-    public class Statistic : IDataItem
-    {
-        #region Member variables
+	/// <summary>
+	/// Statistic that inherits IDataItem
+	/// </summary>
+	public class Statistic : IDataItem
+	{
+		#region Member variables
 		private String m_strSongName;
 		private int m_nPosition;
-        private int m_nTimesInPosition;
+		private int m_nTimesInPosition;
 		#endregion
 
 		#region Properties
 		/// <summary>
-		/// public string property for SongName
+		/// Gets or sets the song name for the statistics.
 		/// </summary>
 		public String SongName
 		{
-			get { return m_strSongName; }
-			set { m_strSongName = value; }
+			get
+			{
+				return m_strSongName;
+			}
+			set
+			{
+				m_strSongName = value;
+			}
 		}
 
-        /// <summary>
-		/// public int property for Position
+		/// <summary>
+		/// Gets or sets the position for the statistics.
 		/// </summary>
 		public int Position
 		{
-			get { return m_nPosition; }
-			set { m_nPosition = value; }
+			get
+			{
+				return m_nPosition;
+			}
+			set
+			{
+				m_nPosition = value;
+			}
 		}
 
-        /// <summary>
-		/// public int property for Count
+		/// <summary>
+		/// Gets or sets the times in positioin for the statistics.
 		/// </summary>
-        public int TimesInPosition
+		public int TimesInPosition
 		{
-            get { return m_nTimesInPosition; }
-            set { m_nTimesInPosition = value; }
+			get
+			{
+				return m_nTimesInPosition;
+			}
+			set
+			{
+				m_nTimesInPosition = value;
+			}
 		}
 		#endregion
 
 		#region Constructors
-
 		/// <summary>
-		/// Default constructor for List
+		/// Default constructor
 		/// </summary>
-        public Statistic()
+		public Statistic()
 		{
 		}
-
-#endregion
+		#endregion
 
 		#region Overridden functions
+		/// <summary>
+		/// Overridden function for ToString()
+		/// </summary>
+		/// <returns>Returns the name of the song.</returns>
 		public override string ToString()
 		{
-            return m_strSongName;
+			return m_strSongName;
 		}
 		#endregion
 
 		#region IDataList implementation
+		/// <summary>
+		/// Load function that loads data from IDataReader to
+		/// member variables for statistic.
+		/// </summary>
+		/// <param name="reader">IDataReader with data for statistic.</param>
 		public void Load(IDataReader reader)
 		{
-            m_strSongName = reader["SongName"].ToString();
-            m_nPosition = Convert.ToInt32(reader["Position"]);
-            m_nTimesInPosition = Convert.ToInt32(reader["TimesInPosition"]);
-   		}
+			m_strSongName = reader["SongName"].ToString();
+			m_nPosition = Convert.ToInt32(reader["Position"]);
+			m_nTimesInPosition = Convert.ToInt32(reader["TimesInPosition"]);
+		}
 
 		/// <summary>
-		/// Fall sem skilar TableDescription hlut, en þennan hlut má svo
-		/// nota þegar tilvik af klasanum er uppfært eða nýskráð.
-		/// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
-		/// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
-		/// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
-		/// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
+		/// Function that returns TableDescription object, this object
+		/// can be used when an instance of the class is updated or added.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Returns table description for statistic.</returns>
 		public TableDescription GetTable()
 		{
 			ColumnDescription[] columns = 
@@ -85,51 +109,71 @@ namespace ClassLibrary
 				new ColumnDescription( "Position", this.Position, DbType.Int32 ),
 				new ColumnDescription( "TimesInPosition", this.TimesInPosition, DbType.Int32 ),
 			};
-            return new TableDescription("Statistic", columns);
+
+			return new TableDescription("Statistic", columns);
 		}
-
 		#endregion
-    }
+	}
 
-    public class StatisticSorter : IComparer<Statistic>
-    {
-        #region Member variables
-        private String m_strOrderBy;
-        #endregion
+	/// <summary>
+	/// StatisticSorter sorts instances of Statistic.
+	/// </summary>
+	public class StatisticSorter : IComparer<Statistic>
+	{
+		#region Member variables
+		private readonly String m_strOrderBy;
+		#endregion
 
-        #region Constructors
-        public StatisticSorter(String strOrderBy)
-        {
-            m_strOrderBy = strOrderBy;
-        }
-        #endregion
+		#region Constructors
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strOrderBy">String to be ordered by</param>
+		public StatisticSorter(String strOrderBy)
+		{
+			m_strOrderBy = strOrderBy;
+		}
+		#endregion
 
-        #region IComparer implementation
-        public int Compare(Statistic x, Statistic y)
-        {
-            switch (m_strOrderBy)
-            {
-                case "SongName":
-                    return x.SongName.CompareTo(y.SongName);
-                case "Position":
-                    return x.Position.CompareTo(y.Position);
-                case "TimesInPosition":
-                    return x.TimesInPosition.CompareTo(y.TimesInPosition);
-            }
+		#region IComparer implementation
+		/// <summary>
+		/// Function that compares two instances of Statistic.
+		/// </summary>
+		/// <param name="x">Instance x of Statistic</param>
+		/// <param name="y">Instance y of Statistic</param>
+		/// <returns></returns>
+		public int Compare(Statistic x, Statistic y)
+		{
+			switch (m_strOrderBy)
+			{
+				case "SongName":
+					return x.SongName.CompareTo(y.SongName);
+				case "Position":
+					return x.Position.CompareTo(y.Position);
+				case "TimesInPosition":
+					return x.TimesInPosition.CompareTo(y.TimesInPosition);
+			}
 
-            return 0;
-        }
-        #endregion
-    }
+			return 0;
+		}
+		#endregion
+	}
 
-    public class StatisticCollection : DataList<Statistic>
-    {
-        #region Public functions
-        public void Sort(String strOrderBy)
-        {
-            StatisticSorter sorter = new StatisticSorter(strOrderBy);
-            base.Sort(sorter);
-        }
-        #endregion
-    }
+	/// <summary>
+	/// StatisticCollection has collection of Statistic
+	/// </summary>
+	public class StatisticCollection : DataList<Statistic>
+	{
+		#region Public functions
+		/// <summary>
+		/// Sorts Statistic by a column.
+		/// </summary>
+		/// <param name="strOrderBy">The column to be sorted by</param>
+		public void Sort(String strOrderBy)
+		{
+			StatisticSorter sorter = new StatisticSorter(strOrderBy);
+			base.Sort(sorter);
+		}
+		#endregion
+	}
 }

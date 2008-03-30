@@ -22,6 +22,7 @@ namespace meukow
 			InitializeComponent();
             
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
+			m_chartView.ContextMenuStrip = new ContextMenuStrip();
             
 		}
 
@@ -63,7 +64,7 @@ namespace meukow
 
         private void OnMenuEditArtist(object sender, EventArgs e)
         {
-            artistView1.OnUpdateArtist();
+            artistView1.OnEditArtist();
         }
 
        
@@ -80,7 +81,7 @@ namespace meukow
 
 		private void OntSbtnBreytaSong(object sender, EventArgs e)
 		{
-			m_SongView.OnUpdateSong();
+			m_SongView.OnEditSong();
 		}
 
 		private void OntSbtnEydaSong(object sender, EventArgs e)

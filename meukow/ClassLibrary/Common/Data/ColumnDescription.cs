@@ -1,7 +1,5 @@
 using System;
 using System.Data;
-using System.Data.OleDb;
-using System.Configuration;
 using ClassLibrary.Common.Data;
 
 namespace ClassLibrary.Common.Data
@@ -16,18 +14,31 @@ namespace ClassLibrary.Common.Data
 	public class ColumnDescription
 	{
 		#region Member variables
-		private String m_strColumnName;
-		private object m_value;
-		private DbType m_type;
-		bool m_bPrimaryKey;
+		private readonly String m_strColumnName;
+		private readonly object m_value;
+		private readonly DbType m_type;
+		private readonly bool m_bPrimaryKey;
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strName">Name of column</param>
+		/// <param name="value">Value of column</param>
+		/// <param name="type">DbType of column</param>
 		public ColumnDescription( String strName, object value, DbType type )
-			: this( strName, value, type, false )
+		: this( strName, value, type, false )
 		{
 		}
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strName">Name of column</param>
+		/// <param name="value">Value of column</param>
+		/// <param name="type">DbType of column</param>
+		/// <param name="bPrimaryKey">Is column a primary key</param>
 		public ColumnDescription( String strName, object value, DbType type, bool bPrimaryKey )
 		{
 			m_strColumnName = strName;
@@ -38,6 +49,9 @@ namespace ClassLibrary.Common.Data
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Returns the name of the column.
+		/// </summary>
 		public String Name
 		{
 			get
@@ -46,6 +60,9 @@ namespace ClassLibrary.Common.Data
 			}
 		}
 
+		/// <summary>
+		/// Returns the value of the column.
+		/// </summary>
 		public object Value
 		{
 			get
@@ -54,6 +71,9 @@ namespace ClassLibrary.Common.Data
 			}
 		}
 
+		/// <summary>
+		/// Returns the DbType of the column.
+		/// </summary>
 		public DbType Type
 		{
 			get
@@ -62,6 +82,9 @@ namespace ClassLibrary.Common.Data
 			}
 		}
 
+		/// <summary>
+		/// Returns the wether the column is a primary key.
+		/// </summary>
 		public bool IsPrimaryKey
 		{
 			get

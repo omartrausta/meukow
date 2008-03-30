@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 namespace ClassLibraryTest
 {
@@ -15,15 +14,18 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListPropDocTest
 	{
+		#region member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for AddListProp (ListProp)
 		///</summary>
 		[Test]
 		public void AddListPropTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListPropDoc target = new ListPropDoc();
 
@@ -67,7 +69,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void DeleteListtTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListPropDoc target = new ListPropDoc();
 
@@ -107,7 +109,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetAllListPropTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListPropDoc target = new ListPropDoc();
 
@@ -131,7 +133,7 @@ namespace ClassLibraryTest
 				expectedListProp.Song = Convert.ToInt32(reader["Song"]);
 				expectedListProp.List = Convert.ToInt32(reader["List"]);
 				expectedListProp.Position = Convert.ToInt32(reader["Position"]);
-				
+
 				expected.Add(expectedListProp);
 			}
 
@@ -156,7 +158,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void GetListPropTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListPropDoc target = new ListPropDoc();
 
@@ -196,8 +198,7 @@ namespace ClassLibraryTest
 		[Test]
 		public void UpdateListPropTest()
 		{
-			
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			ListPropDoc target = new ListPropDoc();
 
@@ -237,7 +238,22 @@ namespace ClassLibraryTest
 			command.Dispose();
 			reader.Dispose();
 		}
+		#endregion
 
+		#region Private functions
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
+
+		/// <summary>
+		/// Opens connection to database.
+		/// </summary>
+		/// <returns>Open connection to database.</returns>
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();
@@ -246,5 +262,6 @@ namespace ClassLibraryTest
 			connection.Open();
 			return connection;
 		}
+		#endregion
 	}
 }

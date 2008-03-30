@@ -11,48 +11,83 @@ namespace meukow
 {
 	public partial class ListDlg : Form
 	{
+		#region Member Variables
 		private List m_list = null;
 		private SongCollection m_songColleciton = null;
 		private ArtistCollection m_artistCollection = null;
-	    private Song m_song = null;
-	    private Artist m_artist = null;
-	    private SongDoc m_songDoc = null;
-	    private ArtistDoc m_artistDoc = null;
-	    private ListDoc m_listDoc = null;
+		private Song m_song = null;
+		private Artist m_artist = null;
+		private SongDoc m_songDoc = null;
+		private ArtistDoc m_artistDoc = null;
+	  private ListDoc m_listDoc = null;
+		#endregion
 
+		#region Properties
+		/// <summary>
+		/// Gets or Sets List.
+		/// </summary>
 		public List List
 		{
-			get { return m_list; }
-			set { m_list = value; }
+			get
+			{
+				return m_list;
+			}
+			set
+			{
+				m_list = value;
+			}
 		}
+		#endregion
 
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ListDlg()
 		{
 			InitializeComponent();
+			m_chartView.ChartSelected += new ChartView.ChartHandler(OnChartSelected);
 		}
+		#endregion
 
-        private void OnLoad(object sender, EventArgs e)
-        {
-            m_songColleciton = new SongCollection();
-            m_songDoc = new SongDoc();
+		#region Event Handlers
+		private void OnLoad(object sender, EventArgs e)
+    {
+			m_songColleciton = new SongCollection();
+			m_songDoc = new SongDoc();
 
-            m_songColleciton = m_songDoc.GetAllSongs();
+			m_songColleciton = m_songDoc.GetAllSongs();
 
-            m_cmbSong.DataSource = m_songColleciton;
+			m_cmbSong.DataSource = m_songColleciton;
 
-            m_artistCollection = new ArtistCollection();
-            m_artistDoc = new ArtistDoc();
+			m_artistCollection = new ArtistCollection();
+			m_artistDoc = new ArtistDoc();
 
-            m_artistCollection = m_artistDoc.GetAllArtists();
+			m_artistCollection = m_artistDoc.GetAllArtists();
 
-            m_cmbArtist.DataSource = m_artistCollection;
+			m_cmbArtist.DataSource = m_artistCollection;
+			m_cmbSong.SelectedIndex = -1;
+			m_cmbArtist.SelectedIndex = -1;
 
-            m_txtPosition.Text = "1";
-            m_cmbSong.SelectedIndex = -1;
-            m_cmbArtist.SelectedIndex = -1;
-        }
+			if (List.ID == 0)
+			{
+				this.Text = "Skrá vinsældalista";
+				m_txtPosition.Text = "1";
+			}
+			else
+			{
+				this.Text = "Breyta vinsældalista";
+				m_txtName.Text = m_list.Name;
+				m_dtStarts.Value = m_list.Starts;
+				m_dtEnds.Value = m_list.Ends;
+				m_chkIsWeekList.Checked = m_list.WeekList;
+				m_txtPosition.Text = "";
 
-        private void OnAddToListClick(object sender, EventArgs e)
+				m_chartView.OnUpdateChart( m_list.ID );
+			}
+    }
+        
+		private void OnAddToListClick(object sender, EventArgs e)
         {
             if (m_dtStarts.Value >= m_dtEnds.Value)
             {
@@ -167,6 +202,18 @@ namespace meukow
 					m_cmbArtist.Text = song.Artist;
 				}
 			}
+		}
+		#endregion
+
+		/// <summary>
+		/// Fired when a single line is selected in ChartView
+		/// </summary>
+		/// <param name="chart">Chart</param>
+		public void OnChartSelected(Chart chart)
+		{
+			m_txtPosition.Text = chart.Position.ToString();
+			m_cmbArtist.Text = chart.ArtistName;
+			m_cmbSong.Text = chart.SongName;
 		}
 	}
 }

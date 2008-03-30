@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.OleDb;
 using System.Configuration;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 namespace ClassLibraryTest
 {
@@ -15,15 +14,18 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class SongDocTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for AddSong(song)
 		///</summary>
 		[Test]
 		public void AddSongTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			SongDoc target = new SongDoc();
 			Song song = new Song();
@@ -43,10 +45,10 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
-			
+
 			while (reader.Read())
 			{
 				expected.Load(reader);
@@ -65,12 +67,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for DeleteList (List)
+		///A test for DeleteSong (Song)
 		///</summary>
 		[Test]
 		public void DeleteSongTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			SongDoc target = new SongDoc();
 
@@ -84,7 +86,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -105,12 +107,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for GetAllList ()
+		///A test for GetAllSong ()
 		///</summary>
 		[Test]
 		public void GetAllSongTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			SongDoc target = new SongDoc();
 
@@ -122,8 +124,8 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-		    String strSQL =
-		        "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+			String strSQL =
+			"SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -134,7 +136,7 @@ namespace ClassLibraryTest
 				expectedSong.ID = Convert.ToInt32(reader["ID"]);
 				expectedSong.Name = reader["Name"].ToString();
 				expectedSong.ArtistID = Convert.ToInt32(reader["ArtistID"]);
-			    expectedSong.Artist = reader["ArtistName"].ToString();
+				expectedSong.Artist = reader["ArtistName"].ToString();
 				expectedSong.SongPath = reader["SongPath"].ToString();
 				expectedSong.Description = reader["Description"].ToString();
 
@@ -148,7 +150,7 @@ namespace ClassLibraryTest
 				Assert.AreEqual(expected[i].ID, actual[i].ID, "ID is not correct");
 				Assert.AreEqual(expected[i].Name, actual[i].Name, "Name is not correct");
 				Assert.AreEqual(expected[i].ArtistID, actual[i].ArtistID, "ArtistID is not correct");
-                Assert.AreEqual(expected[i].Artist, actual[i].Artist,"ArtistName is not correct");
+				Assert.AreEqual(expected[i].Artist, actual[i].Artist,"ArtistName is not correct");
 				Assert.AreEqual(expected[i].SongPath, actual[i].SongPath, "SongPath is not correct");
 				Assert.AreEqual(expected[i].Description, actual[i].Description, "Description is not correct");
 			}
@@ -159,12 +161,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for GetList (int)
+		///A test for GetSong (int)
 		///</summary>
 		[Test]
 		public void GetSongTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			SongDoc target = new SongDoc();
 
@@ -179,7 +181,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + nID.ToString();
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + nID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -200,12 +202,12 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
-		///A test for UpdateList (List)
+		///A test for UpdateSong (Song)
 		///</summary>
 		[Test]
 		public void UpdateSongTest()
 		{
-			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			CopyFile();
 
 			SongDoc target = new SongDoc();
 
@@ -227,7 +229,7 @@ namespace ClassLibraryTest
 
 			OleDbConnection connection = GetConnection();
 
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + song.ID.ToString();
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
@@ -246,7 +248,22 @@ namespace ClassLibraryTest
 			command.Dispose();
 			reader.Dispose();
 		}
+		#endregion
 
+		#region private functions
+		/// <summary>
+		/// Copies the data base so that every test can be run with a new instance
+		/// of the database
+		/// </summary>
+		private static void CopyFile()
+		{
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+		}
+
+		/// <summary>
+		/// Opens connection to database.
+		/// </summary>
+		/// <returns>Open connection to database.</returns>
 		private OleDbConnection GetConnection()
 		{
 			OleDbConnection connection = new OleDbConnection();
@@ -255,5 +272,6 @@ namespace ClassLibraryTest
 			connection.Open();
 			return connection;
 		}
+		#endregion
 	}
 }

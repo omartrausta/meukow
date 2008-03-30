@@ -5,100 +5,156 @@ using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
+	/// <summary>
+	/// Song that inherits IDataItem
+	/// </summary>
 	public class Song : IDataItem
 	{
-	#region Member variables
+		#region Member variables
+		private int m_nID;
+		private String m_strName;
+		private int m_nArtistID;
+		private String m_strSongPath;
+		private String m_strDescription;
+		private String m_strArtistName;
+		#endregion
 
-	private int m_nID;
-	private String m_strName;
-	private int m_nArtistID;
-	private String m_strSongPath;
-	private String m_strDescription;
-	private String m_strArtistName;
+		#region Properties
+		/// <summary>
+		/// Gets or sets the id for the song.
+		/// </summary>
+		public int ID
+		{
+			get
+			{
+				return m_nID;
+			}
+			set
+			{
+				m_nID = value;
+			}
+		}
 
-	#endregion
+		/// <summary>
+		/// Gets or sets the name for the song.
+		/// </summary>
+		public String Name
+		{
+			get
+			{
+				return m_strName;
+			}
+			set
+			{
+				m_strName = value;
+			}
+		}
 
-	#region Properties
+		/// <summary>
+		/// Gets or sets the artist id for the song.
+		/// </summary>
+		public int ArtistID
+		{
+			get
+			{
+				return m_nArtistID;
+			}
+			set
+			{
+				m_nArtistID = value;
+			}
+		}
 
-	public int ID
-	{
-		get { return m_nID; }
-		set { m_nID = value; }
-	}
+		/// <summary>
+		/// Gets or sets the song path for the song.
+		/// </summary>
+		public String SongPath
+		{
+			get
+			{
+				return m_strSongPath;
+			}
+			set
+			{
+				m_strSongPath = value;
+			}
+		}
 
-	public String Name
-	{
-		get { return m_strName; }
-		set { m_strName = value; }
-	}
+		/// <summary>
+		/// Gets or sets the description for the song.
+		/// </summary>
+		public String Description
+		{
+			get
+			{
+				return m_strDescription;
+			}
+			set
+			{
+				m_strDescription = value;
+			}
+		}
 
-	public int ArtistID
-	{
-		get { return m_nArtistID; }
-		set { m_nArtistID = value; }
-	}
+		/// <summary>
+		/// Gets or sets the artist name for the song.
+		/// </summary>
+		public String Artist
+		{
+			get
+			{
+				return m_strArtistName;
+			}
+			set
+			{
+				m_strArtistName = value;
+			}
+		}
+		#endregion
 
-	public String SongPath
-	{
-		get { return m_strSongPath; }
-		set { m_strSongPath = value; }
-	}
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
+		public Song( )
+		{
+		}
+		#endregion
 
-	public String Description
-	{
-		get { return m_strDescription; }
-		set { m_strDescription = value; }
-	}
-	
-	public String Artist
-	{
-		get { return m_strArtistName; }
-		set { m_strArtistName = value; }
-	}
+		#region Overridden functions
+		/// <summary>
+		/// Overridden function for ToString()
+		/// </summary>
+		/// <returns>Returns the name of the song.</returns>
+		public override string ToString()
+		{
+			return m_strName;
+		}
+		#endregion
 
-	#endregion
-	
-	#region Constructors
+		#region IDataList implementation
+		/// <summary>
+		/// Load function that loads data from IDataReader to
+		/// member variables for song.
+		/// </summary>
+		/// <param name="reader">IDataReader with data for song.</param>
+		public void Load(IDataReader reader)
+		{
+			m_nID = Convert.ToInt32(reader["ID"]);
+			m_strName = reader[ "Name" ].ToString( );
+			m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
+			m_strArtistName = reader["ArtistName"].ToString();
+			m_strSongPath = reader["SongPath"].ToString();
+			m_strDescription = reader["Description"].ToString();
+		}
 
-	public Song( )
-	{
-	}
-
-	#region Overridden functions
-
-	public override string ToString()
-	{
-		return m_strName;
-	}
-	
-	#endregion
-
-	#endregion
-
-	#region IDataList implementation
-	public void Load(IDataReader reader)
-	{
-		m_nID = Convert.ToInt32(reader["ID"]);
-		m_strName = reader[ "Name" ].ToString( );
-		m_nArtistID = Convert.ToInt32(reader["ArtistID"]);
-		m_strArtistName = reader["ArtistName"].ToString();
-		m_strSongPath = reader["SongPath"].ToString();
-		m_strDescription = reader["Description"].ToString();
-		
-	}
-
-	/// <summary>
-	/// Fall sem skilar TableDescription hlut, en þennan hlut má svo
-	/// nota þegar tilvik af klasanum er uppfært eða nýskráð.
-	/// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
-	/// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
-	/// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
-	/// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
-	/// </summary>
-	/// <returns></returns>
-	public TableDescription GetTable( )
-	{
-		ColumnDescription[] columns = 
+		/// <summary>
+		/// Function that returns TableDescription object, this object
+		/// can be used when an instance of the class is updated or added.
+		/// </summary>
+		/// <returns>Returns table description for song.</returns>
+		public TableDescription GetTable( )
+		{
+			ColumnDescription[] columns = 
 			{
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
 				new ColumnDescription( "Name", this.Name, DbType.String ),
@@ -106,22 +162,26 @@ namespace ClassLibrary
 				new ColumnDescription( "SongPath", this.SongPath, DbType.String ),
 				new ColumnDescription( "Description", this.Description, DbType.String ),
 			};
-			return new TableDescription( "Song	", columns );
-		}
 
-	#endregion
+			return new TableDescription( "Song	", columns );
+		}	
+		#endregion
 	}
+
 	/// <summary>
-	/// StudentSorter sér um að raða tilvikum af Student.
+	/// SongSorter sorts instances of Song.
 	/// </summary>
-	
 	public class SongSorter : IComparer<Song>
 	{
 		#region Member variables
-		private String m_strOrderBy;
+		private readonly String m_strOrderBy;
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strOrderBy">String to be ordered by</param>
 		public SongSorter( String strOrderBy )
 		{
 			m_strOrderBy = strOrderBy;
@@ -129,6 +189,12 @@ namespace ClassLibrary
 		#endregion
 
 		#region IComparer implementation
+		/// <summary>
+		/// Function that compares two instances of Song.
+		/// </summary>
+		/// <param name="x">Instance x of Song</param>
+		/// <param name="y">Instance y of Song</param>
+		/// <returns></returns>
 		public int Compare( Song x, Song y )
 		{
 			switch ( m_strOrderBy )
@@ -148,9 +214,16 @@ namespace ClassLibrary
 		#endregion
 	}
 
+	/// <summary>
+	/// SongCollection has collection of Song
+	/// </summary>
 	public class SongCollection : DataList<Song>
 	{
 		#region Public functions
+		/// <summary>
+		/// Sorts Song by a column.
+		/// </summary>
+		/// <param name="strOrderBy">The column to be sorted by</param>
 		public void Sort( String strOrderBy )
 		{
 			SongSorter sorter = new SongSorter( strOrderBy );
@@ -158,5 +231,4 @@ namespace ClassLibrary
 		}
 		#endregion	
 	}
-
 }

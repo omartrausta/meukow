@@ -13,15 +13,23 @@ namespace ClassLibrary.Common.Data
 	public class TableDescription
 	{
 		#region Member variables
-		private String m_strTableName;
-		private ColumnDescription[] m_columns;
+		private readonly String m_strTableName;
+		private readonly ColumnDescription[] m_columns;
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public TableDescription( )
 		{
 		}
 
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strTableName">Name of table.</param>
+		/// <param name="columns">collection of column descriptions</param>
 		public TableDescription( String strTableName, ColumnDescription[] columns )
 		{
 			m_strTableName = strTableName;
@@ -30,6 +38,9 @@ namespace ClassLibrary.Common.Data
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Returns the name of a table.
+		/// </summary>
 		public String Name
 		{
 			get
@@ -38,6 +49,9 @@ namespace ClassLibrary.Common.Data
 			}
 		}
 
+		/// <summary>
+		/// Returns a collection of columns.
+		/// </summary>
 		public ColumnDescription[] Columns
 		{
 			get

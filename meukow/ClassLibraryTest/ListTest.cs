@@ -11,8 +11,11 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class ListTest
 	{
+		#region Member variables
 		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
 
+		#region Tests
 		/// <summary>
 		///A test for Ends
 		///</summary>
@@ -160,7 +163,7 @@ namespace ClassLibraryTest
 			bool val = false; 
 
 			target.WeekList = val;
-			
+
 			Assert.IsFalse( target.WeekList, "ClassLibrary.List.WeekList is true.");
 
 			val = true;
@@ -194,13 +197,12 @@ namespace ClassLibraryTest
 			while (reader.Read())
 			{
 				target.Load(reader);
-			
+
 				Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
 				Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
 				Assert.AreEqual(Convert.ToDateTime(reader["Starts"]), target.Starts, "Starts is not correct");
 				Assert.AreEqual(Convert.ToDateTime(reader["Ends"]), target.Ends, "Ends is not correct");
 				Assert.AreEqual(Convert.ToBoolean(reader["WeekList"]), target.WeekList, "WeekList is not correct");
-
 			}
 
 			connection.Dispose();
@@ -226,7 +228,7 @@ namespace ClassLibraryTest
 
 			Assert.AreEqual(actual, target.ToString(), "ClassLibrary.List.ToString did not return the expected value.");
 		}
-
+		#endregion
 	}
 
 	/// <summary>
@@ -241,17 +243,17 @@ namespace ClassLibraryTest
 		///</summary>
 		[Test]
 		public void SortTest()
-		{
-			ListCollection target = new ListCollection();
+	{
+		ListCollection target = new ListCollection();
 
-			string strOrderBy = "Name";
+		string strOrderBy = "Name";
 
-			target.Sort(strOrderBy);
+		target.Sort(strOrderBy);
 
-			Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
-			}
-
+		Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
 	}
+	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.ListSorter and is intended
 	///to contain all ClassLibrary.ListSorter Unit Tests

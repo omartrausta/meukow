@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-// using System.Data.OleDb;
 using System.Reflection;
 using System.Text;
-
-// using System.Web;
 
 namespace ClassLibrary.Common.Data
 {
@@ -24,10 +20,20 @@ namespace ClassLibrary.Common.Data
 	/// </summary>
 	public class DataList<T> : List<T> where T : IDataItem, new( )
 	{
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public DataList( )
 		{
 		}
+		#endregion
 
+		#region public functions
+		/// <summary>
+		/// Loads data.
+		/// </summary>
+		/// <param name="reader">IDataReader</param>
 		public void OnAddRow( IDataReader reader )
 		{
 			T t = new T( );
@@ -35,6 +41,11 @@ namespace ClassLibrary.Common.Data
 			this.Add( t );
 		}
 
+		/// <summary>
+		/// Converts a collection of columns into one string.
+		/// </summary>
+		/// <param name="columnsToDisplay">Collection of columns to display</param>
+		/// <returns>String with all columns.</returns>
 		public String ToCSV( String[] columnsToDisplay )
 		{
 			StringBuilder strCSV = new StringBuilder( );
@@ -70,10 +81,7 @@ namespace ClassLibrary.Common.Data
 							String strValue = oValue.ToString( );
 							strCSV.Append( strValue );
 						}
-						else
-						{
 
-						}
 						strCSV.Append( ";" );
 					}
 					strCSV.Append( System.Environment.NewLine );
@@ -82,5 +90,6 @@ namespace ClassLibrary.Common.Data
 
 			return strCSV.ToString( );
 		}
+		#endregion
 	}
 }

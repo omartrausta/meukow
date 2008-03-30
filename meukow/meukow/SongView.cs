@@ -1,18 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
 
 namespace meukow
 {
 	/// <summary>
-	/// StudentListColumns skilgreinir annars vegar hvaða dálkar eru
-	/// í listanum, og hins vegar hversu margir dálkar þeir eru. Þetta enum
-	/// þarf að uppfæra ef dálkarnir breytast í design hlutanum.
+	/// Public enum that includes the name of the columns in the view and
+	/// also how many columns are in the view
 	/// </summary>
 	#region Enum
 	public enum SongColumns
@@ -33,14 +27,26 @@ namespace meukow
 		#endregion
 
 		#region Properties
+		/// <summary>
+		/// Gets or sets the SongDoc document
+		/// </summary>
 		public SongDoc Document
 		{
-			get { return m_document; }
-			set { m_document = value; }
+			get
+			{
+				return m_document;
+			}
+			set
+			{
+				m_document = value;
+			}
 		}
 		#endregion
 
 		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public SongView()
 		{
 			InitializeComponent();
@@ -49,8 +55,8 @@ namespace meukow
 
 		#region Event handlers
 		/// <summary>
-		/// OnLoad er keyrt í upphafi. Við notum það til þess að sækja allar 
-		/// færslur og birta í listanum.
+		/// OnLoad is run when the view is loaded and the view is populated
+		/// with data.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -58,14 +64,58 @@ namespace meukow
 		{
 			if (!DesignMode)
 			{
-				HressaLista();
+				UpdateList();
 			}
+		}
+
+		/// <summary>
+		/// Catches when the user wants to sort the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnSortList(object sender, ColumnClickEventArgs e)
+		{
+			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
+			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+			m_listViewSong.ListViewItemSorter = new SongSorter((SongColumns)e.Column, lastOrder);
+		}
+
+		/// <summary>
+		/// OnMenuNewSong when add is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuNewSong(object sender, EventArgs e)
+		{
+			OnNewSong();
+		}
+
+		/// <summary>
+		/// OnMenuEditSong when edit is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuEditSong(object sender, EventArgs e)
+		{
+			OnEditSong();
+		}
+
+		/// <summary>
+		/// OnMenuDeleteSong when delete is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnMenuDeleteSong(object sender, EventArgs e)
+		{
+			OnDeleteSong();
 		}
 		#endregion
 
 		#region Public functions
-
-		public void HressaLista()
+		/// <summary>
+		/// Updates the view.
+		/// </summary>
+		public void UpdateList()
 		{
 			Invalidate();
 			m_document = new SongDoc();
@@ -78,7 +128,10 @@ namespace meukow
 				m_listViewSong.Items.Add(GetListViewItem(song));
 			}	
 		}
-		
+
+		/// <summary>
+		/// OnNewSong adds a new song to the database.
+		/// </summary>
 		public void OnNewSong()
 		{
 			try
@@ -89,10 +142,7 @@ namespace meukow
 					if (dlg.ShowDialog() == DialogResult.OK)
 					{
 						Song song = dlg.song;
-
-						// Ef þetta klikkar verður kastað villu:
 						Document.AddSong(song);
-						//HressaLista();
 						m_listViewSong.Items.Add(GetListViewItem(song));
 					}
 				}
@@ -103,23 +153,17 @@ namespace meukow
 			}
 		}
 
-		public void OnUpdateSong()
+		/// <summary>
+		/// OnEditSong is used to change one row in the list.
+		/// This function doesn't do anything if nothing is selected.
+		/// </summary>
+		public void OnEditSong()
 		{
 			try
 			{
-				// Tékkum á því hvort það sé ekki örugglega einhver valinn:
 				if (m_listViewSong.SelectedItems.Count == 1)
 				{
-					// ListView á ekkert SelectedItem property, en skilar
-					// hinsvegar collection af völdum færslum, því sá
-					// möguleiki er fyrir hendi að ListView sé MultiSelect.
-					// Við erum samt ekki að nota okkur MultiSelect í þessu
-					// tilfelli (sjá properties fyrir ListView stýringuna).
 					ListViewItem listViewItem = m_listViewSong.SelectedItems[0];
-
-					// Þetta typecast er í lagi því GetListViewItem sér alltaf
-					// um að setja Student tilvik inn í Tag property-ið á 
-					// sérhverju itemi:
 					Song song = (Song)listViewItem.Tag;
 
 					using (SongDlg dlg = new SongDlg())
@@ -128,20 +172,17 @@ namespace meukow
 
 						if (dlg.ShowDialog() == DialogResult.OK)
 						{
-							// Sækjum gögnin aftur úr samtalsglugganum:
 							song = dlg.song;
-
-							// Látum vinnslulagið uppfæra nemandann. Ef það
-							// mistekst er kastað villu.
 							Document.UpdateSong(song);
-							//HressaLista();
 							int nIndex = listViewItem.Index;
-							// Við uppfærum færsluna með því að fjarlægja þá sem
-							// er fyrir og setja nýja inn:
 							m_listViewSong.Items.Remove(listViewItem);
 							m_listViewSong.Items.Insert(nIndex, GetListViewItem(song));
 						}
 					}
+				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu lag til að breyta.");
 				}
 			}
 			catch (Exception ex)
@@ -150,6 +191,9 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// OnDeleteSong deletes the selected song.
+		/// </summary>
 		public void OnDeleteSong()
 		{
 			try
@@ -160,13 +204,15 @@ namespace meukow
 						MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
 					{
 						ListViewItem listViewItem = m_listViewSong.SelectedItems[0];
-						// Sama gildir hér og í OnEditStudent.
 						Song song = (Song)listViewItem.Tag;
 
-						// Hér verður kastað villu ef þetta mistekst:
 						Document.DeleteSong(song);
 						m_listViewSong.Items.Remove(listViewItem);
 					}
+				}
+				else
+				{
+					MessageBox.Show("Vinsamlegast veldu lag til að eyða.");
 				}
 			}
 			catch (Exception ex)
@@ -174,25 +220,16 @@ namespace meukow
 				HandleError(ex);
 			}
 		}
-
 		#endregion
 
-		#region Private functions
-		private void OnSortList(object sender, ColumnClickEventArgs e)
-		{
-			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
-			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-			m_listViewSong.ListViewItemSorter = new SongSorter((SongColumns)e.Column, lastOrder);
-		}
-
+		#region Protected functions
 		/// <summary>
-		/// Fall sem tekur inn tilvik af Song, og skilar til baka
-		/// ListViewItem færslu sem táknar þetta lag.
+		/// Function that add an instance of Song into a ListViewItem.
 		/// </summary>
-		/// <param name="song"></param>
-		/// <returns></returns>
-		private ListViewItem GetListViewItem(Song song)
-		{	
+		/// <param name="song">Song</param>
+		/// <returns>ListViewItem</returns>
+		protected ListViewItem GetListViewItem(Song song)
+		{
 			// Fyrsti dálkurinn birtir nafn:
 			ListViewItem item = new ListViewItem(song.Name.ToString());
 
@@ -213,19 +250,17 @@ namespace meukow
 			// Nóg í bili...
 			return item;
 		}
-		#endregion
-		
-		#region Protected functions
+
 		/// <summary>
-		/// HandleError sér um að birta villuskilaboð á 
-		/// einhvern (mis)smekklega hátt (má sjálfsagt laga...):
+		/// Shows error message.
 		/// </summary>
-		/// <param name="ex"></param>
+		/// <param name="ex">Exception</param>
 		protected static void HandleError(Exception ex)
 		{
-			// Hér mætti örugglega koma með vinalegri villuboð:
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
 		#endregion
+
+		
 	}
 }

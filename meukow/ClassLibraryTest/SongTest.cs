@@ -15,7 +15,11 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class SongTest
 	{
-        private readonly String m_strConnectionStringName = "appDatabase";
+		#region Member variables
+		private readonly String m_strConnectionStringName = "appDatabase";
+		#endregion
+
+		#region Tests
 		/// <summary>
 		///A test for ArtistID
 		///</summary>
@@ -24,15 +28,15 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            int val = 0;
+			int val = 0;
 
-            Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly.");
+			Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly.");
 
-            val = 10;
+			val = 10;
 
-            target.ArtistID = val;
+			target.ArtistID = val;
 
-            Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly with a value.");
+			Assert.AreEqual(val, target.ArtistID, "ClassLibrary.Song.ArtistID was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -43,17 +47,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            string val = null;
+			string val = null;
 
-            target.Description = val;
+			target.Description = val;
 
-            Assert.IsNull(target.Description, "ClassLibrary.Song.Description was not set correctly.");
+			Assert.IsNull(target.Description, "ClassLibrary.Song.Description was not set correctly.");
 
-            val = "Test Description";
+			val = "Test Description";
 
-            target.Description = val;
+			target.Description = val;
 
-            Assert.AreEqual(val, target.Description, "ClassLibrary.Song.Description was not set correctly with a value.");
+			Assert.AreEqual(val, target.Description, "ClassLibrary.Song.Description was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -69,30 +73,30 @@ namespace ClassLibraryTest
 
 			actual = target.GetTable();
 
-            Assert.AreEqual("ID", actual.Columns[0].Name, "Name is not the same for ID");
-            Assert.AreEqual(0, actual.Columns[0].Value, "Value is not the same for ID");
-            Assert.AreEqual(DbType.Int32, actual.Columns[0].Type, "Type is not the same for ID");
-            Assert.AreEqual(true, actual.Columns[0].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
+			Assert.AreEqual("ID", actual.Columns[0].Name, "Name is not the same for ID");
+			Assert.AreEqual(0, actual.Columns[0].Value, "Value is not the same for ID");
+			Assert.AreEqual(DbType.Int32, actual.Columns[0].Type, "Type is not the same for ID");
+			Assert.AreEqual(true, actual.Columns[0].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
 
-            Assert.AreEqual("Name", actual.Columns[1].Name, "Name is not the same for Name");
-            Assert.AreEqual(null, actual.Columns[1].Value, "Value is not the same for Name");
-            Assert.AreEqual(DbType.String, actual.Columns[1].Type, "Type is not the same for Name");
-            Assert.AreEqual(false, actual.Columns[1].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
+			Assert.AreEqual("Name", actual.Columns[1].Name, "Name is not the same for Name");
+			Assert.AreEqual(null, actual.Columns[1].Value, "Value is not the same for Name");
+			Assert.AreEqual(DbType.String, actual.Columns[1].Type, "Type is not the same for Name");
+			Assert.AreEqual(false, actual.Columns[1].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
 
-            Assert.AreEqual("ArtistID", actual.Columns[2].Name, "Name is not the same for ID");
-            Assert.AreEqual(0, actual.Columns[2].Value, "Value is not the same for ID");
-            Assert.AreEqual(DbType.Int32, actual.Columns[2].Type, "Type is not the same for ID");
-            Assert.AreEqual(false, actual.Columns[2].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
+			Assert.AreEqual("ArtistID", actual.Columns[2].Name, "Name is not the same for ID");
+			Assert.AreEqual(0, actual.Columns[2].Value, "Value is not the same for ID");
+			Assert.AreEqual(DbType.Int32, actual.Columns[2].Type, "Type is not the same for ID");
+			Assert.AreEqual(false, actual.Columns[2].IsPrimaryKey, "IsPrimaryKey is not the same for ID");
 
-            Assert.AreEqual("SongPath", actual.Columns[3].Name, "Name is not the same for Name");
-            Assert.AreEqual(null, actual.Columns[3].Value, "Value is not the same for Name");
-            Assert.AreEqual(DbType.String, actual.Columns[3].Type, "Type is not the same for Name");
-            Assert.AreEqual(false, actual.Columns[3].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
+			Assert.AreEqual("SongPath", actual.Columns[3].Name, "Name is not the same for Name");
+			Assert.AreEqual(null, actual.Columns[3].Value, "Value is not the same for Name");
+			Assert.AreEqual(DbType.String, actual.Columns[3].Type, "Type is not the same for Name");
+			Assert.AreEqual(false, actual.Columns[3].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
 
-            Assert.AreEqual("Description", actual.Columns[4].Name, "Name is not the same for Name");
-            Assert.AreEqual(null, actual.Columns[4].Value, "Value is not the same for Name");
-            Assert.AreEqual(DbType.String, actual.Columns[4].Type, "Type is not the same for Name");
-            Assert.AreEqual(false, actual.Columns[4].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
+			Assert.AreEqual("Description", actual.Columns[4].Name, "Name is not the same for Name");
+			Assert.AreEqual(null, actual.Columns[4].Value, "Value is not the same for Name");
+			Assert.AreEqual(DbType.String, actual.Columns[4].Type, "Type is not the same for Name");
+			Assert.AreEqual(false, actual.Columns[4].IsPrimaryKey, "IsPrimaryKey is not the same for Name");
 		}
 
 		/// <summary>
@@ -103,15 +107,15 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            int val = 0;
+			int val = 0;
 
-            Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly.");
+			Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly.");
 
-            val = 10;
+			val = 10;
 
-            target.ID = val;
+			target.ID = val;
 
-            Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly with a value.");
+			Assert.AreEqual(val, target.ID, "ClassLibrary.Song.ID was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -122,28 +126,28 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            IDataReader reader = null;
+			IDataReader reader = null;
 
-            OleDbConnection connection = new OleDbConnection();
+			OleDbConnection connection = new OleDbConnection();
 
-            connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
-            connection.Open();
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
 
 			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
-            OleDbCommand command = new OleDbCommand(strSQL, connection);
-            reader = command.ExecuteReader();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
-                target.Load(reader);
+			while (reader.Read())
+			{
+				target.Load(reader);
 
-                Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
-                Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
-                Assert.AreEqual(reader["ArtistID"],target.ArtistID,"ArtistID is not correct");
+				Assert.AreEqual(Convert.ToInt32(reader["ID"]), target.ID, "ID is not correct");
+				Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
+				Assert.AreEqual(reader["ArtistID"],target.ArtistID,"ArtistID is not correct");
 				Assert.AreEqual(reader["ArtistName"].ToString(), target.Artist, "ArtistName is not correct");
-                Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath, "SongPath is not correct");
-                Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
-            }
+				Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath, "SongPath is not correct");
+				Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
+			}
 		}
 
 		/// <summary>
@@ -154,17 +158,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            string val = null;
+			string val = null;
 
-            target.Name = val;
+			target.Name = val;
 
-            Assert.IsNull(target.Name, "ClassLibrary.Song.Name was not set correctly.");
+			Assert.IsNull(target.Name, "ClassLibrary.Song.Name was not set correctly.");
 
-            val = "Test nafn";
+			val = "Test nafn";
 
-            target.Name = val;
+			target.Name = val;
 
-            Assert.AreEqual(val, target.Name, "ClassLibrary.Song.Name was not set correctly with a value.");
+			Assert.AreEqual(val, target.Name, "ClassLibrary.Song.Name was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -175,11 +179,11 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            Assert.AreEqual(0, target.ID, "ID is not 0.");
-            Assert.IsNull(target.Name, "Name is not null.");
-            Assert.AreEqual(0, target.ArtistID, "ArtistID is not 0.");
-            Assert.IsNull(target.SongPath, "SongPath is not null.");
-            Assert.IsNull(target.Description, "Description is not null.");
+			Assert.AreEqual(0, target.ID, "ID is not 0.");
+			Assert.IsNull(target.Name, "Name is not null.");
+			Assert.AreEqual(0, target.ArtistID, "ArtistID is not 0.");
+			Assert.IsNull(target.SongPath, "SongPath is not null.");
+			Assert.IsNull(target.Description, "Description is not null.");
 		}
 
 		/// <summary>
@@ -190,17 +194,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            string val = null;
+			string val = null;
 
-            target.Description = val;
+			target.Description = val;
 
-            Assert.IsNull(target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
+			Assert.IsNull(target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
 
-            val = "Test SongPath";
+			val = "Test SongPath";
 
-            target.SongPath = val;
+			target.SongPath = val;
 
-            Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
+			Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
 		}
 
 		/// <summary>
@@ -211,22 +215,23 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-            string expected = null;
-            string actual;
+			string expected = null;
+			string actual;
 
-            actual = target.ToString();
+			actual = target.ToString();
 
-            Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
+			Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
 
-            actual = "Test Name";
-            expected = "Test Name";
+			actual = "Test Name";
+			expected = "Test Name";
 
-            target.Name = actual;
+			target.Name = actual;
 
-            Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
+			Assert.AreEqual(expected, actual, "ClassLibrary.Song.ToString did not return the expected value.");
 		}
-
+		#endregion
 	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.SongCollection and is intended
 	///to contain all ClassLibrary.SongCollection Unit Tests
@@ -242,14 +247,14 @@ namespace ClassLibraryTest
 		{
 			SongCollection target = new SongCollection();
 
-            string strOrderBy = "Name";
+			string strOrderBy = "Name";
 
-            target.Sort(strOrderBy);
+			target.Sort(strOrderBy);
 
-            Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
+			Assert.IsFalse(target.Count > 0, "ListCollection is greater than 0.");
 		}
-
 	}
+
 	/// <summary>
 	///This is a test class for ClassLibrary.SongSorter and is intended
 	///to contain all ClassLibrary.SongSorter Unit Tests
@@ -257,47 +262,48 @@ namespace ClassLibraryTest
 	[TestFixture]
 	public class SongSorterTest
 	{
-        private readonly String m_strConnectionStringName = "appDatabase";
+		private readonly String m_strConnectionStringName = "appDatabase";
+
 		/// <summary>
 		///A test for Compare (Song, Song)
 		///</summary>
 		[Test]
 		public void CompareTest()
 		{
-            System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
+			System.IO.File.Copy("CopyOfVinsaeldalisti.mdb", "vinsaeldalisti.mdb", true);
 
-            string strOrderBy = "Name";
+			string strOrderBy = "Name";
 
-            SongSorter target = new SongSorter(strOrderBy);
-            Song x = new Song();
-            Song y = new Song();
-            int expected = 0;
-            int actual;
+			SongSorter target = new SongSorter(strOrderBy);
+			Song x = new Song();
+			Song y = new Song();
+			int expected = 0;
+			int actual;
 
-            IDataReader reader = null;
+			IDataReader reader = null;
 
-            OleDbConnection connection = new OleDbConnection();
+			OleDbConnection connection = new OleDbConnection();
 
-            connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
-            connection.Open();
+			connection.ConnectionString = ConfigurationManager.AppSettings[m_strConnectionStringName].ToString();
+			connection.Open();
 
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
-            OleDbCommand command = new OleDbCommand(strSQL, connection);
-            reader = command.ExecuteReader();
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
-                x.Load(reader);
-                y.Load(reader);
+			while (reader.Read())
+			{
+				x.Load(reader);
+				y.Load(reader);
 
-                actual = target.Compare(x, y);
+				actual = target.Compare(x, y);
 
-                Assert.AreEqual(expected, actual, "ClassLibrary.SongSorter.Compare did not return the expected value.");
-            }
+				Assert.AreEqual(expected, actual, "ClassLibrary.SongSorter.Compare did not return the expected value.");
+			}
 
-            connection.Dispose();
-            command.Dispose();
-            reader.Dispose();
-        }
-    }
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
+	}
 }

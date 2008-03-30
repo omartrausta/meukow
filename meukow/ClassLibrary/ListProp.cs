@@ -1,61 +1,98 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using System.Data.OleDb;
 using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-public class ListProp : IDataItem
+	/// <summary>
+	/// ListProp that inherits IDataItem
+	/// </summary>
+	public class ListProp : IDataItem
 	{
-
 		#region Member variables
-
 		private int m_nID;
 		private int m_nSong;
 		private int m_nList;
 		private int m_nPostion;
-
 		#endregion
 
 		#region Properties
-
+		/// <summary>
+		/// Gets or sets the id for the ListProp.
+		/// </summary>
 		public int ID
 		{
-			get { return m_nID; }
-			set { m_nID = value; }
+			get
+			{
+				return m_nID;
+			}
+			set
+			{
+				m_nID = value;
+			}
 		}
-		
+
+		/// <summary>
+		/// Gets or sets the song id for the ListProp.
+		/// </summary>
 		public int Song
 		{
-			get { return m_nSong; }
-			set { m_nSong = value; }
+			get
+			{
+				return m_nSong;
+			}
+			set
+			{
+				m_nSong = value;
+			}
 		}
-		
+
+		/// <summary>
+		/// Gets or sets the list id for the ListProp.
+		/// </summary>
 		public int List
 		{
-			get { return m_nList; }
-			set { m_nList = value; }
-		}	
-
+			get
+			{
+				return m_nList;
+			}
+			set
+			{
+				m_nList = value;
+			}
+		}
+		
+		/// <summary>
+		/// Gets or sets the position for the ListProp.
+		/// </summary>
 		public int Position
 		{
-			get { return m_nPostion; }
-			set { m_nPostion = value; }
+			get
+			{
+				return m_nPostion;
+			}
+			set
+			{
+				m_nPostion = value;
+			}
 		}
-
 		#endregion
 
 		#region Constructors
-
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public ListProp( )
 		{
 		}
-
 		#endregion
 
 		#region Overridden functions
+		/// <summary>
+		/// Overridden function for ToString()
+		/// </summary>
+		/// <returns>Returns the id of the ListProp.</returns>
 		public override string ToString()
 		{
 			return m_nID.ToString();
@@ -63,25 +100,26 @@ public class ListProp : IDataItem
 		#endregion
 
 		#region IDataList implementation
+		/// <summary>
+		/// Load function that loads data from IDataReader to
+		/// member variables for ListProp.
+		/// </summary>
+		/// <param name="reader">IDataReader with data for ListProp.</param>
 		public void Load(IDataReader reader)
-    {
-      m_nID = Convert.ToInt32(reader["ID"]);
-      m_nSong = Convert.ToInt32(reader["Song"]);
-      m_nList = Convert.ToInt32(reader["List"]);
+		{
+			m_nID = Convert.ToInt32(reader["ID"]);
+			m_nSong = Convert.ToInt32(reader["Song"]);
+			m_nList = Convert.ToInt32(reader["List"]);
 			m_nPostion = Convert.ToInt32(reader["Position"]);
 		}
 
-    /// <summary>
-    /// Fall sem skilar TableDescription hlut, en þennan hlut má svo
-    /// nota þegar tilvik af klasanum er uppfært eða nýskráð.
-    /// Athugið að þetta fall þarf ekki endilega að vísa í sömu dálka
-    /// og Load fallið, hér ætti aðeins að vísa í dálkanöfn í töflunni
-    /// sem þessi klasi tengist, en Load fallið gæti t.d. sótt gögn
-    /// úr öðrum dálkum sem væri skilað með INNER JOIN skipun.
-    /// </summary>
-    /// <returns></returns>
-    public TableDescription GetTable()
-    {
+		/// <summary>
+		/// Function that returns TableDescription object, this object
+		/// can be used when an instance of the class is updated or added.
+		/// </summary>
+		/// <returns>Returns table description for ListProp.</returns>
+		public TableDescription GetTable()
+		{
 			ColumnDescription[] columns = 
 			{
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
@@ -89,56 +127,71 @@ public class ListProp : IDataItem
 				new ColumnDescription( "List", this.List, DbType.Int32 ),
 				new ColumnDescription( "Position",this.Position, DbType.Int32), 
 			};
+
 			return new TableDescription( "ListProp	", columns);
-    }
+		}
+		#endregion
+	}
 
-    #endregion
-    }
-    /// <summary>
-    /// ListPropSorter sér um að raða tilvikum af vinsældarlistum.
-    /// </summary>
+	/// <summary>
+	/// ListPropSorter sorts instances of ListProp.
+	/// </summary>
+	public class ListPropSorter : IComparer<ListProp>
+	{
+		#region Member variables
+		private readonly String m_strOrderBy;
+		#endregion
 
-    public class ListPropSorter : IComparer<ListProp>
-    {
-        #region Member variables
-        private String m_strOrderBy;
-        #endregion
+		#region Constructors
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="strOrderBy">String to be ordered by</param>
+		public ListPropSorter(String strOrderBy)
+		{
+			m_strOrderBy = strOrderBy;
+		}
+		#endregion
 
-        #region Constructors
-        public ListPropSorter(String strOrderBy)
-        {
-            m_strOrderBy = strOrderBy;
-        }
-        #endregion
+		#region IComparer implementation
+		/// <summary>
+		/// Function that compares two instances of ListProp.
+		/// </summary>
+		/// <param name="x">Instance x of ListProp</param>
+		/// <param name="y">Instance y of ListProp</param>
+		/// <returns></returns>
+		public int Compare(ListProp x, ListProp y)
+		{
+			switch (m_strOrderBy)
+			{
+				case "Song":
+					return x.Song.CompareTo(y.Song);
+				case "List":
+					return x.List.CompareTo(y.List);
+				case "Position":
+					return x.Position.CompareTo(y.Position);
+			}
 
-        #region IComparer implementation
-        public int Compare(ListProp x, ListProp y)
-        {
-            switch (m_strOrderBy)
-            {
-                case "Song":
-                    return x.Song.CompareTo(y.Song);
-                case "List":
-                    return x.List.CompareTo(y.List);
-                case "Position":
-                    return x.Position.CompareTo(y.Position);
-                
-            }
+			return 0;
+		}
+		#endregion
+	}
 
-            return 0;
-        }
-        #endregion
-    }
-
-    public class ListPropCollection : DataList<ListProp>
-    {
-        #region Public functions
-        public void Sort(String strOrderBy)
-        {
-            ListPropSorter sorter = new ListPropSorter(strOrderBy);
-            base.Sort(sorter);
-        }
-        #endregion
-    }
-
+	/// <summary>
+	/// ListPropCollection has collection of ListProp
+	/// </summary>
+	public class ListPropCollection : DataList<ListProp>
+	{
+		#region Public functions
+		/// <summary>
+		/// Sorts ListProp by a column.
+		/// </summary>
+		/// <param name="strOrderBy">The column to be sorted by</param>
+		public void Sort(String strOrderBy)
+		{
+			ListPropSorter sorter = new ListPropSorter(strOrderBy);
+			base.Sort(sorter);
+		}
+		#endregion
+	}
 }

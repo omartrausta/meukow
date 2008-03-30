@@ -1,56 +1,64 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using ClassLibrary.Common.Data;
 
 namespace ClassLibrary
 {
-    public class SongDoc : BaseDocument
-     {
-        /// <summary>
-        /// StudentDocument sér um öll samskipti við gagnageymsluna
-        /// - sem er semsagt gagnagrunnur í þessu tilfelli, en gæti allt eins
-        /// verið XML skjal, gögn sótt í gegnum vefþjónustu, serialize-að skjal
-        /// eða guðmávitahvað.dfdf
-        /// </summary>
-
-        #region Public functions
-        public SongCollection GetAllSongs()
-        {
-            String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
-            //String strSQL = "SELECT * from Song";
-			return base.LoadCollection<SongCollection, Song>(strSQL);
-        }
-
-    	public DataSet GetTable()
+	/// <summary>
+	/// SongDoc that inherits BaseDocument
+	/// </summary>
+	public class SongDoc : BaseDocument
+	{
+		#region Public functions
+		/// <summary>
+		/// Function that returns collection of all songs.
+		/// </summary>
+		/// <returns>Collection of songs.</returns>
+		public SongCollection GetAllSongs()
 		{
-    		String strSQL = "SELECT * Song";
-    		return base.LoadData(strSQL);
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID)";
+			return base.LoadCollection<SongCollection, Song>(strSQL);
 		}
 
-        public Song GetSong(int nID)
-        {
-            String strSQL = String.Format("SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID={0}", nID);
-            return base.LoadItem<Song>(strSQL);
-        }
+		/// <summary>
+		/// Returns an instance of Song.
+		/// </summary>
+		/// <param name="nID">The ID of the song.</param>
+		/// <returns>Instance of song.</returns>
+		public Song GetSong(int nID)
+		{
+			String strSQL = String.Format("SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID={0}", nID);
+			return base.LoadItem<Song>(strSQL);
+		}
 
-        public void UpdateSong(Song song)
-        {
-            base.UpdateData(song.GetTable());
-        }
+		/// <summary>
+		/// Updates an instance of song.
+		/// </summary>
+		/// <param name="song">Instance of song.</param>
+		public void UpdateSong(Song song)
+		{
+			base.UpdateData(song.GetTable());
+		}
 
-        public void AddSong(Song song)
-        {
-          int newID = base.AddData(song.GetTable());
-        	song.ID = newID;
-        }
+		/// <summary>
+		/// Adds an instance of song to database.
+		/// </summary>
+		/// <param name="song">Instance of song.</param>
+		public void AddSong(Song song)
+		{
+			int newID = base.AddData(song.GetTable());
+			song.ID = newID;
+		}
 
-        public void DeleteSong(Song song)
-        {
-            String strSQL = String.Format("delete from Song where ID={0}", song.ID);
-            base.ExecuteSQL(strSQL);
-        }
-        #endregion
-    }
+		/// <summary>
+		/// Delete an instance of song.
+		/// </summary>
+		/// <param name="song">Instance of song.</param>
+		public void DeleteSong(Song song)
+		{
+			String strSQL = String.Format("delete from Song where ID={0}", song.ID);
+			base.ExecuteSQL(strSQL);
+		}
+		#endregion
+	}
 }
