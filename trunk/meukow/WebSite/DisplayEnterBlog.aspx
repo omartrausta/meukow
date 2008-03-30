@@ -5,11 +5,11 @@
         </h2>
     <table>
         <tr>
-            <td>
+            <td style="height: 26px">
                 Titill blogs:</td>
-            <td style="width: 159px">
-                <asp:TextBox ID="m_txtTitle" runat="server"></asp:TextBox></td>
-            <td>
+            <td style="width: 159px; height: 26px;">
+                <asp:TextBox ID="m_txtTitle" runat="server" Width="437px"></asp:TextBox></td>
+            <td style="height: 26px">
                 <asp:RequiredFieldValidator ID="m_validateName" runat="server" ControlToValidate="m_txtTitle"
                     ErrorMessage="Það verður að slá inn Titil!" Display="Dynamic" ValidationGroup="studentValidationGroup">*</asp:RequiredFieldValidator></td>
         </tr>
@@ -17,7 +17,7 @@
             <td style="height: 250px">
                 Innihald:</td>
             <td style="width: 159px; height: 250px">
-                <asp:TextBox ID="m_txtContent" runat="server" Height="236px" Width="148px"></asp:TextBox></td>
+                <asp:TextBox ID="m_txtContent" runat="server" Height="236px" Width="437px"></asp:TextBox></td>
             <td style="height: 250px">
             </td>
         </tr>
