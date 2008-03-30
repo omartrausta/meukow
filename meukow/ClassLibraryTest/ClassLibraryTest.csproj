@@ -45,6 +45,8 @@
     <Compile Include="ArtistConnectionTest.cs" />
     <Compile Include="ArtistDocTest.cs" />
     <Compile Include="ArtistTest.cs" />
+    <Compile Include="BlogDocTest.cs" />
+    <Compile Include="BlogTest.cs" />
     <Compile Include="ChartDocTest.cs" />
     <Compile Include="ChartTest.cs" />
     <Compile Include="ListDocTest.cs" />
