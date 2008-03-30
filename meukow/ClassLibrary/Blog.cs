@@ -17,7 +17,7 @@ namespace ClassLibrary
 		#endregion
 
 		#region Properties
-		public String BlogContent
+		public String Content
 		{
 			get { return m_strBlogContent; }
 			set { m_strBlogContent = value; }
@@ -44,7 +44,7 @@ namespace ClassLibrary
 
 		public void Load( IDataReader reader )
 		{
-			m_nID = Convert.ToInt32( reader[ "BlogID" ] );
+			m_nID = Convert.ToInt32( reader[ "ID" ] );
 			m_strTitle = Convert.ToString( reader["Title"] );
 			m_strBlogDate = Convert.ToDateTime( reader["BlogDate"] );
 			m_strBlogContent = Convert.ToString( reader["Content"] );
