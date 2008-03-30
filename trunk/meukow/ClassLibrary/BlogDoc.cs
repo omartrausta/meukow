@@ -10,7 +10,7 @@ namespace ClassLibrary
 	{
 		public BlogCollection GetAllBlogs()
 		{
-			String strSQL = "SELECT * FROM Blog"; 
+			String strSQL = "SELECT * FROM Blogs"; 
 			//order by Dagsetning desc";
 			return base.LoadCollection<BlogCollection, Blog>(strSQL);
 		}
