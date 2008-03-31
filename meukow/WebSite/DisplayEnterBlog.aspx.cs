@@ -4,7 +4,7 @@ using ClassLibrary;
 public partial class DisplayEnterBlog : System.Web.UI.Page
 {
 	/// <summary>
-	/// Is run when page is loaded.
+	/// Is run when the page is loaded.
 	/// </summary>
 	/// <param name="sender"></param>
 	/// <param name="e"></param>
@@ -16,8 +16,8 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 			String strID = Request.QueryString["ID"];
 			if (Request.UrlReferrer != null)
 			{
-				// Tek inn tengill þaðan sem notand kom og geymi
-				// í session færibreytu.
+				// Store a link where the users is coming from
+				// to session parameter.
 				String strUrl = Request.UrlReferrer.ToString();
 				Session["strUrl"] = strUrl;
 			}
@@ -28,13 +28,8 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 			
 			if (!String.IsNullOrEmpty(strID))
 			{
-				// Munum eftir ID þess lags.
+				// Remember the ID of the song.
 				this.ViewState["ID"] = strID;
-				
-				// this.ViewState[strUrl] = strUrl;
-				// Þetta gerum við til að geta sótt gildi 
-				// þessarar breytu
-				// þegar verður ýtt á uppfæra.
 			}
 			else
 			{
@@ -43,13 +38,13 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		}
 	}
 	/// <summary>
-	/// 
+	/// Button to confirm the blog entry.
 	/// </summary>
 	/// <param name="sender"></param>
 	/// <param name="e"></param>
 	protected void OnBtnAdd(object sender, EventArgs e)
 	{
-		// Nálgumst færbreytur sem við höfum safnað.
+		// Access the gathered parameters
 		object strID = this.ViewState["ID"];
 		String strUrl = (String)Session["strUrl"];
 
@@ -61,8 +56,8 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		blog.SongID = Convert.ToInt32( strID );
 		blog.BlogDate = DateTime.Now;
 
-		// Skrifum blogfærslu og sendum notanda á 
-		// síðuna, þaðan sem hann kom.
+		// We add the blog entry to the database
+		// and redirect the user to the prior page.
 		doc.AddBlog(blog);
 		Response.Redirect(strUrl);
 	}

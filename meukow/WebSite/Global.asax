@@ -5,31 +5,29 @@
     void Application_Start(object sender, EventArgs e) 
     {
         // Code that runs on application startup
-
     }
     
     void Application_End(object sender, EventArgs e) 
     {
         //  Code that runs on application shutdown
-
     }
         
     void Application_Error(object sender, EventArgs e) 
     {
         try
 		{
-			// Sækjum hvaða villa kom síðast upp:
+			// Fetch last error.
 			Exception lastError = Server.GetLastError( );
 			Exception ex = lastError.GetBaseException( );
 
 			/*
-			// Ef við viljum fá að vita um villur sem gætu komið upp
-			// þá er þetta ein leið:
+			// If we want to being notfied on errors,
+			// this is one of the solutions.
 			try
 			{	
 				MailMessage message = new MailMessage( );
-				message.From = "someone@ru.is";
-				message.To = "sásemskrifaðiforritið@ru.is";
+				message.From = "hopur@ru.is";
+				message.To = "hopur@ru.is";
 				message.Subject = "[WebError]";
 				message.Body = BuildMessage( ex );
 				message.BodyFormat = MailFormat.Text;
@@ -39,22 +37,20 @@
 			}
 			catch
 			{
-				// Viljum ekki að villum sé kastað héðan...
-				// ... ef þetta klikkar þá bara töff...
+				// Bad error...
+				// ... if error it would be strange...
 			}	
 			*/
 
-			// Sendum vinnsluna yfir á villusíðuna okkar, en þó ekki fyrr
-			// en við erum búin að geyma í Session hvaða villa kom upp.
+			// Send our error to our ErrorPage, thou not earlier
+			// we have stored errior in session.
 			Session["LastError"] = ex;
 			Server.Transfer( "ErrorPage.aspx" );
 		}
 		catch
 		{
-			// Þetta fall má engum villum kasta, því annars
-			// yrði kallað aftur í það, hugsanlega með jafn
-			// katastrófískum afleiðingum, og það gæti endað í
-			// endalausri lykkju!
+			// This cannot not throw error or we could start 
+			// infinity loop
 		}
     }
     
