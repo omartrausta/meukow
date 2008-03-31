@@ -1,86 +1,124 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 namespace meukow
 {
 	partial class MainWindow : Form
 	{
-		private ArtistView artistView1;
+		#region Member Variables
+		private ArtistView m_artistView;
 		private SongView m_SongView;
 		private HitParadeView m_HitParadeView;
 		private ChartView m_chartView;
-        
+		#endregion
+
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public MainWindow()
 		{
 			InitializeComponent();
-
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
 		}
+		#endregion
 
-		private void m_tSbtnSkodavinlistar_Click(object sender, EventArgs e)
+		#region Event Handlers
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnNewArtist.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnNewArtist(object sender, EventArgs e)
 		{
-			m_HitParadeView.OnUpdateChart();
+			m_artistView.OnNewArtist();
 		}
 
-        private void OnNewArtist(object sender, EventArgs e)
-        {
-           artistView1.OnNewArtist();
-        }
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnNewList.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnNewHitParade(object sender, EventArgs e)
+		{
+			m_HitParadeView.OnNewList();
+		}
 
-        private void OnNewHitParade(object sender, EventArgs e)
-        {
-            m_HitParadeView.OnNewList();
-        }
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnEdiList.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnEditHitParade(object sender, EventArgs e)
+		{
+			m_HitParadeView.OnEditList();
+		}
 
-        private void OnEditHitParade(object sender, EventArgs e)
-        {
-            m_HitParadeView.OnEditList();
-        }
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnDeleteList.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnDeleteHitParade(object sender, EventArgs e)
+		{
+			m_HitParadeView.OnDeleteList();
+		}
 
-        private void OnDeleteHitParade(object sender, EventArgs e)
-        {
-            m_HitParadeView.OnDeleteList();
-        }
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnDeleteArtist.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnDeleteArtist(object sender, EventArgs e)
+		{
+			m_artistView.OnDeleteArtist();
+		}
 
-        private void OnMenuDeleteArtist(object sender, EventArgs e)
-        {
-            artistView1.OnDeleteArtist();
-        }
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnEditArtist.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnEditArtist(object sender, EventArgs e)
+		{
+			m_artistView.OnEditArtist();
+		}
 
-        private void OnMenuEditArtist(object sender, EventArgs e)
-        {
-            artistView1.OnEditArtist();
-        }
-
-       
-
-        private void OnLeave(object sender, FormClosingEventArgs e)
-        {
-            MessageBox.Show("Ertu hættur? Á kannski bara að fara í Bubbles");
-        }
-
-		private void OntSbtnSkraSong(object sender, EventArgs e)
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnNewSong.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnNewSong(object sender, EventArgs e)
 		{
 			m_SongView.OnNewSong();
 		}
 
-		private void OntSbtnBreytaSong(object sender, EventArgs e)
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnEditSong.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnEditSong(object sender, EventArgs e)
 		{
 			m_SongView.OnEditSong();
 		}
 
-		private void OntSbtnEydaSong(object sender, EventArgs e)
+		/// <summary>
+		/// Is fired when user clicks m_tsbtnDeleteSong.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnDeleteSong(object sender, EventArgs e)
 		{
 			m_SongView.OnDeleteSong();
 		}
 
+		/// <summary>
+		/// Is fired when user clicks on tabs.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnTabControlClick(object sender, EventArgs e)
 		{
 			if( m_TabControl.SelectedIndex == 1 && m_HitParadeView.IsNewSong == true )
@@ -90,10 +128,15 @@ namespace meukow
 
 			if (m_TabControl.SelectedIndex == 2 && m_HitParadeView.IsNewArtist == true)
 			{
-			  artistView1.UpdateArtistView();
+				m_artistView.UpdateArtistView();
 			}
 		}
 
+		/// <summary>
+		/// Is fired when user clicks m_tsMenuItemQuit.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnQuitClick(object sender, EventArgs e)
 		{
 			String s = MessageBox.Show("Viltu örugglega hætta?", "Hætta", MessageBoxButtons.YesNo).ToString();
@@ -102,7 +145,12 @@ namespace meukow
 				this.Close();
 			}
 		}
-
+		
+		/// <summary>
+		/// Is fired when user clicks m_tsMenuItemAbout.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnAboutClick(object sender, EventArgs e)
 		{
 			using( AboutDlg dlg = new AboutDlg())
@@ -110,5 +158,6 @@ namespace meukow
 				dlg.ShowDialog();
 			}
 		}
+		#endregion
 	}
 }

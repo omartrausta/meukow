@@ -237,13 +237,13 @@ namespace meukow
 
 		#endregion
 
-		#region Protected functions
+		#region Private functions
 		/// <summary>
 		/// Function that add an instance of Artist into a ListViewItem.
 		/// </summary>
 		/// <param name="artist">Artist</param>
 		/// <returns>ListViewItem</returns>
-		protected static ListViewItem GetListViewItem(Artist artist)
+		private static ListViewItem GetListViewItem(Artist artist)
 		{
 			ListViewItem item = new ListViewItem(artist.Name.ToString());
 
@@ -261,7 +261,7 @@ namespace meukow
 		/// Shows error message.
 		/// </summary>
 		/// <param name="ex">Exception</param>
-		protected static void HandleError(Exception ex)
+		private static void HandleError(Exception ex)
 		{
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}

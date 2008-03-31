@@ -23,6 +23,7 @@ namespace ClassLibrary
 			String strSQL = "SELECT [Song].[Name] AS [SongName], [ListProp].[Position] AS [Position], COUNT([Song].[ID]) AS [TimesInPosition] FROM [Song] INNER JOIN ([List] INNER JOIN [ListProp] ON [List].[ID] = [ListProp].[List]) ON [Song].[ID] = [ListProp].[Song] WHERE ((([List].[WeekList])=True) AND [ListProp].[Position] = 1) GROUP by [Song].[Name], [ListProp].[Position]";
 			return base.LoadCollection<StatisticCollection, Statistic>(strSQL);
 		}
+
 		/// <summary>
 		/// Function that returns collection of statistics for how many times each song has been
 		/// in a given position, position is provided as parameter. All lists not weeklists are 
@@ -35,6 +36,7 @@ namespace ClassLibrary
 			String strSQL = string.Format("SELECT [Song].[Name] AS [SongName], [ListProp].[Position] AS [Position], COUNT([Song].[ID]) AS [TimesInPosition] FROM [Song] INNER JOIN ([List] INNER JOIN [ListProp] ON [List].[ID] = [ListProp].[List]) ON [Song].[ID] = [ListProp].[Song] WHERE ((([List].[WeekList])=True) and (([Position]) = {0})) GROUP by [Song].[Name], [ListProp].[Position]", pos );
 			return base.LoadCollection<StatisticCollection, Statistic>(strSQL);
 		}
+
 		/// <summary>
 		/// Function for drawing bar chart, takes in list of items for each column (X axis) and a 
 		/// corresponding value for each column (Y axis) a chart name can also be added by a string
@@ -113,7 +115,6 @@ namespace ClassLibrary
 
 			return objBitmap;
 		}
-
 		#endregion
 	}
 }

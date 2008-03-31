@@ -29,6 +29,7 @@ namespace meukow
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SongDlg));
 			this.m_lblName = new System.Windows.Forms.Label();
 			this.m_lblArtist = new System.Windows.Forms.Label();
 			this.m_lblSongpath = new System.Windows.Forms.Label();
@@ -39,7 +40,6 @@ namespace meukow
 			this.m_txtboxDescription = new System.Windows.Forms.TextBox();
 			this.m_btnOK = new System.Windows.Forms.Button();
 			this.m_btnCancel = new System.Windows.Forms.Button();
-			this.m_btnBroswe = new System.Windows.Forms.Button();
 			this.m_validator = new Itboy.Components.Validator(this.components);
 			this.SuspendLayout();
 			// 
@@ -110,7 +110,7 @@ namespace meukow
 			this.m_txtboxSongpath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
 			this.m_txtboxSongpath.Location = new System.Drawing.Point(111, 68);
 			this.m_txtboxSongpath.Name = "m_txtboxSongpath";
-			this.m_txtboxSongpath.Size = new System.Drawing.Size(190, 21);
+			this.m_txtboxSongpath.Size = new System.Drawing.Size(271, 21);
 			this.m_txtboxSongpath.TabIndex = 6;
 			// 
 			// m_txtboxDescription
@@ -144,17 +144,6 @@ namespace meukow
 			this.m_btnCancel.Text = "Hætta við";
 			this.m_btnCancel.UseVisualStyleBackColor = true;
 			// 
-			// m_btnBroswe
-			// 
-			this.m_btnBroswe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-			this.m_btnBroswe.Location = new System.Drawing.Point(307, 68);
-			this.m_btnBroswe.Name = "m_btnBroswe";
-			this.m_btnBroswe.Size = new System.Drawing.Size(75, 23);
-			this.m_btnBroswe.TabIndex = 10;
-			this.m_btnBroswe.Text = "Finna lag";
-			this.m_btnBroswe.UseVisualStyleBackColor = true;
-			this.m_btnBroswe.Click += new System.EventHandler(this.btnBrowseClick);
-			// 
 			// m_validator
 			// 
 			this.m_validator.Form = this;
@@ -166,7 +155,6 @@ namespace meukow
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.m_btnCancel;
 			this.ClientSize = new System.Drawing.Size(412, 229);
-			this.Controls.Add(this.m_btnBroswe);
 			this.Controls.Add(this.m_btnCancel);
 			this.Controls.Add(this.m_btnOK);
 			this.Controls.Add(this.m_txtboxDescription);
@@ -177,6 +165,7 @@ namespace meukow
 			this.Controls.Add(this.m_lblSongpath);
 			this.Controls.Add(this.m_lblArtist);
 			this.Controls.Add(this.m_lblName);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SongDlg";
@@ -201,7 +190,6 @@ namespace meukow
 		private System.Windows.Forms.TextBox m_txtboxDescription;
 		private System.Windows.Forms.Button m_btnOK;
 		private System.Windows.Forms.Button m_btnCancel;
-		private System.Windows.Forms.Button m_btnBroswe;
 		private Itboy.Components.Validator m_validator;
 	}
 }

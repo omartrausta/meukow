@@ -169,7 +169,7 @@ namespace meukow
 		}
 		#endregion
 
-		#region Protected functions
+		#region Private functions
 		/// <summary>
 		/// Function that add an instance of List into a ListViewItem.
 		/// </summary>
@@ -193,7 +193,7 @@ namespace meukow
 		/// Shows error message.
 		/// </summary>
 		/// <param name="ex">Exception</param>
-		protected void HandleError(Exception ex)
+		private void HandleError(Exception ex)
 		{
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
@@ -202,7 +202,7 @@ namespace meukow
 		/// Update the ChartView
 		/// </summary>
 		/// <returns></returns>
-		protected String OnSelectList()
+		private String OnSelectList()
 		{
 			if (m_listViewHitParade.SelectedItems.Count == 1)
 			{
@@ -255,6 +255,16 @@ namespace meukow
 							int nIndex = listViewItem.Index;
 							m_listViewHitParade.Items.Remove( listViewItem );
 							m_listViewHitParade.Items.Insert( nIndex, GetListViewItem( list ) );
+							m_listViewHitParade.Items[nIndex].Selected = true;
+
+							if (HitParadeSelected != null)
+							{
+								String nID = OnSelectList();
+								if (nID != null)
+								{
+									HitParadeSelected(nID);
+								}
+							}
 						}
 					}
 				}

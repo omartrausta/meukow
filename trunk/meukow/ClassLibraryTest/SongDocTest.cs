@@ -53,7 +53,7 @@ namespace ClassLibraryTest
 			{
 				expected.Load(reader);
 
-				Assert.AreEqual(expected.ID,song.ID, "ID is not correct");
+				Assert.AreEqual(expected.ID, song.ID, "ID is not correct");
 				Assert.AreEqual(expected.Name, song.Name, "Name is not correct");
 				Assert.AreEqual(expected.Artist, song.Artist, "Artist ID is not correct");
 				Assert.AreEqual(expected.ArtistID, song.ArtistID, "Artist is not correct");
@@ -137,7 +137,7 @@ namespace ClassLibraryTest
 				expectedSong.Name = reader["Name"].ToString();
 				expectedSong.ArtistID = Convert.ToInt32(reader["ArtistID"]);
 				expectedSong.Artist = reader["ArtistName"].ToString();
-				//expectedSong.SongPath = reader["SongPath"].ToString();
+				expectedSong.SongPath = reader["SongPath"].ToString();
 				expectedSong.Description = reader["Description"].ToString();
 
 				expected.Add(expectedSong);

@@ -1,30 +1,23 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
-using System.Collections;
 
 namespace meukow
 {
 	public partial class SongDlg : Form
 	{
 		#region Member variables
-
-		private const String FILE_DIALOG_FILTER = "Mp3 lag (*.mp3)|*.MP3";
 		private ArtistCollection m_artistCollection = new ArtistCollection();
 		private Artist m_artist = new Artist();
-		private ArtistDoc artistDoc = new ArtistDoc();
+		private readonly ArtistDoc artistDoc = new ArtistDoc();
 		private Song m_song = null;
 		private String m_fileName;
-
 		#endregion
 
 		#region Properties
-
+		/// <summary>
+		/// Gets or sets Song
+		/// </summary>
 		public Song song
 		{
 			get
@@ -33,7 +26,7 @@ namespace meukow
 				m_song.Name = m_txtboxName.Text;
 				m_song.ArtistID = m_artist.ID;
 				m_song.Artist = m_artist.Name;
-                m_song.SongPath = m_txtboxSongpath.Text;
+				m_song.SongPath = m_txtboxSongpath.Text;
 				m_song.Description = m_txtboxDescription.Text;
 				return m_song;
 			}
@@ -47,26 +40,39 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets Filename.
+		/// </summary>
 		public String Filename
-        {
-            get
-            {
-                return m_fileName;
-            }
-            set
-            {
-                m_fileName = value;
-            }
-        }
-
+		{
+			get
+			{
+				return m_fileName;
+			}
+			set
+			{
+				m_fileName = value;
+			}
+		}
 		#endregion		
 
+		#region Constructors
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public SongDlg()
 		{
 			InitializeComponent();
-			HressaCombo();
+			RefreshCombo();
 		}
+		#endregion
 
+		#region Event Handlers
+		/// <summary>
+		/// Is fired when the dialog is loaded.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnLoad(object sender, EventArgs e)
 		{
 			if (m_song.ID == 0)
@@ -76,32 +82,21 @@ namespace meukow
 			}
 			else
 			{
-			    m_btnOK.Text = "Breyta";
-			    this.Text = "Breyta lagi";
+				m_btnOK.Text = "Breyta";
+				this.Text = "Breyta lagi";
 			}
 		}
+		#endregion
 
-		private void HressaCombo()
+		#region Private functions
+		/// <summary>
+		/// Refreshes the list in m_cmbArtist
+		/// </summary>
+		private void RefreshCombo()
 		{
 			m_artistCollection = artistDoc.GetAllArtists();
 			m_cmbArtist.DataSource = m_artistCollection;
 		}
-
-		private void btnBrowseClick(object sender, EventArgs e)
-		{    
-			// OpenFileDialog tilvik búið til
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            // Skrártegundir síaðar út eftir fasta
-            openFileDialog.Filter = FILE_DIALOG_FILTER;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Skráarnafnið vistað sem strengur í memberbreytu    
-             Filename = openFileDialog.FileName;
-                // Skrárnafnið sett í textaboxið
-                m_txtboxSongpath.Text = Filename;
-            }
-		}
+		#endregion
 	}
 }

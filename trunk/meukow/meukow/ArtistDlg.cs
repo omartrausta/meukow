@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using ClassLibrary;
-using Itboy.Components;
 
 namespace meukow
 {
