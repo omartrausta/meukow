@@ -8,9 +8,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     &nbsp;
     <asp:Panel ID="m_statPanel" runat="server" Height="297px" ScrollBars="Horizontal"
-        Width="750px">
+        Width="800px">
         <asp:Image ID="m_statImage" runat="server" Height="164px" OnLoad="OnLoadPicture"
-        Width="532px" ImageAlign="Middle" /></asp:Panel>
+            Width="532px" ImageAlign="Middle" /></asp:Panel>
        <p> 
     <asp:Label ID="lbl_selectChartPos" runat="server" Text="VelduSæti"></asp:Label>
     <p>

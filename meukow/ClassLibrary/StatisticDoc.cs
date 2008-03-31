@@ -3,6 +3,7 @@ using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using ClassLibrary.Common.Data;
+using System.IO;
 
 namespace ClassLibrary
 {
@@ -45,17 +46,20 @@ namespace ClassLibrary
 		/// <param name="aX">name or value for column corresponding X axis</param>
 		/// <param name="aY">value for each column corresponding Y axis</param>
 		/// <returns>Gif image of barchart</returns>
-		public Bitmap DrawGraph(String s, ArrayList aX, ArrayList aY)
+		public Bitmap DrawGraph(String path, String s, ArrayList aX, ArrayList aY)
 		{
-			int colWidth = 40;
-			int colSpace = 10;
-			int maxHeight = 600;
-			int heightSpace = 30;
-			int legendSpace = 200;
-			int titleSpace = 50;
+			int colWidth = 20;
+			int colSpace = 5;
+			int maxHeight = 300;
+			int heightSpace = 150;
+			int legendSpace = 175;
+			int titleSpace = 25;
 			int maxWidth = (colSpace + colWidth) * aX.Count + colSpace;
-			int maxColHeight = 0;
+			int maxColHeight = 300;
 			int totalHeight = maxHeight + legendSpace + titleSpace;
+			int maxValueY = 0;
+
+			//String directory = Directory.GetDirectories();
 
 			Bitmap objBitmap = new Bitmap(maxWidth, totalHeight);
 			Graphics objGraphics = Graphics.FromImage(objBitmap);
@@ -70,25 +74,30 @@ namespace ClassLibrary
 
 			foreach (int value in aY)
 			{
-				if (value > maxColHeight)
+				if (value > maxValueY)
 				{
-					maxColHeight = value;
+					maxValueY = value;
 				}
 			}
 
+			//double barUnit = Convert.ToDouble(maxHeight)/Convert.ToDouble(aY.);
 			int barX = colSpace;
-			int currentHeight;
+			//int currentHeight;
 
 			SolidBrush objBrush = new SolidBrush(Color.FromArgb(70, 20, 20));
-			Font fontLegend = new Font("Arial", 14);
-			Font fontValue = new Font("Arial", 14);
-			Font fontTitle = new Font("Arial", 24);
+			Font fontLegend = new Font("Arial", 9);
+			Font fontValue = new Font("Arial", 7);
+			Font fontTitle = new Font("Arial", 12);
 
 			//loop through and draw each bar
 
 			for (int i = 0; i < aX.Count; i++)
 			{
-				currentHeight = Convert.ToInt32(Convert.ToDouble(aY[i]) / Convert.ToDouble(maxColHeight) * Convert.ToDouble(maxHeight - heightSpace));
+				
+
+				//int currentHeight = Convert.ToInt32(Convert.ToDouble(aY[i])/ Convert.ToDouble(maxColHeight) * Convert.ToDouble(maxHeight - heightSpace));
+
+				int currentHeight = Convert.ToInt32((Convert.ToDouble(aY[i])/Convert.ToDouble(maxValueY))*Convert.ToDouble(maxHeight));
 
 				objGraphics.FillRectangle(objBrush, barX, maxHeight - currentHeight, colWidth, currentHeight);
 
@@ -102,13 +111,20 @@ namespace ClassLibrary
  
 				objGraphics.DrawString(Convert.ToString(aX[i]), fontLegend, objBrush, iStartX, maxHeight,drawFormat);
 
-				objGraphics.DrawString(String.Format(aY[i].ToString(), "#,###"), fontValue, objBrush, barX, maxHeight - currentHeight - 15);
+				objGraphics.DrawString(String.Format(aY[i].ToString(), "#,###"), fontValue, objBrush, barX, maxHeight - currentHeight - 10);
+				
 				barX += (colSpace + colWidth);
 			}
 
 			objGraphics.DrawString(s, fontTitle, objBrush, (maxWidth / 2) - s.Length * 6, maxHeight + legendSpace);
+	
+			//DirectoryInfo dirInfo = new DirectoryInfo();
+	
+			//String directory = Directory.GetParent( );
 
-			objBitmap.Save("C:\\Documents and Settings\\omartr\\My Documents\\GluggMeukow\\meukow\\WebSite\\images\\graph.gif", ImageFormat.Gif);
+			
+
+			objBitmap.Save(path);
 
 			//objBitmap.Save(Response.OutputStream, ImageFormat.Gif);
 			objGraphics.Dispose();

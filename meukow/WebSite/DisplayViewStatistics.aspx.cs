@@ -48,8 +48,10 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 		}
 
 		String str = "";
-		
-		bm = statDoc.DrawGraph(str, axisX, axisY);
+
+		String serverPath = Page.Server.MapPath("images/graph.gif");
+
+		bm = statDoc.DrawGraph(serverPath ,str, axisX, axisY);
 
 	}
 
