@@ -23,6 +23,7 @@ namespace meukow
 		private readonly SortOrder[] m_arrLastSortOrder = new SortOrder[(int)ChartColumns.NumberOfColumns];
 		private Chart m_chart;
 		private ChartDoc m_chartDoc;
+		private ChartCollection m_chartCollection;
 		#endregion
 
 		#region Events and delegates
@@ -84,9 +85,9 @@ namespace meukow
 				m_chartDoc = new ChartDoc();
 				m_listViewChart.Items.Clear();
 
-				ChartCollection charts = Doc.GetChartCollection(ID);
+				m_chartCollection = Doc.GetChartCollection(ID);
 
-				foreach (Chart chart in charts)
+				foreach (Chart chart in m_chartCollection)
 				{
 					m_listViewChart.Items.Add(GetListViewItem(chart));
 				}
@@ -113,13 +114,13 @@ namespace meukow
 				if (m_listViewChart.SelectedItems.Count == 1)
 				{
 					ListViewItem listViewItem = m_listViewChart.SelectedItems[0];
-					Chart chart = (Chart)listViewItem.Tag;
+					m_chart = (Chart)listViewItem.Tag;
 
 					if (ChartSelected != null)
 					{
-						if (chart != null)
+						if (m_chart != null)
 						{
-							ChartSelected(chart);
+							ChartSelected(m_chart);
 						}
 					}
 				}

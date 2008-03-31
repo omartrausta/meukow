@@ -20,9 +20,8 @@ namespace meukow
 		public MainWindow()
 		{
 			InitializeComponent();
-            
+
 			m_HitParadeView.HitParadeSelected += new HitParadeView.HitParadeHandler(m_chartView.OnHitParadeSelected);
-			m_chartView.HideContextMenu();
 		}
 
 		private void m_tSbtnSkodavinlistar_Click(object sender, EventArgs e)

@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using ClassLibrary;
 
@@ -19,7 +15,13 @@ namespace meukow
 		private Artist m_artist = null;
 		private SongDoc m_songDoc = null;
 		private ArtistDoc m_artistDoc = null;
-	  private ListDoc m_listDoc = null;
+		private ListDoc m_listDoc = null;
+		private ListPropDoc m_listPropDoc = null;
+		private ListProp m_listProp = null;
+		private ListPropCollection m_listPropCollection = null;
+		private Chart m_chart = null;
+		private ChartDoc m_chartDoc = null;
+		private ChartCollection m_chartCollection = null;
 		private bool m_bIsNewSong;
 		private bool m_bIsNewArtist;
 		#endregion
@@ -76,7 +78,7 @@ namespace meukow
 
 		#region Event Handlers
 		private void OnLoad(object sender, EventArgs e)
-    {
+		{
 			m_songColleciton = new SongCollection();
 			m_songDoc = new SongDoc();
 
@@ -109,111 +111,114 @@ namespace meukow
 
 				m_chartView.OnUpdateChart( m_list.ID );
 			}
-    }
-        
+		}
+
 		private void OnAddToListClick(object sender, EventArgs e)
-        {
-            if (m_dtStarts.Value >= m_dtEnds.Value)
-            {
-                MessageBox.Show("Byrjunar dagsetning þarf að vera minni en enda dagssetning.");
-            }
-            else
-            {
-                if( m_list.ID == 0)
-                {
-                    
-                        m_list = new List();
+		{
+			if (m_dtStarts.Value >= m_dtEnds.Value)
+			{
+				MessageBox.Show("Byrjunar dagsetning þarf að vera minni en enda dagssetning.");
+			}
+			else
+			{
+				if( m_list.ID == 0)
+				{
+					m_list = new List();
 
-                        m_list.Name = m_txtName.Text;
-                        m_list.Starts = m_dtStarts.Value;
-                        m_list.Ends = m_dtEnds.Value;
-                        m_list.WeekList = m_chkIsWeekList.Checked;
+					m_list.Name = m_txtName.Text;
+					m_list.Starts = m_dtStarts.Value;
+					m_list.Ends = m_dtEnds.Value;
+					m_list.WeekList = m_chkIsWeekList.Checked;
 
-                        m_listDoc = new ListDoc();
+					m_listDoc = new ListDoc();
 
-                        m_listDoc.AddList(m_list);
-                   
-                }
+					m_listDoc.AddList(m_list);
+				}
 
-                if (m_txtPosition.Text.Trim() != string.Empty && m_cmbSong.Text != "" && m_cmbArtist.Text != "")
-                {
-                    int position = Convert.ToInt32(m_txtPosition.Text);
+				if (m_txtPosition.Text.Trim() != string.Empty && m_cmbSong.Text != "" && m_cmbArtist.Text != "")
+				{
+					int position = Convert.ToInt32(m_txtPosition.Text);
+					bool isFound = false;
 
-                    m_artist = new Artist();
-                    m_artist = (Artist) m_cmbArtist.SelectedItem;
-                    if (m_artist == null)
-                    {
-                        m_artist = new Artist();
-                        m_artistDoc = new ArtistDoc();
-                        m_artist.Name = m_cmbArtist.Text;
-                        m_artist.Description = String.Empty;
-                        m_artist.Picture = String.Empty;
-                        m_artist.URL = String.Empty;
-                        m_artistDoc.AddArtist(m_artist);
-                    	m_bIsNewArtist = true;
-                    }
+					m_artist = new Artist();
+					m_artist = (Artist) m_cmbArtist.SelectedItem;
+					if (m_artist == null)
+					{
+						m_artist = new Artist();
+						m_artistDoc = new ArtistDoc();
+						m_artist.Name = m_cmbArtist.Text;
+						m_artist.Description = String.Empty;
+						m_artist.Picture = String.Empty;
+						m_artist.URL = String.Empty;
+						m_artistDoc.AddArtist(m_artist);
+						m_bIsNewArtist = true;
+					}
 
-                    m_song = new Song();
-                    m_song = (Song) m_cmbSong.SelectedItem;
-                    if (m_song == null)
-                    {
-                        m_song = new Song();
-                        m_songDoc = new SongDoc();
-                        m_song.Name = m_cmbSong.Text;
-                        m_song.ArtistID = m_artist.ID;
-                   //     m_song.SongPath = String.Empty;
-                        m_song.Description = String.Empty;
-                        m_songDoc.AddSong(m_song);
-												m_bIsNewSong = true;
-                    }
+					m_song = new Song();
+					m_song = (Song) m_cmbSong.SelectedItem;
+					if (m_song == null)
+					{
+						m_song = new Song();
+						m_songDoc = new SongDoc();
+						m_song.Name = m_cmbSong.Text;
+						m_song.ArtistID = m_artist.ID;
+						m_song.Description = String.Empty;
+						m_songDoc.AddSong(m_song);
+						m_bIsNewSong = true;
+					}
+					else
+					{
+						if (m_song.ArtistID != m_artist.ID)
+						{
+							m_song.ArtistID = m_artist.ID;
+							m_songDoc = new SongDoc();
+							m_songDoc.AddSong(m_song);
+						}
+					}
+					m_chartDoc = new ChartDoc();
+					m_chartCollection = new ChartCollection();
+					m_chartCollection = m_chartDoc.GetChartCollection(m_list.ID);
 
-                    int dsPosition = 0;
-                    int dsSongID = 0;
-                    int dsArtistID = 0;
+					foreach (Chart chart in m_chartCollection)
+					{
+						if( chart.Position.Equals(position))
+						{
+							isFound = true;
+							m_listPropDoc = new ListPropDoc();
+							m_listProp = new ListProp();
 
-                    ChartDoc chartDoc = new ChartDoc();
-                    DataSet ds = chartDoc.GetChartList(m_list.ID);
+							m_listPropCollection = m_listPropDoc.GetListPropByList(m_list.ID);
+							m_listProp = m_listPropCollection[0];
 
-                    DataTable dv = ds.Tables[0];
+							m_listProp.Position = position;
+							m_listProp.Song = m_song.ID;
 
-                    for (int i = 0; i < dv.Rows.Count; i++)
-                    {
-                        DataRow dr = dv.Rows[i];
+							m_listPropDoc.UpdateListProp(m_listProp);
+						}
 
-                        if (dr.RowState != DataRowState.Deleted)
-                        {
-                            dsPosition = Convert.ToInt32(dr["Position"]);
-                            dsArtistID = Convert.ToInt32(dr["ArtistID"]);
-                            dsSongID = Convert.ToInt32(dr["SongID"]);
+						if (chart.SongID.Equals(m_song.ID) && chart.ArtistID.Equals(m_artist.ID))
+						{
+							MessageBox.Show("Sama lag með sama flytjanda má ekki vera skráð oftar en 1 sinni.");
+						}
 
-                            if (dsPosition.Equals(position))
-                            {
-                                MessageBox.Show("Ekki er leyfilegt að skrá sama sætið oftar en 1 sinni.");
-                                break;
-                            }
+					}
 
-                            if (dsSongID.Equals(m_song.ID) && dsArtistID.Equals(m_artist.ID))
-                            {
-                                MessageBox.Show("Sama lag með sama flytjanda má ekki vera skráð oftar en 1 sinni.");
-                            }
-                        }
-                    }
+					if( isFound == false )
+					{
+						m_listPropDoc = new ListPropDoc();
+						m_listProp = new ListProp();
 
-                    ListProp listProp = new ListProp();
-                    ListPropDoc listPropDoc = new ListPropDoc();
+						m_listProp.List = m_list.ID;
+						m_listProp.Position = position;
+						m_listProp.Song = m_song.ID;
 
-                    listProp.List = m_list.ID;
-                    listProp.Position = position;
-                    listProp.Song = m_song.ID;
-
-                    listPropDoc.AddListProp(listProp);
-
-                    m_chartView.OnUpdateChart( m_list.ID );
-
-                    m_txtPosition.Text = (position + 1).ToString();
-                }
-            }
-        }
+						m_listPropDoc.AddListProp(m_listProp);
+					}
+					m_chartView.OnUpdateChart( m_list.ID );
+					m_txtPosition.Text = (position + 1).ToString();
+				}
+			}
+		}
 
 		private void OnSongChanged(object sender, EventArgs e)
 		{
@@ -238,9 +243,9 @@ namespace meukow
 		/// <param name="chart">Chart</param>
 		public void OnChartSelected(Chart chart)
 		{
-			m_txtPosition.Text = chart.Position.ToString();
-			m_cmbArtist.Text = chart.ArtistName;
-			m_cmbSong.Text = chart.SongName;
+		m_txtPosition.Text = chart.Position.ToString();
+		m_cmbArtist.Text = chart.ArtistName;
+		m_cmbSong.Text = chart.SongName;
 		}
 		#endregion
 	}
