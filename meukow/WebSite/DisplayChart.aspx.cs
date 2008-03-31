@@ -1,18 +1,15 @@
 using System;
 using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 public partial class DisplayChart : System.Web.UI.Page
 {
+	#region Event Handlers
+	/// <summary>
+	/// Is fired when the page is loaded.
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		String strID = Request.QueryString["ID"];
@@ -29,4 +26,5 @@ public partial class DisplayChart : System.Web.UI.Page
 			m_chartGridView.DataBind();
 		}
 	}
+	#endregion
 }

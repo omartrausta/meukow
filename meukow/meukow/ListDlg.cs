@@ -191,19 +191,24 @@ namespace meukow
 					{
 						if (prop.Song.Equals(m_song.ID) && m_song.ArtistID.Equals(m_artist.ID))
 						{
+							isFound = true;
+							position = position - 1;
 							MessageBox.Show("Sama lag með sama flytjanda má ekki vera skráð oftar en 1 sinni.");
 							break;
 						}
 
-						if (prop.Position.Equals(m_oldChart.Position) && prop.Song.Equals(m_oldChart.SongID))
+						if (m_oldChart != null)
 						{
-							isFound = true;
-							m_listPropDoc = new ListPropDoc();
+							if (prop.Position.Equals(m_oldChart.Position) && prop.Song.Equals(m_oldChart.SongID))
+							{
+								isFound = true;
+								m_listPropDoc = new ListPropDoc();
 
-							prop.Position = position;
-							prop.Song = m_song.ID;
+								prop.Position = position;
+								prop.Song = m_song.ID;
 
-							m_listPropDoc.UpdateListProp(prop);
+								m_listPropDoc.UpdateListProp(prop);
+							}
 						}
 					}
 
