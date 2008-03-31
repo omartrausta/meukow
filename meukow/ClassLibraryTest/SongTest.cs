@@ -145,7 +145,7 @@ namespace ClassLibraryTest
 				Assert.AreEqual(reader["Name"].ToString(), target.Name, "Name is not correct");
 				Assert.AreEqual(reader["ArtistID"],target.ArtistID,"ArtistID is not correct");
 				Assert.AreEqual(reader["ArtistName"].ToString(), target.Artist, "ArtistName is not correct");
-				Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath, "SongPath is not correct");
+				Assert.AreEqual(reader["SongPath"].ToString(), target.SongPath.Replace("~/",""), "SongPath is not correct");
 				Assert.AreEqual(reader["Description"].ToString(), target.Description, "Description is not correct");
 			}
 		}
@@ -182,7 +182,7 @@ namespace ClassLibraryTest
 			Assert.AreEqual(0, target.ID, "ID is not 0.");
 			Assert.IsNull(target.Name, "Name is not null.");
 			Assert.AreEqual(0, target.ArtistID, "ArtistID is not 0.");
-			Assert.IsNull(target.SongPath, "SongPath is not null.");
+			Assert.AreEqual(String.Empty, target.SongPath, "SongPath is not null.");
 			Assert.IsNull(target.Description, "Description is not null.");
 		}
 
@@ -194,17 +194,17 @@ namespace ClassLibraryTest
 		{
 			Song target = new Song();
 
-			string val = null;
+			string val = String.Empty;
 
 			target.Description = val;
 
-			Assert.IsNull(target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
+			Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly.");
 
 			val = "Test SongPath";
 
 			target.SongPath = val;
 
-			Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
+			Assert.AreEqual("~//" + val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
 		}
 
 		/// <summary>

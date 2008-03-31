@@ -1,5 +1,4 @@
 using System;
-using System.Data;
 using System.Windows.Forms;
 using ClassLibrary;
 
@@ -19,11 +18,9 @@ namespace meukow
 		private ListPropDoc m_listPropDoc = null;
 		private ListProp m_listProp = null;
 		private ListPropCollection m_listPropCollection = null;
-		private Chart m_chart = null;
-		private ChartDoc m_chartDoc = null;
-		private ChartCollection m_chartCollection = null;
 		private bool m_bIsNewSong;
 		private bool m_bIsNewArtist;
+		private Chart m_oldChart = null;
 		#endregion
 
 		#region Properties
@@ -77,6 +74,11 @@ namespace meukow
 		#endregion
 
 		#region Event Handlers
+		/// <summary>
+		/// Is fired when the dialog is loaded.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnLoad(object sender, EventArgs e)
 		{
 			m_songColleciton = new SongCollection();
@@ -113,6 +115,11 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// Is fired when user clicks m_btnAddToList.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnAddToListClick(object sender, EventArgs e)
 		{
 			if (m_dtStarts.Value >= m_dtEnds.Value)
@@ -171,36 +178,33 @@ namespace meukow
 						if (m_song.ArtistID != m_artist.ID)
 						{
 							m_song.ArtistID = m_artist.ID;
+							m_song.Artist = m_artist.Name;
 							m_songDoc = new SongDoc();
 							m_songDoc.AddSong(m_song);
 						}
 					}
-					m_chartDoc = new ChartDoc();
-					m_chartCollection = new ChartCollection();
-					m_chartCollection = m_chartDoc.GetChartCollection(m_list.ID);
+					m_listPropDoc = new ListPropDoc();
+					m_listPropCollection = new ListPropCollection();
+					m_listPropCollection = m_listPropDoc.GetListPropByList(m_list.ID);
 
-					foreach (Chart chart in m_chartCollection)
+					foreach (ListProp prop in m_listPropCollection)
 					{
-						if( chart.Position.Equals(position))
+						if (prop.Song.Equals(m_song.ID) && m_song.ArtistID.Equals(m_artist.ID))
+						{
+							MessageBox.Show("Sama lag með sama flytjanda má ekki vera skráð oftar en 1 sinni.");
+							break;
+						}
+
+						if (prop.Position.Equals(m_oldChart.Position) && prop.Song.Equals(m_oldChart.SongID))
 						{
 							isFound = true;
 							m_listPropDoc = new ListPropDoc();
-							m_listProp = new ListProp();
 
-							m_listPropCollection = m_listPropDoc.GetListPropByList(m_list.ID);
-							m_listProp = m_listPropCollection[0];
+							prop.Position = position;
+							prop.Song = m_song.ID;
 
-							m_listProp.Position = position;
-							m_listProp.Song = m_song.ID;
-
-							m_listPropDoc.UpdateListProp(m_listProp);
+							m_listPropDoc.UpdateListProp(prop);
 						}
-
-						if (chart.SongID.Equals(m_song.ID) && chart.ArtistID.Equals(m_artist.ID))
-						{
-							MessageBox.Show("Sama lag með sama flytjanda má ekki vera skráð oftar en 1 sinni.");
-						}
-
 					}
 
 					if( isFound == false )
@@ -220,6 +224,11 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// Is fired when user selects a song in m_cmbSong.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnSongChanged(object sender, EventArgs e)
 		{
 			if (m_cmbSong.SelectedIndex > 0)
@@ -236,16 +245,18 @@ namespace meukow
 		}
 		#endregion
 
-		#region Public functions
+		#region private functions
 		/// <summary>
 		/// Fired when a single line is selected in ChartView
 		/// </summary>
 		/// <param name="chart">Chart</param>
-		public void OnChartSelected(Chart chart)
+		private void OnChartSelected(Chart chart)
 		{
-		m_txtPosition.Text = chart.Position.ToString();
-		m_cmbArtist.Text = chart.ArtistName;
-		m_cmbSong.Text = chart.SongName;
+			m_txtPosition.Text = chart.Position.ToString();
+			m_cmbSong.Text = chart.SongName;
+			m_cmbArtist.Text = chart.ArtistName;
+			m_oldChart = new Chart();
+			m_oldChart = chart;
 		}
 		#endregion
 	}

@@ -166,6 +166,10 @@ namespace meukow
 			}
 		}
 
+		/// <summary>
+		/// Makes the context menu disabled, the menu needs to be disabled in 
+		/// MainWindow but not in ListDlg.
+		/// </summary>
 		public void HideContextMenu()
 		{
 			m_contextMenuChart.Items[0].Enabled = false; 
@@ -174,24 +178,47 @@ namespace meukow
 		#endregion
 
 		#region Event Handlers
+		/// <summary>
+		/// OnEditChart when the edit is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnEditChart(object sender, EventArgs e)
 		{
 			OnEditChart();
 		}
 
+		/// <summary>
+		/// OnDeleteChart when the delete is selected from context menu.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void OnDeleteChart(object sender, EventArgs e)
 		{
 			OnDeleteChart();
 		}
+
+		/// <summary>
+		/// Catches when the user wants to sort the view.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OnSortChart(object sender, ColumnClickEventArgs e)
+		{
+			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
+			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+			m_listViewChart.ListViewItemSorter = new ChartSorter((ChartColumns)e.Column, lastOrder);
+
+		}
 		#endregion
 
-		#region Protected functions
+		#region Private functions
 		/// <summary>
 		/// Function that add an instance of Chart into a ListViewItem.
 		/// </summary>
 		/// <param name="list">Chart</param>
 		/// <returns>ListViewItem</returns>
-		protected static ListViewItem GetListViewItem(Chart list)
+		private static ListViewItem GetListViewItem(Chart list)
 		{
 			ListViewItem item = new ListViewItem(list.Position.ToString());
 
@@ -208,23 +235,10 @@ namespace meukow
 		/// Shows error message.
 		/// </summary>
 		/// <param name="ex">Exception</param>
-		protected static void HandleError(Exception ex)
+		private static void HandleError(Exception ex)
 		{
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}
 		#endregion
-
-		/// <summary>
-		/// Catches when the user wants to sort the view.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void OnSortChart(object sender, ColumnClickEventArgs e)
-		{
-			SortOrder lastOrder = m_arrLastSortOrder[e.Column];
-			m_arrLastSortOrder[e.Column] = (lastOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-			m_listViewChart.ListViewItemSorter = new ChartSorter((ChartColumns)e.Column, lastOrder);
-
-		}
 	}
 }

@@ -29,6 +29,7 @@ namespace meukow
         private void InitializeComponent()
         {
 					this.components = new System.ComponentModel.Container();
+					System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArtistDlg));
 					this.m_txtName = new System.Windows.Forms.TextBox();
 					this.m_lblName = new System.Windows.Forms.Label();
 					this.m_lblDescription = new System.Windows.Forms.Label();
@@ -161,6 +162,7 @@ namespace meukow
 					this.Controls.Add(this.m_lblDescription);
 					this.Controls.Add(this.m_lblName);
 					this.Controls.Add(this.m_txtName);
+					this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 					this.MaximizeBox = false;
 					this.MinimizeBox = false;
 					this.Name = "ArtistDlg";

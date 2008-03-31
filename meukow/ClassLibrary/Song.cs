@@ -70,23 +70,30 @@ namespace ClassLibrary
 		/// </summary>
 		public String SongPath
 		{
-            get
-            {
-                if (!String.IsNullOrEmpty(m_strSongPath))
-                {
-                    return "~/" + m_strSongPath;
-                }
-                    
-                else
-                {
-                    return String.Empty;
-                }
-                
-            }
-            set
-            {
-                m_strSongPath = value;
-            }
+			get
+			{
+				if (!String.IsNullOrEmpty(m_strSongPath))
+				{
+						return "~/" + m_strSongPath;
+				}
+            
+				else
+				{
+						return String.Empty;
+				}
+	        
+			}
+			set
+			{
+					m_strSongPath = value;
+					if (!String.IsNullOrEmpty(m_strSongPath))
+					{
+						if (m_strSongPath.Substring(0, 1) != "/")
+						{
+							m_strSongPath = "/" + m_strSongPath;
+						}
+					}
+			}
 		}
 
 		/// <summary>
@@ -168,11 +175,11 @@ namespace ClassLibrary
 				new ColumnDescription( "ID", this.ID, DbType.Int32, true ),
 				new ColumnDescription( "Name", this.Name, DbType.String ),
 				new ColumnDescription( "ArtistID", this.ArtistID, DbType.Int32 ),
-				new ColumnDescription( "SongPath", this.SongPath, DbType.String ),
+				new ColumnDescription( "SongPath", m_strSongPath, DbType.String ),
 				new ColumnDescription( "Description", this.Description, DbType.String ),
 			};
 
-			return new TableDescription( "Song	", columns );
+			return new TableDescription( "Song", columns );
 		}	
 		#endregion
 	}

@@ -159,13 +159,13 @@ namespace ClassLibraryTest
 		{
 			Blog target = new Blog();
 
-			DateTime val = DateTime.MinValue;
+			DateTime val = new DateTime(DateTime.MinValue.Year, DateTime.MinValue.Month, DateTime.MinValue.Day, DateTime.MinValue.Hour, DateTime.MinValue.Minute, DateTime.MinValue.Second);
 
 			target.BlogDate = val;
 
 			Assert.AreEqual(val, target.BlogDate, "ClassLibrary.Blog.BlogDate was not set correctly.");
 
-			val = DateTime.Now;
+			val = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
 			target.BlogDate = val;
 

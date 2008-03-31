@@ -60,7 +60,7 @@ namespace meukow
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		public void OnLoad(object sender, EventArgs e)
+		private void OnLoad(object sender, EventArgs e)
 		{
 			if (!DesignMode)
 			{
@@ -226,32 +226,23 @@ namespace meukow
 		}
 		#endregion
 
-		#region Protected functions
+		#region Private functions
 		/// <summary>
 		/// Function that add an instance of Song into a ListViewItem.
 		/// </summary>
 		/// <param name="song">Song</param>
 		/// <returns>ListViewItem</returns>
-		protected ListViewItem GetListViewItem(Song song)
+		private ListViewItem GetListViewItem(Song song)
 		{
-			// Fyrsti dálkurinn birtir nafn:
 			ListViewItem item = new ListViewItem(song.Name.ToString());
 
-			// Annar dálkurinn birtir kennitölu:
 			item.SubItems.Add(song.Artist.ToString());
 			item.SubItems.Add(song.SongPath.ToString());
 			item.SubItems.Add(song.Description.ToString());
 
-			// Allir nemendur fá sama icon í þetta skiptið:
 			item.ImageIndex = 0;
-			// en ImageList getur geymt margar myndir, og sérhver færsla
-			// getur haft mismunandi image index.
-
-			// Látum sérhvert ListViewItem vita hvaða nemandi 
-			// hangir við hverja færslu:
 			item.Tag = song;
 
-			// Nóg í bili...
 			return item;
 		}
 
@@ -259,7 +250,7 @@ namespace meukow
 		/// Shows error message.
 		/// </summary>
 		/// <param name="ex">Exception</param>
-		protected static void HandleError(Exception ex)
+		private static void HandleError(Exception ex)
 		{
 			MessageBox.Show("Eftirfarandi villa kom upp: \n\n" + ex.Message);
 		}

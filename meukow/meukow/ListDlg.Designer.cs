@@ -29,6 +29,7 @@ namespace meukow
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListDlg));
 			this.m_lblName = new System.Windows.Forms.Label();
 			this.m_lblStarts = new System.Windows.Forms.Label();
 			this.m_txtName = new System.Windows.Forms.TextBox();
@@ -286,6 +287,7 @@ namespace meukow
 			this.Controls.Add(this.m_gbHitParadeList);
 			this.Controls.Add(this.m_gbHitParadeDetail);
 			this.Controls.Add(this.m_gbHitParadeListInfo);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(400, 674);
