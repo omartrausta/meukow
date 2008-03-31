@@ -3,7 +3,7 @@
 <asp:Repeater ID="m_blogRepeater" runat="server">
   <ItemTemplate>
     <div class="blog">
-      <h3><a href="DisplayShowBlog.aspx?BlogID=<%#  Eval( "ID" ) %>">
+      <h3><a href="DisplayShowBlog.aspx?ID=<%#  Eval( "ID" ) %>">
         <%# Eval( "Title" )%>
         </a></h3>
       <h4>
