@@ -37,25 +37,25 @@
 			this.m_tsMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.m_TabControl = new System.Windows.Forms.TabControl();
 			this.m_tabHitParade = new System.Windows.Forms.TabPage();
-			this.m_chartView = new meukow.ChartView();
-			this.m_HitParadeView = new meukow.HitParadeView();
 			this.m_toolStripHitParadeList = new System.Windows.Forms.ToolStrip();
 			this.m_tsbtnNewList = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnEditList = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnDeleteList = new System.Windows.Forms.ToolStripButton();
 			this.m_tabSongs = new System.Windows.Forms.TabPage();
-			this.m_SongView = new meukow.SongView();
 			this.m_toolStripSongs = new System.Windows.Forms.ToolStrip();
 			this.m_tsbtnNewSong = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnEditSong = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnDeleteSong = new System.Windows.Forms.ToolStripButton();
 			this.m_tabArtists = new System.Windows.Forms.TabPage();
-			this.m_artistView = new meukow.ArtistView();
 			this.m_toolStripArtists = new System.Windows.Forms.ToolStrip();
 			this.m_tsbtnNewArtist = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnEditArtist = new System.Windows.Forms.ToolStripButton();
 			this.m_tsbtnDeleteArtist = new System.Windows.Forms.ToolStripButton();
 			this.listBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.m_chartView = new meukow.ChartView();
+			this.m_HitParadeView = new meukow.HitParadeView();
+			this.m_SongView = new meukow.SongView();
+			this.m_artistView = new meukow.ArtistView();
 			this.m_mainMenu.SuspendLayout();
 			this.m_TabControl.SuspendLayout();
 			this.m_tabHitParade.SuspendLayout();
@@ -74,7 +74,7 @@
             this.m_tsHelpMenuItem});
 			this.m_mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.m_mainMenu.Name = "m_mainMenu";
-			this.m_mainMenu.Size = new System.Drawing.Size(748, 24);
+			this.m_mainMenu.Size = new System.Drawing.Size(809, 24);
 			this.m_mainMenu.TabIndex = 0;
 			this.m_mainMenu.Text = "menuStrip1";
 			// 
@@ -118,7 +118,7 @@
 			this.m_TabControl.Location = new System.Drawing.Point(0, 24);
 			this.m_TabControl.Name = "m_TabControl";
 			this.m_TabControl.SelectedIndex = 0;
-			this.m_TabControl.Size = new System.Drawing.Size(736, 539);
+			this.m_TabControl.Size = new System.Drawing.Size(797, 571);
 			this.m_TabControl.TabIndex = 3;
 			this.m_TabControl.Click += new System.EventHandler(this.OnTabControlClick);
 			// 
@@ -130,30 +130,10 @@
 			this.m_tabHitParade.Location = new System.Drawing.Point(4, 24);
 			this.m_tabHitParade.Name = "m_tabHitParade";
 			this.m_tabHitParade.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabHitParade.Size = new System.Drawing.Size(728, 511);
+			this.m_tabHitParade.Size = new System.Drawing.Size(789, 543);
 			this.m_tabHitParade.TabIndex = 0;
 			this.m_tabHitParade.Text = "Vinsældarlistar";
 			this.m_tabHitParade.UseVisualStyleBackColor = true;
-			// 
-			// m_chartView
-			// 
-			this.m_chartView.Chart = null;
-			this.m_chartView.Doc = null;
-			this.m_chartView.Location = new System.Drawing.Point(391, 31);
-			this.m_chartView.Name = "m_chartView";
-			this.m_chartView.Size = new System.Drawing.Size(328, 476);
-			this.m_chartView.TabIndex = 5;
-			// 
-			// m_HitParadeView
-			// 
-			this.m_HitParadeView.Document = null;
-			this.m_HitParadeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-			this.m_HitParadeView.IsNewArtist = false;
-			this.m_HitParadeView.IsNewSong = false;
-			this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
-			this.m_HitParadeView.Name = "m_HitParadeView";
-			this.m_HitParadeView.Size = new System.Drawing.Size(385, 476);
-			this.m_HitParadeView.TabIndex = 4;
 			// 
 			// m_toolStripHitParadeList
 			// 
@@ -164,7 +144,7 @@
             this.m_tsbtnDeleteList});
 			this.m_toolStripHitParadeList.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripHitParadeList.Name = "m_toolStripHitParadeList";
-			this.m_toolStripHitParadeList.Size = new System.Drawing.Size(722, 25);
+			this.m_toolStripHitParadeList.Size = new System.Drawing.Size(783, 25);
 			this.m_toolStripHitParadeList.TabIndex = 3;
 			this.m_toolStripHitParadeList.Text = "toolStrip2";
 			// 
@@ -205,18 +185,10 @@
 			this.m_tabSongs.Location = new System.Drawing.Point(4, 24);
 			this.m_tabSongs.Name = "m_tabSongs";
 			this.m_tabSongs.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabSongs.Size = new System.Drawing.Size(728, 511);
+			this.m_tabSongs.Size = new System.Drawing.Size(789, 511);
 			this.m_tabSongs.TabIndex = 1;
 			this.m_tabSongs.Text = "Lög";
 			this.m_tabSongs.UseVisualStyleBackColor = true;
-			// 
-			// m_SongView
-			// 
-			this.m_SongView.Document = null;
-			this.m_SongView.Location = new System.Drawing.Point(0, 31);
-			this.m_SongView.Name = "m_SongView";
-			this.m_SongView.Size = new System.Drawing.Size(716, 476);
-			this.m_SongView.TabIndex = 1;
 			// 
 			// m_toolStripSongs
 			// 
@@ -227,7 +199,7 @@
             this.m_tsbtnDeleteSong});
 			this.m_toolStripSongs.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripSongs.Name = "m_toolStripSongs";
-			this.m_toolStripSongs.Size = new System.Drawing.Size(722, 25);
+			this.m_toolStripSongs.Size = new System.Drawing.Size(783, 25);
 			this.m_toolStripSongs.TabIndex = 0;
 			this.m_toolStripSongs.Text = "toolStrip1";
 			// 
@@ -268,18 +240,10 @@
 			this.m_tabArtists.Location = new System.Drawing.Point(4, 24);
 			this.m_tabArtists.Name = "m_tabArtists";
 			this.m_tabArtists.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabArtists.Size = new System.Drawing.Size(728, 511);
+			this.m_tabArtists.Size = new System.Drawing.Size(789, 511);
 			this.m_tabArtists.TabIndex = 2;
 			this.m_tabArtists.Text = "Flytjendur";
 			this.m_tabArtists.UseVisualStyleBackColor = true;
-			// 
-			// m_artistView
-			// 
-			this.m_artistView.Document = null;
-			this.m_artistView.Location = new System.Drawing.Point(0, 31);
-			this.m_artistView.Name = "m_artistView";
-			this.m_artistView.Size = new System.Drawing.Size(716, 476);
-			this.m_artistView.TabIndex = 1;
 			// 
 			// m_toolStripArtists
 			// 
@@ -290,7 +254,7 @@
             this.m_tsbtnDeleteArtist});
 			this.m_toolStripArtists.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripArtists.Name = "m_toolStripArtists";
-			this.m_toolStripArtists.Size = new System.Drawing.Size(722, 25);
+			this.m_toolStripArtists.Size = new System.Drawing.Size(783, 25);
 			this.m_toolStripArtists.TabIndex = 0;
 			this.m_toolStripArtists.Text = "toolStrip1";
 			// 
@@ -328,11 +292,47 @@
 			// 
 			this.listBindingSource.DataSource = typeof(ClassLibrary.List);
 			// 
+			// m_chartView
+			// 
+			this.m_chartView.Chart = null;
+			this.m_chartView.Doc = null;
+			this.m_chartView.Location = new System.Drawing.Point(391, 31);
+			this.m_chartView.Name = "m_chartView";
+			this.m_chartView.Size = new System.Drawing.Size(384, 506);
+			this.m_chartView.TabIndex = 5;
+			// 
+			// m_HitParadeView
+			// 
+			this.m_HitParadeView.Document = null;
+			this.m_HitParadeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+			this.m_HitParadeView.IsNewArtist = false;
+			this.m_HitParadeView.IsNewSong = false;
+			this.m_HitParadeView.Location = new System.Drawing.Point(0, 31);
+			this.m_HitParadeView.Name = "m_HitParadeView";
+			this.m_HitParadeView.Size = new System.Drawing.Size(385, 506);
+			this.m_HitParadeView.TabIndex = 4;
+			// 
+			// m_SongView
+			// 
+			this.m_SongView.Document = null;
+			this.m_SongView.Location = new System.Drawing.Point(0, 31);
+			this.m_SongView.Name = "m_SongView";
+			this.m_SongView.Size = new System.Drawing.Size(716, 476);
+			this.m_SongView.TabIndex = 1;
+			// 
+			// m_artistView
+			// 
+			this.m_artistView.Document = null;
+			this.m_artistView.Location = new System.Drawing.Point(0, 31);
+			this.m_artistView.Name = "m_artistView";
+			this.m_artistView.Size = new System.Drawing.Size(716, 476);
+			this.m_artistView.TabIndex = 1;
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(748, 573);
+			this.ClientSize = new System.Drawing.Size(809, 607);
 			this.Controls.Add(this.m_TabControl);
 			this.Controls.Add(this.m_mainMenu);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
