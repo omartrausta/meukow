@@ -4,7 +4,8 @@
         <Columns>
             <asp:BoundField DataField="Position" HeaderText="S&#230;ti" />
             <asp:BoundField DataField="SongName" HeaderText="Lag" />
-            <asp:BoundField DataField="ArtistName" HeaderText="Flytjandi" />
+            <asp:HyperLinkField DataNavigateUrlFields="ArtistID" DataNavigateUrlFormatString="./DisplayArtistDetails.aspx?ID={0}"
+                DataTextField="ArtistName" HeaderText="Flytjandi" Text="Flytjandi" />
         </Columns>
     </asp:GridView>
 </asp:Content>
