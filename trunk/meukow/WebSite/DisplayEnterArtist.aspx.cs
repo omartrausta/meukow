@@ -1,25 +1,26 @@
 using System;
 using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
 
 public partial class DisplayEnterArtist : System.Web.UI.Page
 {
+	#region Event Handlers
+	/// <summary>
+	/// Is fired when the page is loaded.
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
 	}
+
+	/// <summary>
+	/// Is fired when user presses m_btnAdd.
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void OnBtnAdd(object sender, EventArgs e)
 	{
-
 		ArtistDoc artistdoc = new ArtistDoc();
 		Artist artist = new Artist();
 
@@ -36,7 +37,6 @@ public partial class DisplayEnterArtist : System.Web.UI.Page
 		for (int i = 0; i < dt.Rows.Count; i++)
 		{
 			String artistDB = dt.Rows[i][0].ToString();
-			
 
 			if(artistDB.Equals(artist.Name))
 			{
@@ -49,6 +49,6 @@ public partial class DisplayEnterArtist : System.Web.UI.Page
 		{
 			artistdoc.AddArtist(artist);
 		}
-		
 	}
+	#endregion
 }
