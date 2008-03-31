@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayEnterBlog.aspx.cs" Inherits="DisplayEnterBlog" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayEnterBlog.aspx.cs" Inherits="DisplayEnterBlog" Title="Skrifa blogg" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h2 id="m_BlogHeading" runat="server">
         Skrifa blogg og ýta á "Uppfæra" takka      

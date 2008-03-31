@@ -21,21 +21,21 @@ public partial class DisplaySongDetails : System.Web.UI.Page
 
             if (!String.IsNullOrEmpty(strID))
             {
-                //Munum eftir ID þess nemanda sem við erum að birta:
+                //Munum eftir ID þess Lags sem við erum að birta:
                 this.ViewState["Name"] = strID;
-                // Þetta gerum við til að geta sótt gildi þessarar breytu
-                // þegar verður ýtt á Update takkann.
-
+                
                 SongDoc doc = new SongDoc();
                 Song song = doc.GetSong(Convert.ToInt32(strID));
-
+                BlogDoc blocdoc = new BlogDoc();
+                //Blog blog = blocdoc.GetBlog(Convert.ToInt32(strID));
                 if (song != null)
                 {
                     lbl_Name.Text = song.Name;
                     lbl_Artist.Text = song.Artist;
                     txt_Description.Text = song.Description;
                     SongHyperlink.NavigateUrl = song.SongPath;
-                   // m_ArtistImage.ImageUrl = artist.Picture;
+                    //hyperl_SeeBlogg.NavigateUrl = blog.Title;
+                    
                 }
             }
         }

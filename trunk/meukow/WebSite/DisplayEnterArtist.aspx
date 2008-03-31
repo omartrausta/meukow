@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true"
-    CodeFile="DisplayEnterArtist.aspx.cs" Inherits="DisplayEnterArtist" Title="Untitled Page" %>
+    CodeFile="DisplayEnterArtist.aspx.cs" Inherits="DisplayEnterArtist" Title="Skrá flytjendur" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <h2 id="m_studentHeading" runat="server">

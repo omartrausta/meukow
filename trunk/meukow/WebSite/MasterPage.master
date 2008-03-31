@@ -31,9 +31,7 @@
             <li>
                 <asp:HyperLink ID="id4" runat="server" NavigateUrl="~/DisplayViewStatistics.aspx">Skoða tölfræði</asp:HyperLink>
             </li>
-            <li>
-                <asp:HyperLink ID="id5" runat="server" NavigateUrl="~/DisplayEnterArtist.aspx">Nýskrá hljómsveit</asp:HyperLink>
-            </li>
+            <li>&nbsp;</li>
         </ul>
     </div>
     <div id="more">

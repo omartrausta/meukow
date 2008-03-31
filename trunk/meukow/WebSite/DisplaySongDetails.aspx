@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplaySongDetails.aspx.cs" Inherits="DisplaySongDetails" Title="Untitled Page" %>
+<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplaySongDetails.aspx.cs" Inherits="DisplaySongDetails" Title="Um Lagið" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <table>
         <tr>
@@ -17,7 +17,7 @@
             <td style="height: 63px">
                 Lýsing:</td>
             <td style="width: 237px; height: 63px">
-                <asp:TextBox ID="txt_Description" runat="server" Height="51px" TextMode="MultiLine"
+                <asp:TextBox ID="txt_Description" runat="server" Height="51px" ReadOnly="True" TextMode="MultiLine"
                     Width="229px"></asp:TextBox></td>
         </tr>
         <tr>
