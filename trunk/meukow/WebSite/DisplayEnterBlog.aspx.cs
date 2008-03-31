@@ -18,14 +18,27 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		if (!this.IsPostBack)
 		{
 			String strID = Request.QueryString["ID"];
-			//Request.ServerVariables.
-
+			if (Request.UrlReferrer != null)
+			{
+				String strUrl = Request.UrlReferrer.ToString();
+				Session["strUrl"] = strUrl;
+			}
+			else
+			{
+				Response.Redirect("default.aspx");
+			}
+			
 			if (!String.IsNullOrEmpty(strID))
 			{
 				// Munum eftir ID þess nemanda sem við erum að birta:
 				this.ViewState["ID"] = strID;
+				//this.ViewState[strUrl] = strUrl;
 				// Þetta gerum við til að geta sótt gildi þessarar breytu
 				// þegar verður ýtt á Update takkann
+			}
+			else
+			{
+				Response.Redirect("default.aspx");
 			}
 		}
 	}
@@ -33,7 +46,8 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 	protected void OnBtnAdd(object sender, EventArgs e)
 	{
 		object strID = this.ViewState["ID"];
-		
+		String strUrl = (String)Session["strUrl"];
+
 		BlogDoc doc = new BlogDoc();
 		Blog blog = new Blog();
 
@@ -43,6 +57,6 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		blog.BlogDate = DateTime.Now;
 
 		doc.AddBlog(blog);
-		;
+		Response.Redirect(strUrl);
 	}
 }
