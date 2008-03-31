@@ -16,6 +16,6 @@
     <p>
     <asp:DropDownList ID="ddl_selectPos" runat="server">
     </asp:DropDownList>
-    <p>
+   
     <asp:Button ID="m_btnSelectPos" runat="server" Text="Teikna Súlurit" OnClick="OnDrawGraph" /></asp:Content>
 
