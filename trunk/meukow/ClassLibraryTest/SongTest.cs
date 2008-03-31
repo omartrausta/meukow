@@ -202,7 +202,7 @@ namespace ClassLibraryTest
 
 			val = "Test SongPath";
 
-			//target.SongPath = val;
+			target.SongPath = val;
 
 			Assert.AreEqual(val, target.SongPath, "ClassLibrary.Song.SongPath was not set correctly with a value.");
 		}
