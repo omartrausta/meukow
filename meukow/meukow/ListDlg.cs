@@ -161,7 +161,7 @@ namespace meukow
                         m_songDoc = new SongDoc();
                         m_song.Name = m_cmbSong.Text;
                         m_song.ArtistID = m_artist.ID;
-                        m_song.SongPath = String.Empty;
+                   //     m_song.SongPath = String.Empty;
                         m_song.Description = String.Empty;
                         m_songDoc.AddSong(m_song);
 												m_bIsNewSong = true;
