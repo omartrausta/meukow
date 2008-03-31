@@ -21,10 +21,9 @@ public partial class DisplayArtistDetails : System.Web.UI.Page
 
           if (!String.IsNullOrEmpty(strID))
            {
-                 //Munum eftir ID þess nemanda sem við erum að birta:
+                 //Munum eftir ID þess flytjanda sem við erum að birta:
                 this.ViewState["Name"] = strID;
-                // Þetta gerum við til að geta sótt gildi þessarar breytu
-                // þegar verður ýtt á Update takkann.
+               
 
                 ArtistDoc doc = new ArtistDoc();
                 Artist artist = doc.GetArtist(Convert.ToInt32(strID));

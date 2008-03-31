@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayShowBlog.aspx.cs" Inherits="DisplayShowBlog" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="DisplayShowBlog.aspx.cs" Inherits="DisplayShowBlog" Title="Blogg um lög" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:FormView ID="FormView1" runat="server"> 
     <ItemTemplate>
