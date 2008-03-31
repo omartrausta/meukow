@@ -3,7 +3,7 @@
     <asp:FormView ID="FormView1" runat="server"> 
     <ItemTemplate>
     <div class="blog">
-      <h3><%#  Eval( "ID" ) %>
+      <h3>
         <%# Eval( "Title" )%>
        </h3>
       <h4>
