@@ -26,11 +26,14 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		for (int i = 1; i<31; i++ )
-		{		
-				ddl_selectPos.Items.Add(i.ToString());	
-		}	
-
+		//ddl_selectPos.Items.Clear();
+		if(ddl_selectPos.Items.Count < 1)
+		{
+		for (int i = 1; i < 31; i++)
+		{
+			ddl_selectPos.Items.Add(i.ToString());
+		}
+	}	
 		//Statistic stat = new Statistic();
 		StatisticDoc statDoc = new StatisticDoc();
 
@@ -77,7 +80,8 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 	}
 	protected void OnDrawGraph(object sender, EventArgs e)
 	{
-		pos = Convert.ToInt32( ddl_selectPos.SelectedItem );
+		pos = Convert.ToInt32( ddl_selectPos.SelectedItem.Text );
+		Page_Load(sender,e);
 	}
 }
 

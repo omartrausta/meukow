@@ -38,7 +38,7 @@ namespace ClassLibrary
 
 		public Bitmap DrawGraph(String s, ArrayList aX, ArrayList aY)
 		{
-			int colWidth = 10;
+			int colWidth = 20;
 			int colSpace = 5;
 			int maxHeight = 400;
 			int heightSpace = 15;
