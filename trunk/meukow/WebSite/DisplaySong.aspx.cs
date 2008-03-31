@@ -1,4 +1,5 @@
 using System;
+using System.Web.UI.WebControls;
 using ClassLibrary;
 
 public partial class DisplaySong : System.Web.UI.Page
@@ -10,8 +11,8 @@ public partial class DisplaySong : System.Web.UI.Page
         SongDoc Document = new SongDoc();
 
         SongCollection songs = Document.GetAllSongs();
+
        
-        
         
 
         if (songs != null)
@@ -27,5 +28,12 @@ public partial class DisplaySong : System.Web.UI.Page
     {
         
     }
+    private void OnPageIndexChanging(object source, GridViewPageEventArgs e)
+    {
+       
+
+        // m_songGridView.CurrentPageIndex = e.NewPageIndex; FillList("");
+    }
+
 }
 

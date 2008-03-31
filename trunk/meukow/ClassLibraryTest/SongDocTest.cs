@@ -34,7 +34,7 @@ namespace ClassLibraryTest
 			song.Name = "SongName";
 			song.ArtistID = 2;
 			song.Artist = "Afsakið";
-			song.SongPath = "SongPath";
+			//song.SongPath = "SongPath";
 			song.Description = "SongDescription";
 
 			target.AddSong(song);
@@ -137,7 +137,7 @@ namespace ClassLibraryTest
 				expectedSong.Name = reader["Name"].ToString();
 				expectedSong.ArtistID = Convert.ToInt32(reader["ArtistID"]);
 				expectedSong.Artist = reader["ArtistName"].ToString();
-				expectedSong.SongPath = reader["SongPath"].ToString();
+				//expectedSong.SongPath = reader["SongPath"].ToString();
 				expectedSong.Description = reader["Description"].ToString();
 
 				expected.Add(expectedSong);

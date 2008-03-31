@@ -70,14 +70,17 @@ namespace ClassLibrary
 		/// </summary>
 		public String SongPath
 		{
-			get
-			{
-				return m_strSongPath;
-			}
-			set
-			{
-				m_strSongPath = value;
-			}
+            get
+            {
+                if (!String.IsNullOrEmpty(m_strSongPath))
+                {
+                    return "~/" + m_strSongPath;
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
 		}
 
 		/// <summary>

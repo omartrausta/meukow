@@ -5,7 +5,7 @@
 
     <asp:GridView ID="m_songGridView" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="m_songGridView_SelectedIndexChanged">
         <Columns>
-            <asp:HyperLinkField DataTextField="Name" HeaderText="Lag" DataNavigateUrlFields="SongPath" />
+            <asp:HyperLinkField DataTextField="Name" HeaderText="Lag" DataNavigateUrlFields="SongPath" DataNavigateUrlFormatString="{0}" />
             <asp:BoundField DataField="Artist" HeaderText="Flytjandi" />
             <asp:BoundField DataField="Description" HeaderText="L&#253;sing" />
             <asp:HyperLinkField 

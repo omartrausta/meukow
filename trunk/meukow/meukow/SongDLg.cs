@@ -33,7 +33,7 @@ namespace meukow
 				m_song.Name = m_txtboxName.Text;
 				m_song.ArtistID = m_artist.ID;
 				m_song.Artist = m_artist.Name;
-				m_song.SongPath = m_txtboxSongpath.Text;
+				//m_song.SongPath = m_txtboxSongpath.Text;
 				m_song.Description = m_txtboxDescription.Text;
 				return m_song;
 			}
