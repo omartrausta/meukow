@@ -174,13 +174,13 @@ namespace ClassLibraryTest
 			CopyFile();
 
 			BlogDoc target = new BlogDoc();
+			BlogCollection expectedColl = new BlogCollection();
 
 			int nID = 4;
 
 			Blog expected = new Blog();
-			Blog actual;
-
-			//actual = target.GetBlog(nID);
+			DataSet actual = target.GetBlog(nID);
+			DataTable dv = actual.Tables[0];
 
 			IDataReader reader = null;
 
@@ -190,16 +190,35 @@ namespace ClassLibraryTest
 			OleDbCommand command = new OleDbCommand(strSQL, connection);
 			reader = command.ExecuteReader();
 
-			//while (reader.Read())
-			//{
-			//  expected.Load(reader);
+			while (reader.Read())
+			{
+				expected = new Blog();
 
-			//  Assert.AreEqual(expected.ID, actual.ID, "ID is not correct");
-			//  Assert.AreEqual(expected.SongID, actual.SongID, "SongID is not correct");
-			//  Assert.AreEqual(expected.Title, actual.Title, "Title is not correct");
-			//  Assert.AreEqual(expected.BlogDate, actual.BlogDate, "BlogDate is not correct");
-			//  Assert.AreEqual(expected.Content, actual.Content, "Content is not correct");
-			//}
+				expected.ID = Convert.ToInt32(reader["ID"]);
+				expected.SongID = Convert.ToInt32(reader["SongID"]);
+				expected.Title = reader["Title"].ToString();
+				expected.BlogDate = Convert.ToDateTime(reader["BlogDate"]);
+				expected.Content = reader["Content"].ToString();
+
+				expectedColl.Add(expected);
+			}
+
+			for (int i = 0; i < dv.Rows.Count; i++)
+			{
+				DataRow dr = dv.Rows[i];
+
+				if (dr.RowState != DataRowState.Deleted)
+				{
+					Assert.AreEqual(expectedColl[i].ID, Convert.ToInt32(dr["ID"]), "ID is not correct");
+					Assert.AreEqual(expectedColl[i].SongID, Convert.ToInt32(dr["SongID"]), "SongID is not correct");
+					Assert.AreEqual(expectedColl[i].Title, dr["Title"].ToString(), "Title is not correct");
+					Assert.AreEqual(expectedColl[i].BlogDate, Convert.ToDateTime(dr["BlogDate"]), "BlogDate is not correct");
+					Assert.AreEqual(expectedColl[i].Content, dr["Content"].ToString(), "Content is not correct");
+				}
+			}
+			while (reader.Read())
+			{
+			}
 
 			connection.Dispose();
 			command.Dispose();

@@ -202,6 +202,59 @@ namespace ClassLibraryTest
 		}
 
 		/// <summary>
+		///A test for GetdsSong (int)
+		///</summary>
+		[Test]
+		public void GetdsSongTest()
+		{
+			CopyFile();
+
+			SongDoc target = new SongDoc();
+
+			int nID = 4;
+
+			Song expected = new Song();
+			DataSet actual;
+
+			actual = target.GetdsSong(nID);
+
+			Assert.IsNotNull(actual, "DataSet is not null");
+
+			DataTable dv = actual.Tables[0];
+
+			IDataReader reader = null;
+
+			OleDbConnection connection = GetConnection();
+
+			String strSQL = "SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID = " + nID.ToString();
+			OleDbCommand command = new OleDbCommand(strSQL, connection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				expected.Load(reader);
+
+				for (int i = 0; i < dv.Rows.Count; i++)
+				{
+					DataRow dr = dv.Rows[i];
+
+					if (dr.RowState != DataRowState.Deleted)
+					{
+						Assert.AreEqual(expected.ID, Convert.ToInt32(dr["ID"]), "ID is not correct");
+						Assert.AreEqual(expected.Name, dr["Name"].ToString(), "Name is not correct");
+						Assert.AreEqual(expected.ArtistID, Convert.ToInt32(dr["ArtistID"]), "Artist is not correct");
+						Assert.AreEqual(expected.SongPath, dr["SongPath"].ToString(), "SongPath is not correct");
+						Assert.AreEqual(expected.Description, dr["Description"].ToString(), "Description is not correct");
+					}
+				}
+			}
+
+			connection.Dispose();
+			command.Dispose();
+			reader.Dispose();
+		}
+
+		/// <summary>
 		///A test for UpdateSong (Song)
 		///</summary>
 		[Test]

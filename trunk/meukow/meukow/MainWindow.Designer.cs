@@ -74,7 +74,7 @@
             this.m_tsHelpMenuItem});
 			this.m_mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.m_mainMenu.Name = "m_mainMenu";
-			this.m_mainMenu.Size = new System.Drawing.Size(736, 24);
+			this.m_mainMenu.Size = new System.Drawing.Size(748, 24);
 			this.m_mainMenu.TabIndex = 0;
 			this.m_mainMenu.Text = "menuStrip1";
 			// 
@@ -118,7 +118,7 @@
 			this.m_TabControl.Location = new System.Drawing.Point(0, 24);
 			this.m_TabControl.Name = "m_TabControl";
 			this.m_TabControl.SelectedIndex = 0;
-			this.m_TabControl.Size = new System.Drawing.Size(730, 539);
+			this.m_TabControl.Size = new System.Drawing.Size(736, 539);
 			this.m_TabControl.TabIndex = 3;
 			this.m_TabControl.Click += new System.EventHandler(this.OnTabControlClick);
 			// 
@@ -130,7 +130,7 @@
 			this.m_tabHitParade.Location = new System.Drawing.Point(4, 24);
 			this.m_tabHitParade.Name = "m_tabHitParade";
 			this.m_tabHitParade.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabHitParade.Size = new System.Drawing.Size(722, 511);
+			this.m_tabHitParade.Size = new System.Drawing.Size(728, 511);
 			this.m_tabHitParade.TabIndex = 0;
 			this.m_tabHitParade.Text = "Vinsældarlistar";
 			this.m_tabHitParade.UseVisualStyleBackColor = true;
@@ -164,10 +164,9 @@
             this.m_tsbtnDeleteList});
 			this.m_toolStripHitParadeList.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripHitParadeList.Name = "m_toolStripHitParadeList";
-			this.m_toolStripHitParadeList.Size = new System.Drawing.Size(716, 25);
+			this.m_toolStripHitParadeList.Size = new System.Drawing.Size(722, 25);
 			this.m_toolStripHitParadeList.TabIndex = 3;
 			this.m_toolStripHitParadeList.Text = "toolStrip2";
-			this.m_toolStripHitParadeList.Visible = false;
 			// 
 			// m_tsbtnNewList
 			// 
@@ -206,7 +205,7 @@
 			this.m_tabSongs.Location = new System.Drawing.Point(4, 24);
 			this.m_tabSongs.Name = "m_tabSongs";
 			this.m_tabSongs.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabSongs.Size = new System.Drawing.Size(722, 511);
+			this.m_tabSongs.Size = new System.Drawing.Size(728, 511);
 			this.m_tabSongs.TabIndex = 1;
 			this.m_tabSongs.Text = "Lög";
 			this.m_tabSongs.UseVisualStyleBackColor = true;
@@ -228,10 +227,9 @@
             this.m_tsbtnDeleteSong});
 			this.m_toolStripSongs.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripSongs.Name = "m_toolStripSongs";
-			this.m_toolStripSongs.Size = new System.Drawing.Size(716, 25);
+			this.m_toolStripSongs.Size = new System.Drawing.Size(722, 25);
 			this.m_toolStripSongs.TabIndex = 0;
 			this.m_toolStripSongs.Text = "toolStrip1";
-			this.m_toolStripSongs.Visible = false;
 			// 
 			// m_tsbtnNewSong
 			// 
@@ -270,7 +268,7 @@
 			this.m_tabArtists.Location = new System.Drawing.Point(4, 24);
 			this.m_tabArtists.Name = "m_tabArtists";
 			this.m_tabArtists.Padding = new System.Windows.Forms.Padding(3);
-			this.m_tabArtists.Size = new System.Drawing.Size(722, 511);
+			this.m_tabArtists.Size = new System.Drawing.Size(728, 511);
 			this.m_tabArtists.TabIndex = 2;
 			this.m_tabArtists.Text = "Flytjendur";
 			this.m_tabArtists.UseVisualStyleBackColor = true;
@@ -292,7 +290,7 @@
             this.m_tsbtnDeleteArtist});
 			this.m_toolStripArtists.Location = new System.Drawing.Point(3, 3);
 			this.m_toolStripArtists.Name = "m_toolStripArtists";
-			this.m_toolStripArtists.Size = new System.Drawing.Size(716, 25);
+			this.m_toolStripArtists.Size = new System.Drawing.Size(722, 25);
 			this.m_toolStripArtists.TabIndex = 0;
 			this.m_toolStripArtists.Text = "toolStrip1";
 			// 
@@ -334,7 +332,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(736, 573);
+			this.ClientSize = new System.Drawing.Size(748, 573);
 			this.Controls.Add(this.m_TabControl);
 			this.Controls.Add(this.m_mainMenu);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
