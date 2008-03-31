@@ -3,6 +3,9 @@
 <asp:FormView ID="m_formView" runat="server">
     <ItemTemplate>
     <div class="blog1">
+      <h2>
+        <%# Eval( "Name" )%>
+      </h2>
       <a href ="DisplayEnterBlog.aspx?ID=<%# Eval( "ID" )%>">Skrifa blogfærslu</a>
         </div>
     </ItemTemplate>
