@@ -35,14 +35,21 @@ namespace ClassLibrary
 			String strSQL = string.Format("SELECT [Song].[Name] AS [SongName], [ListProp].[Position] AS [Position], COUNT([Song].[ID]) AS [TimesInPosition] FROM [Song] INNER JOIN ([List] INNER JOIN [ListProp] ON [List].[ID] = [ListProp].[List]) ON [Song].[ID] = [ListProp].[Song] WHERE ((([List].[WeekList])=True) and (([Position]) = {0})) GROUP by [Song].[Name], [ListProp].[Position]", pos );
 			return base.LoadCollection<StatisticCollection, Statistic>(strSQL);
 		}
-
+		/// <summary>
+		/// Function for drawing bar chart, takes in list of items for each column (X axis) and a 
+		/// corresponding value for each column (Y axis) a chart name can also be added by a string
+		/// </summary>
+		/// <param name="s">chart name</param>
+		/// <param name="aX">name or value for column corresponding X axis</param>
+		/// <param name="aY">value for each column corresponding Y axis</param>
+		/// <returns>Gif image of barchart</returns>
 		public Bitmap DrawGraph(String s, ArrayList aX, ArrayList aY)
 		{
-			int colWidth = 20;
-			int colSpace = 5;
-			int maxHeight = 400;
-			int heightSpace = 15;
-			int legendSpace = 120;
+			int colWidth = 40;
+			int colSpace = 10;
+			int maxHeight = 600;
+			int heightSpace = 30;
+			int legendSpace = 200;
 			int titleSpace = 50;
 			int maxWidth = (colSpace + colWidth) * aX.Count + colSpace;
 			int maxColHeight = 0;
@@ -71,8 +78,8 @@ namespace ClassLibrary
 			int currentHeight;
 
 			SolidBrush objBrush = new SolidBrush(Color.FromArgb(70, 20, 20));
-			Font fontLegend = new Font("Arial", 8);
-			Font fontValue = new Font("Arial", 6);
+			Font fontLegend = new Font("Arial", 14);
+			Font fontValue = new Font("Arial", 14);
 			Font fontTitle = new Font("Arial", 24);
 
 			//loop through and draw each bar
@@ -85,7 +92,7 @@ namespace ClassLibrary
 
 				//objGraphics.DrawString(string.Format("{0:#,###}", aY[i]), fontValue, objBrush, barX, maxHeight - currentHeight - 15); 
 				SizeF stringSize = objGraphics.MeasureString(Convert.ToString(aX[i]), fontValue);
-				double startX = (double) barX-4;// +(double)colWidth;// / 2;// - (double)stringSize.Width / 2;
+				double startX = (double) barX-2;// +(double)colWidth;// / 2;// - (double)stringSize.Width / 2;
 				int iStartX = Convert.ToInt32(Math.Round(startX));
 
 				StringFormat drawFormat = new StringFormat();

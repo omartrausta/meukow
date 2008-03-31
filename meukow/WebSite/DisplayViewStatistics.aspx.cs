@@ -26,7 +26,7 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		//ddl_selectPos.Items.Clear();
+
 		if(ddl_selectPos.Items.Count < 1)
 		{
 		for (int i = 1; i < 31; i++)
@@ -34,16 +34,12 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 			ddl_selectPos.Items.Add(i.ToString());
 		}
 	}	
-		//Statistic stat = new Statistic();
 		StatisticDoc statDoc = new StatisticDoc();
 
-		StatisticCollection statColl = new StatisticCollection();
-
-		statColl = statDoc.GetStatisticsByPos(pos);
+		StatisticCollection statColl = statDoc.GetStatisticsByPos(pos);
 
 		ArrayList axisX = new ArrayList();
 		ArrayList axisY = new ArrayList();
-
 
 		foreach (Statistic stats in statColl)
 		{
@@ -51,22 +47,7 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 			axisY.Add(stats.TimesInPosition);
 		}
 
-		//axisX.Add("Lag1");
-		//axisX.Add("Lag2");
-		//axisX.Add("Lag3");
-		//axisX.Add("Lag4");
-		////axisX.Add("Lag5");
-
-		//axisY.Add(12);
-		//axisY.Add(5);
-		//axisY.Add(10);
-		//axisY.Add(7);
-		////axisY.Add(5);
-
 		String str = "";
-
-		//StatisticDoc statdoc = new StatisticDoc();
-
 		
 		bm = statDoc.DrawGraph(str, axisX, axisY);
 
@@ -76,6 +57,7 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 	{
 		m_statImage.Height = bm.Height;
 		m_statImage.Width = bm.Width;
+		m_statPanel.Height = bm.Height+30;
 		m_statImage.ImageUrl = "http://localhost:1462/WebSite/images/graph.gif";
 	}
 	protected void OnDrawGraph(object sender, EventArgs e)
