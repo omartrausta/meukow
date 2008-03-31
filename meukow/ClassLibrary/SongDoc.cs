@@ -31,6 +31,10 @@ namespace ClassLibrary
 			return base.LoadItem<Song>(strSQL);
 		}
 
+		/// <summary>
+		/// Function that returns dataset with song.
+		/// </summary>
+		/// <returns>Dataset with song list.</returns>
 		public DataSet GetdsSong(int nID)
 		{
 			String strSQL = String.Format("SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID={0}", nID);
