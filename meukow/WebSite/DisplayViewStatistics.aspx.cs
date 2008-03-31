@@ -1,23 +1,7 @@
 using System;
-using System.Data;
-using System.Configuration;
 using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using System.Media;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using ClassLibrary;
-using ClassLibrary.Common.Data;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using Image=System.Drawing.Image;
 
 public partial class DisplayViewStatistics : System.Web.UI.Page
 {
@@ -26,7 +10,6 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
 		if(ddl_selectPos.Items.Count < 1)
 		{
 		for (int i = 1; i < 31; i++)
@@ -53,13 +36,13 @@ public partial class DisplayViewStatistics : System.Web.UI.Page
 
 		bm = statDoc.DrawGraph(serverPath ,str, axisX, axisY);
 
+		m_statImage.Height = bm.Height;
+		m_statImage.Width = bm.Width;
+		m_statPanel.Height = bm.Height + 30;
 	}
 
 	protected void OnLoadPicture(object sender, EventArgs e)
 	{
-		m_statImage.Height = bm.Height;
-		m_statImage.Width = bm.Width;
-		m_statPanel.Height = bm.Height+30;
 		m_statImage.ImageUrl = "http://localhost:1462/WebSite/images/graph.gif";
 	}
 	protected void OnDrawGraph(object sender, EventArgs e)

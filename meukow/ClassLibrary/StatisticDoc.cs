@@ -51,15 +51,11 @@ namespace ClassLibrary
 			int colWidth = 20;
 			int colSpace = 5;
 			int maxHeight = 300;
-			int heightSpace = 150;
 			int legendSpace = 175;
 			int titleSpace = 25;
 			int maxWidth = (colSpace + colWidth) * aX.Count + colSpace;
-			int maxColHeight = 300;
 			int totalHeight = maxHeight + legendSpace + titleSpace;
 			int maxValueY = 0;
-
-			//String directory = Directory.GetDirectories();
 
 			Bitmap objBitmap = new Bitmap(maxWidth, totalHeight);
 			Graphics objGraphics = Graphics.FromImage(objBitmap);
@@ -68,10 +64,7 @@ namespace ClassLibrary
 
 			objGraphics.FillRectangle(new SolidBrush(Color.Ivory), 0, 0, maxWidth, maxHeight);
 
-			//find the maximum value
-
-			//int value;
-
+			// find max value in collection
 			foreach (int value in aY)
 			{
 				if (value > maxValueY)
@@ -80,9 +73,7 @@ namespace ClassLibrary
 				}
 			}
 
-			//double barUnit = Convert.ToDouble(maxHeight)/Convert.ToDouble(aY.);
 			int barX = colSpace;
-			//int currentHeight;
 
 			SolidBrush objBrush = new SolidBrush(Color.FromArgb(70, 20, 20));
 			Font fontLegend = new Font("Arial", 9);
@@ -93,19 +84,14 @@ namespace ClassLibrary
 
 			for (int i = 0; i < aX.Count; i++)
 			{
-				
-
-				//int currentHeight = Convert.ToInt32(Convert.ToDouble(aY[i])/ Convert.ToDouble(maxColHeight) * Convert.ToDouble(maxHeight - heightSpace));
-
 				int currentHeight = Convert.ToInt32((Convert.ToDouble(aY[i])/Convert.ToDouble(maxValueY))*Convert.ToDouble(maxHeight));
 
 				objGraphics.FillRectangle(objBrush, barX, maxHeight - currentHeight, colWidth, currentHeight);
 
-				//objGraphics.DrawString(string.Format("{0:#,###}", aY[i]), fontValue, objBrush, barX, maxHeight - currentHeight - 15); 
-				SizeF stringSize = objGraphics.MeasureString(Convert.ToString(aX[i]), fontValue);
-				double startX = (double) barX-2;// +(double)colWidth;// / 2;// - (double)stringSize.Width / 2;
+				double startX = (double) barX-2;
 				int iStartX = Convert.ToInt32(Math.Round(startX));
 
+				// turn string vertical on image
 				StringFormat drawFormat = new StringFormat();
 				drawFormat.FormatFlags = StringFormatFlags.DirectionVertical;
  
@@ -117,16 +103,9 @@ namespace ClassLibrary
 			}
 
 			objGraphics.DrawString(s, fontTitle, objBrush, (maxWidth / 2) - s.Length * 6, maxHeight + legendSpace);
-	
-			//DirectoryInfo dirInfo = new DirectoryInfo();
-	
-			//String directory = Directory.GetParent( );
-
-			
 
 			objBitmap.Save(path);
 
-			//objBitmap.Save(Response.OutputStream, ImageFormat.Gif);
 			objGraphics.Dispose();
 
 			return objBitmap;
