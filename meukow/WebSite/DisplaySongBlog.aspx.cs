@@ -8,7 +8,7 @@ public partial class DisplaySongBlog : System.Web.UI.Page
 		if (!this.IsPostBack)
 		{
 			BlogDoc doc = new BlogDoc();
-			Song song = new Song();
+			//Song song = new Song();
 
 			String strID = Request.QueryString["ID"];
 
@@ -16,9 +16,6 @@ public partial class DisplaySongBlog : System.Web.UI.Page
 			{		
 				m_blogRepeater.DataSource = doc.GetBlogSong(Convert.ToInt32(strID));	
 				m_blogRepeater.DataBind();
-				
-				//m_blogRepeater.DataSource = doc.GetAllBlogs();
-				//m_blogRepeater.DataBind();
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 using ClassLibrary.Common.Data;
 
@@ -21,10 +22,10 @@ namespace ClassLibrary
 				return base.LoadCollection<BlogCollection, Blog>(strSQL);
 			}
 		
-		public Blog GetBlog(int nID)
+		public DataSet GetBlog(int nID)
 		{
 			String strSQL = String.Format("SELECT Blogs.ID, Song.ID AS SongID, Blogs.Title, Blogs.BlogDate, Blogs.Content FROM (Blogs INNER JOIN Song ON Blogs.SongID = Song.ID) WHERE (Blogs.ID ={0})", nID);
-			return base.LoadItem<Blog>(strSQL);
+			return base.LoadData(strSQL);
 		}
 
 		public void AddBlog(Blog blog)
