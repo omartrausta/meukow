@@ -18,6 +18,7 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		if (!this.IsPostBack)
 		{
 			String strID = Request.QueryString["ID"];
+			//Request.ServerVariables.
 
 			if (!String.IsNullOrEmpty(strID))
 			{
@@ -42,5 +43,6 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		blog.BlogDate = DateTime.Now;
 
 		doc.AddBlog(blog);
+		;
 	}
 }
