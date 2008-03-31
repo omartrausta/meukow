@@ -1,19 +1,11 @@
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using ClassLibrary;
 
 public partial class DisplayArtistDetails : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+			//búum til breytu sem fjarlægir localhost og leyfir hlekknum að fara út fyrir okkar vef
         String http = "//";
         if (!this.IsPostBack)
         {
@@ -28,6 +20,7 @@ public partial class DisplayArtistDetails : System.Web.UI.Page
                 ArtistDoc doc = new ArtistDoc();
                 Artist artist = doc.GetArtist(Convert.ToInt32(strID));
 
+						//Ef það er til artist þá birtum við nánari upplýsingar um hann
                 if (artist != null)
                 {
                     lbl_Name.Text = artist.Name;
