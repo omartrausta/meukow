@@ -31,6 +31,12 @@ namespace ClassLibrary
 			return base.LoadItem<Song>(strSQL);
 		}
 
+		public DataSet GetdsSong(int nID)
+		{
+			String strSQL = String.Format("SELECT Song.ID, Song.Name, Song.ArtistID, Artist.Name AS ArtistName, Song.SongPath, Song.Description FROM (Artist INNER JOIN Song ON Artist.ID = Song.ArtistID) where Song.ID={0}", nID);
+			return base.LoadData(strSQL);
+		}
+
 		/// <summary>
 		/// Updates an instance of song.
 		/// </summary>
