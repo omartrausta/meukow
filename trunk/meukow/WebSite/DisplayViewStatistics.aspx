@@ -6,10 +6,13 @@
 <%@ Register Assembly="CrystalDecisions.Web, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
     Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    &nbsp;<asp:Image ID="m_statImage" runat="server" Height="95px" OnLoad="OnLoadPicture"
-        Width="138px" ImageAlign="Middle" />
+    &nbsp;
+    <asp:Panel ID="m_statPanel" runat="server" Height="297px" ScrollBars="Horizontal"
+        Width="750px">
+        <asp:Image ID="m_statImage" runat="server" Height="164px" OnLoad="OnLoadPicture"
+        Width="532px" ImageAlign="Middle" /></asp:Panel>
        <p> 
-    <asp:Label ID="lbl_selectChartPos" runat="server" Text="VelduSæli"></asp:Label>
+    <asp:Label ID="lbl_selectChartPos" runat="server" Text="VelduSæti"></asp:Label>
     <p>
     <asp:DropDownList ID="ddl_selectPos" runat="server">
     </asp:DropDownList>
