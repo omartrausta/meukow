@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-
 using ClassLibrary;
 
 public partial class DisplayEnterBlog : System.Web.UI.Page
 {
+	/// <summary>
+	/// Is run when page is loaded.
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (!this.IsPostBack)
 		{
+			// Tek inn færibreytu með querystring.
 			String strID = Request.QueryString["ID"];
 			if (Request.UrlReferrer != null)
 			{
+				// Tek inn tengill þaðan sem notand kom og geymi
+				// í session færibreytu.
 				String strUrl = Request.UrlReferrer.ToString();
 				Session["strUrl"] = strUrl;
 			}
@@ -30,11 +28,13 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 			
 			if (!String.IsNullOrEmpty(strID))
 			{
-				// Munum eftir ID þess nemanda sem við erum að birta:
+				// Munum eftir ID þess lags.
 				this.ViewState["ID"] = strID;
-				//this.ViewState[strUrl] = strUrl;
-				// Þetta gerum við til að geta sótt gildi þessarar breytu
-				// þegar verður ýtt á Update takkann
+				
+				// this.ViewState[strUrl] = strUrl;
+				// Þetta gerum við til að geta sótt gildi 
+				// þessarar breytu
+				// þegar verður ýtt á uppfæra.
 			}
 			else
 			{
@@ -42,9 +42,14 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 			}
 		}
 	}
-
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
 	protected void OnBtnAdd(object sender, EventArgs e)
 	{
+		// Nálgumst færbreytur sem við höfum safnað.
 		object strID = this.ViewState["ID"];
 		String strUrl = (String)Session["strUrl"];
 
@@ -56,6 +61,8 @@ public partial class DisplayEnterBlog : System.Web.UI.Page
 		blog.SongID = Convert.ToInt32( strID );
 		blog.BlogDate = DateTime.Now;
 
+		// Skrifum blogfærslu og sendum notanda á 
+		// síðuna, þaðan sem hann kom.
 		doc.AddBlog(blog);
 		Response.Redirect(strUrl);
 	}
