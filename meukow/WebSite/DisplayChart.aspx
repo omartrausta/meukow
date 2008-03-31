@@ -3,7 +3,8 @@
     <asp:GridView ID="m_chartGridView" runat="server" HorizontalAlign="Center" AutoGenerateColumns="False">
         <Columns>
             <asp:BoundField DataField="Position" HeaderText="S&#230;ti" />
-            <asp:BoundField DataField="SongName" HeaderText="Lag" />
+            <asp:HyperLinkField DataNavigateUrlFields="SongID" DataNavigateUrlFormatString="./DisplaySongDetails.aspx?ID={0}"
+                DataTextField="SongName" HeaderText="Lag" Text="Lag" />
             <asp:HyperLinkField DataNavigateUrlFields="ArtistID" DataNavigateUrlFormatString="./DisplayArtistDetails.aspx?ID={0}"
                 DataTextField="ArtistName" HeaderText="Flytjandi" Text="Flytjandi" />
         </Columns>
