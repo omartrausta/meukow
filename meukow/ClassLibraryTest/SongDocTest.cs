@@ -34,7 +34,7 @@ namespace ClassLibraryTest
 			song.Name = "SongName";
 			song.ArtistID = 2;
 			song.Artist = "Afsakið";
-			//song.SongPath = "SongPath";
+			song.SongPath = "SongPath";
 			song.Description = "SongDescription";
 
 			target.AddSong(song);
